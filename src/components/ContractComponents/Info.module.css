@@ -1,0 +1,206 @@
+.info {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1200px;
+    margin-top: 20px;
+}
+
+.infoBlock {
+    position: relative;
+    width: 100%;
+    height: 80px;
+    margin-bottom: 20px;
+    background: #21282F;
+    padding: 30px;
+    border: 1px solid #49525A;
+    box-shadow: 0px 10px 80px -10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+.infoRow {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.infoHeader {
+    font-size: 14px;
+    font-weight: 600;
+    margin-right: 30px;
+}
+
+.dateText {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 120%;
+    color: #ECEDF1;
+}
+
+.hashText, .hashTextVerified {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 120%;
+    cursor: pointer;
+}
+
+.hashText:hover {
+    filter: opacity(0.4);
+}
+
+.hashTextVerified {
+    color: #4170E7;
+}
+
+.contractList {
+    width: 100%;
+    height: 300px;
+    margin-bottom: 56px;
+
+    background: #21282F;
+    border: 1px solid #49525A;
+    box-shadow: 0px 10px 80px -10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    overflow: auto;
+}
+
+.contractList::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
+}
+
+.ListHeader {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid #49525A;
+    padding: 30px 30px 20px 30px;
+}
+
+.listRow {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-bottom: 1px solid #49525A;
+    padding: 10px 30px;
+}
+
+.listColumnHeader {
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 120%;
+    color: #ECEDF1;
+}
+
+
+.ContractHeader, .TimeHeader, .EventHeader {
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 120%;
+    color: #ECEDF1;
+}
+
+.ContractHeader {
+    width: 152px
+}
+
+.TimeHeader {
+    position: absolute;
+    left: 255px;
+}
+
+.EventHeader {
+    position: absolute;
+    left: 563px;
+}
+
+.contract, .contractMobile, .time, .event {
+    font-weight: 400;
+    font-size: 14px;
+    color: #ECEDF1;
+}
+
+.contract {
+    display: block;
+}
+
+.contractMobile {
+    display: none;
+}
+
+.time {
+    position: absolute;
+    left: 255px;
+}
+
+.eventWrapper {
+    position: relative;
+    left: 398px;
+}
+
+.event {
+    padding: 10px 20px;
+    border: 1px solid #49525A;
+    box-shadow: 0 10px 80px -10px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+}
+
+@media (max-width: 910px) {
+    .contract {
+        display: none;
+    }
+
+    .contractMobile {
+        display: block;
+    }
+
+    .contractMobile, .ContractHeader {
+        width: 75px;
+    }
+
+    .TimeHeader, .time {
+        width: 114px;
+        position: static;
+        margin-left: 10%;
+    }
+
+    .eventWrapper, .EventHeader {
+        left: 0;
+        margin-left: 10%;
+    }
+
+    .event {
+        position: static;
+        font-size: 14px;
+        padding: 0;
+        border: 0;
+    }
+
+    .EventHeader {
+        position: static;
+    }
+}
+
+@media (max-width: 460px) {
+    .ContractHeader, .TimeHeader, .EventHeader {
+        font-size: 14px;
+    }
+
+    .TimeHeader, .time {
+        width: 74px;
+    }
+
+    .time {
+        font-size: 12px;
+    }
+
+    .eventWrapper, .EventHeader {
+        position: absolute;
+        left: 60%;
+    }
+
+    .event {
+
+    }
+}

@@ -1,0 +1,137 @@
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import { UseUser } from "../../context/UserContext";
+import Box from "@mui/material/Box";
+import { List } from "@mui/material";
+import React, {useCallback, useEffect, useState} from "react";
+import styles from "./AccountList.module.css";
+import { useNavigate } from "react-router-dom";
+import {LoginPOST} from "../../api/LoginApi";
+import { parseAddress } from "../../helpers/helpers";
+import {Wallet, WalletAccount} from "@subwallet/wallet-connect/types";
+
+const RenderRow = (props: { name: string | undefined; address: string, wallet: Wallet|undefined }) => {
+    const userContext = UseUser()
+    const navigate = useNavigate();
+
+    const signMessage = useCallback(
+        (address: string) => {
+            const signer = props.wallet?.signer;
+
+            if (signer && signer.signRaw) {
+                const signPromise = signer.signRaw({
+                    address,
+                    data: address,
+                    type: "bytes",
+                });
+
+                signPromise.then((response: any) => {
+                    if (response.signature.match("0x[0-9a-fA-F]+")) {
+                        (async () => {
+                            let params = new URL(window.location.href)
+                                .searchParams;
+                            let cli_token = params.get("cli_token");
+
+                            let tokenPromise = LoginPOST(
+                                address,
+                                response.signature,
+                                cli_token
+                            );
+                            tokenPromise.then((bearerToken) => {
+                                userContext.login(
+                                    address,
+                                    bearerToken.token.toString()
+                                );
+                            })
+                        })();
+                        navigate("/");
+                    }
+                });
+            }
+        },
+        [navigate, userContext]
+    );
+
+    const accountClicked = useCallback(
+        (address: string) => {
+            return () => {
+                signMessage(address);
+            };
+        },
+        [signMessage]
+    );
+
+    return (
+        <>
+            <ListItem
+                disablePadding
+                sx={{
+                    borderBottom: 1,
+                    borderColor: "#49525A",
+                    backgroundColor: "#323D47",
+                }}
+            >
+                <ListItemButton sx={{ padding: 0 }}>
+                    <div
+                        className={styles.row}
+                        onClick={accountClicked(props.address)}
+                    >
+                        <p className={styles.name}>
+                            {props.name}
+                        </p>
+                        <p className={styles.address}>
+                            {parseAddress(props.address)}
+                        </p>
+                    </div>
+                </ListItemButton>
+            </ListItem>
+        </>
+    );
+};
+
+export function AccountList(props: {wallet: Wallet|undefined}) {
+    const [accounts, setAccounts] = useState<WalletAccount[]>([]);
+
+    useEffect(() => {
+        if (props.wallet) {
+            (async () => {
+                const userAccounts = await props.wallet?.getAccounts();
+                setTimeout(() => {
+                    userAccounts && setAccounts(userAccounts);
+                }, 150)
+            })()
+        }
+
+    }, [accounts])
+
+    return (
+        <Box
+            sx={[
+                {
+                    width: "100%",
+                    height: 140,
+                    overflowY: "auto",
+                    overflowX: "hidden",
+                    border: 1,
+                    borderColor: "#49525A",
+                    borderRadius: 3,
+                    marginTop: "20px",
+                },
+                { "&::-webkit-scrollbar": { display: "none" } },
+            ]}
+        >
+            <List sx={{ paddingTop: 0, paddingBottom: 0 }}>
+                {accounts.map((account, i) => {
+                    return (
+                        <RenderRow
+                            name={account.name}
+                            address={account.address}
+                            key={i.toString()}
+                            wallet={props.wallet}
+                        />
+                    );
+                })}
+            </List>
+        </Box>
+    );
+}

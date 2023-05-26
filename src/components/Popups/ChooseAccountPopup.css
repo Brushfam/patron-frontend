@@ -1,0 +1,17 @@
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: 200ms ease-in-out;
+    border: 0.8px solid #49525A;
+    box-shadow: 0px 8px 64px -8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    z-index: 10;
+    background-color: #141D25;
+    width: 500px;
+}
+
+.modal.active {
+    transform: translate(-50%, -50%) scale(1);
+}

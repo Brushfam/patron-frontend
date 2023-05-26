@@ -1,0 +1,112 @@
+.addressElements {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    column-gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.userBlock {
+    padding: 14px;
+    width: 60px;
+    height: 60px;
+    background: #21282F;
+    border: 1px solid #49525A;
+    box-shadow: 0 10px 80px -10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+.name {
+    font-weight: 700;
+    font-size: 30px;
+}
+
+.copyButton {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0;
+    background-color: transparent;
+    border: 0;
+    font-weight: 400;
+    line-height: 120%;
+    color: #ECEDF1;
+    height: 36px;
+}
+
+.copyButton:hover {
+    filter: opacity(0.4);
+}
+
+.copyIcon {
+    margin-left: 13px;
+    width: 19px;
+}
+
+.addressDesktop {
+    display: block;
+}
+
+.addressMobile {
+    margin-top: 10px;
+    display: none;
+}
+
+.addressText {
+    font-size: 30px;
+}
+
+.verifiedIcon {
+
+}
+
+@media (max-width: 860px) {
+    .addressMobile {
+        display: block;
+    }
+
+    .addressDesktop {
+        display: none;
+    }
+
+    .addressText {
+        font-size: 26px;
+    }
+}
+
+@media (max-width: 460px) {
+    .addressText {
+        font-size: 14px;
+    }
+
+    .copyIcon {
+        width: 12px;
+        margin-left: 5px;
+    }
+
+    .name {
+        font-size: 20px;
+    }
+
+    .userBlock {
+        width: 40px;
+        height: 40px;
+        padding: 8px;
+    }
+
+    .userBlock img {
+        width: 22px
+    }
+
+    .addressElements {
+        column-gap: 10px;
+    }
+
+    .verifiedIcon {
+        width: 86px;
+    }
+}
+
+
+

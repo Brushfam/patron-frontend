@@ -1,0 +1,41 @@
+.inputWrapper {
+    position: relative;
+    width: 400px;
+}
+
+.searchIcon {
+    position: absolute;
+    left: 11px;
+    top: 11px;
+    z-index: 10;
+}
+
+.inputSearch, .inputSearchError {
+    width: 100%;
+    height: 40px;
+    background: #ECEDF1;
+    border: 1px solid #49525A;
+    border-radius: 5px;
+    padding-left: 40px;
+    outline-style: none;
+
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    color: black;
+}
+
+.inputSearch::placeholder, .inputSearchError::placeholder {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 120%;
+}
+
+.inputSearch::placeholder {
+    color: #49525A;
+}
+
+.inputSearchError::placeholder {
+    color: #FF0C0C;
+}

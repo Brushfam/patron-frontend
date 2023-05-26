@@ -1,0 +1,12 @@
+{
+  "short_name": "Patron",
+  "name": "Patron is your one stop smart contract manager for Polkadot ecosystem",
+  "icons": [
+    {
+      "src": "patron-icon.svg",
+      "sizes": "64x64 32x32 24x24 16x16"
+    }
+  ],
+  "display": "standalone",
+  "background_color": "#141D25"
+}

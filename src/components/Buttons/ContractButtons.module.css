@@ -1,0 +1,46 @@
+.contractButtons {
+    display: flex;
+    flex-direction: row;
+    column-gap: 20px;
+    width: 100%;
+}
+
+.info, .log, .code {
+    border-radius: 5px;
+    border: none;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    color: #ECEDF1;
+    height: 41px;
+}
+
+.info {
+    width: 65px;
+}
+
+.log {
+    width: 95px;
+}
+
+.code {
+    width: 73px;
+}
+
+@media (max-width: 460px) {
+    .info {
+        width: 53px;
+    }
+
+    .log {
+        width: 82px;
+    }
+
+    .code {
+        width: 61px;
+    }
+    .info, .log, .code {
+        height: 33px;
+        font-weight: 400;
+    }
+}

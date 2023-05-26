@@ -1,0 +1,29 @@
+.desktop {
+    display: block;
+}
+
+.mobile {
+    display: none;
+}
+
+@media (max-width: 860px) {
+    .mobile {
+        display: block;
+        width: 83.3%;
+    }
+
+    .desktop {
+        display: none;
+    }
+}
+
+.headerSearchWrapper {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+@media (max-width: 460px) {
+    .mobile {
+        width: 92%;
+    }
+}

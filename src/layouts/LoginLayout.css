@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap');
+
+.loginLayout {
+    height: 100vh;
+    background: #141D25;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.formDiv {
+    position: absolute;
+    top: 29%;
+    width: 384px;
+    height: 353px;
+
+    background: #21282F;
+    border: 1px solid #4D495A;
+    box-shadow: 0 10px 80px -10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+.headerBorder {
+    position: absolute;
+    top: 69px;
+    left: 0;
+    width: 100%;
+    border-bottom: 1px solid #4D495A;
+}
+
+.headerTextDiv {
+    font-family: 'Work Sans', sans-serif;
+    padding-top: 24px;
+    margin-bottom: 16px;
+}
+
+.headerTextDiv p {
+    color: #ECEDF1;
+    text-align: center;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 120%;
+}
+
+@media (max-height: 650px) {
+    .formDiv {
+        position: relative;
+        margin-top: 183px;
+        top: 0;
+        margin-bottom: 40px
+    }
+
+    .loginLayout {
+        height: 650px;
+    }
+}
+
+@media (max-width: 460px) {
+    .formDiv {
+        width: 90%;
+    }
+}

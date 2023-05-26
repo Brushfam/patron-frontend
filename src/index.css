@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+body, html {
+  background: #141D25;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+p {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  color: #FFFFFF;
+}
+
+button:hover {
+  cursor: pointer;
+  filter: brightness(120%);
+}
+
+a {
+  text-decoration: none;
+}

@@ -1,0 +1,27 @@
+.logBlock {
+    width: 100%;
+    max-width: 1200px;
+    height: 511px;
+
+    padding: 20px;
+    background: #21282F;
+    border: 1px solid #49525A;
+    box-shadow: 0px 10px 80px -10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    overflow: auto;
+    margin-bottom: 45px;
+    margin-top: 20px;
+}
+
+.logBlock::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
+}
+
+.logBlock p {
+    font-family: 'Space Mono', monospace;
+    font-style: normal;
+    font-size: 12px;
+    line-height: 140%;
+    color: #FFFFFF;
+}
