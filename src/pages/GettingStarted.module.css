@@ -46,6 +46,10 @@
     flex-direction: column;
 }
 
+.tomlBlock p {
+    font-family: 'Space Mono', monospace;
+}
+
 .codeBlock {
 
 }
