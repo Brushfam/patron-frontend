@@ -17,7 +17,6 @@ export const LoginLayout = (props: {
                 </div>
                 {props.children}
             </div>
-            <Footer />
         </div>
     );
 };

@@ -36,7 +36,7 @@ export function UserContractsList() {
                                 </p>
                             </div>
                         );
-                    }) : <p style={{margin: 30, fontWeight: 500}}>no build sessions was found</p>}
+                    }) : <p className={styles.noDataText}>no build sessions was found</p>}
             </>
         );
     };

@@ -9,7 +9,7 @@ export function Footer() {
                 <div className={"footerDiv1"}>
                     <Link to={'/getting-started'}>
                         <div className={"footerDocs"}>
-                            <img src={"/clip.svg"}/>
+                            <img src={"/icons/docs.svg"}/>
                             <p>How it works</p>
                         </div>
                     </Link>

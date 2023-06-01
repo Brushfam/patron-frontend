@@ -44,6 +44,10 @@
     left: 255px;
 }
 
+.noDataText {
+    margin: 30px;
+    font-weight: 500;
+}
 
 .codeHash {
     display: flex;
@@ -81,6 +85,10 @@
         position: static;
         left: 0;
         margin-left: 14%;
+    }
+
+    .noDataText {
+        margin-left: 20px;
     }
 
     .listColumnHeader {
