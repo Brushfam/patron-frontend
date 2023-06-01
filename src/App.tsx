@@ -8,9 +8,9 @@ import Login from "./pages/Login";
 import {RequireAuth} from "./components/Wrappers/RequireAuth";
 import ContractWindow from "./pages/ContractWindow";
 import {ContractProviderLayout} from "./layouts/ContractProviderLayout";
-import {RequireUnauth} from "./components/Wrappers/RequireUnauth";
 import {CodeHashProviderLayout} from "./layouts/CodeHashProviderLayout";
 import CodeHashWindow from "./pages/CodeHashWindow";
+import { GettingStarted } from "./pages/GettingStarted";
 
 
 function App() {
@@ -18,6 +18,7 @@ function App() {
       <UserProvider>
           <Routes>
               <Route path={"/"} element={<HomePage/>}></Route>
+              <Route path={"/getting-started"} element={<GettingStarted/>}></Route>
               <Route path={"/login"}  element={<Login/>} />
               <Route path={"/profile"} element={<RequireAuth children={<Profile />}/>}></Route>
               <Route path={"/contract"} element={<Navigate to={'/'}/>}></Route>

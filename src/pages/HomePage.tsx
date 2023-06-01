@@ -32,7 +32,7 @@ export default function HomePage() {
                     className={"mainLogo"}
                 />
                 <div className={"polkadotNote"}>
-                    <p>Tool works in</p>
+                    <p>Product works in</p>
                     <a
                         href={"https://polkadot.network/"}
                         style={{ margin: "0 10px", height: 22 }}

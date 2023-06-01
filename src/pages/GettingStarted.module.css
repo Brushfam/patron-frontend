@@ -1,0 +1,112 @@
+.pageContainer {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #141D25;
+}
+
+.mainBlock {
+    display: flex;
+    flex-direction: column;
+    padding-top: 192px;
+    width: 840px;
+    padding-bottom: 80px;
+}
+
+.mainTitle {
+    font-size: 40px;
+}
+
+.secondTitle {
+    font-size: 30px;
+    margin-top: 20px;
+}
+
+.docsText {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 150%;
+    margin-bottom: 20px;
+}
+
+.secondTitle, .mainTitle {
+    text-align: left;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 100%;
+    color: #ECEDF1;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #49525A;
+}
+
+.tomlBlock {
+    display: flex;
+    flex-direction: column;
+}
+
+.codeBlock {
+
+}
+
+.codeBlock, .tomlBlock {
+    position: relative;
+    width: 100%;
+    padding: 20px 15px;
+    height: auto;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    background: #1C2934;
+    overflow: auto;
+}
+
+.codeBlock:hover .copyIcon{
+    display: flex;
+}
+
+.codeBlock p {
+    overflow: hidden; white-space: nowrap;
+    display: inline;
+    font-family: 'Space Mono', monospace;
+}
+
+.copyIconWrapper {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+.copyIcon {
+    display: none;
+    flex-direction: row;
+    align-items: center;
+    padding: 0;
+    background-color: transparent;
+    border: 0;
+}
+
+.copyIcon:hover {
+    cursor: pointer;
+    filter: brightness(120%);
+}
+
+
+@media (max-width: 1440px) {
+    .mainBlock {
+        width: 58.3%;
+    }
+}
+
+@media (max-width: 860px) {
+    .mainBlock {
+        padding-top: 200px;
+        width: 83.3%;
+    }
+}
+
+@media (max-width: 460px) {
+    .mainBlock {
+        width: 92%;
+    }
+}
