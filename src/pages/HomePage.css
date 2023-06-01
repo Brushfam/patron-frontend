@@ -8,12 +8,12 @@
 
 .loginButton {
     position: absolute;
-    width: 104px;
+    width: 124px;
     height: 43px;
     top: 40px;
     right: 156px;
     background: #4170E7;
-    border-radius: 5px;
+    border-radius: 22px;
     border: 0;
 
     font-style: normal;
