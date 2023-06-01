@@ -10,8 +10,8 @@ export function UserContractsList() {
     const [sessionData, setSessionData] = useState<any[]>([]);
 
     useEffect(() => {
-        buildSessionsGET(userContext.bearerToken).then((res) => {
-            setSessionData(res);
+        buildSessionsGET(userContext.bearerToken).then((sessions) => {
+            setSessionData(sessions);
         });
     }, []);
 
@@ -20,6 +20,10 @@ export function UserContractsList() {
             <>
                 {sessionData.length ?
                     sessionData.map((data) => {
+                        if (data.status === 'failed' || data.status === 'new') {
+                            return <></>
+                        }
+
                         return (
                             <div className={styles.listRow} key={data.id}>
                                 <div className={styles.codeHash}>
