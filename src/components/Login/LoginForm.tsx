@@ -19,7 +19,7 @@ export function LoginForm() {
             ) : (
                 <div className={"login"} id={"step2"}>
                     <LoginStepTitle text={"Choose your account"} />
-                    <AccountList  wallet={wallet}/>
+                    <AccountList  wallet={wallet} previousStep={setStep1}/>
                 </div>
             )}
         </div>

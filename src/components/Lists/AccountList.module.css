@@ -26,3 +26,34 @@
 .address {
 
 }
+
+.noAccountDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 40px;
+}
+
+.noAccountText {
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 120%;
+    text-align: center;
+    color: #ECEDF1;
+}
+
+.chooseWalletButton {
+    width: 87%;
+    height: 39px;
+
+    background: #4170E7;
+    border-radius: 80px;
+    border: none;
+    margin-top: 54px;
+
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 120%;
+    color: #ECEDF1;
+}

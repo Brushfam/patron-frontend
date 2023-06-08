@@ -9,6 +9,7 @@ import { Wallet } from "@subwallet/wallet-connect/types";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import styles from './AccountList.module.css'
+import { walletLinkData } from "../../data/walletLinksData";
 
 
 export function WalletsList(props: {
@@ -26,7 +27,11 @@ export function WalletsList(props: {
                     props.setNextStep(false);
                 }, 200)
             } else {
-                window.location.replace(wallet.installUrl);
+                walletLinkData.map((dotWallet) => {
+                    if (wallet.extensionName === dotWallet.name) {
+                        window.open(dotWallet.link, '_blank', 'noreferrer')
+                    }
+                })
             }
         },
         []
@@ -74,6 +79,7 @@ export function WalletsList(props: {
                     borderColor: "#49525A",
                     borderRadius: 3,
                     marginTop: "20px",
+                    "scrollbar-width": "none",
                 },
                 { "&::-webkit-scrollbar": { display: "none" } },
             ]}

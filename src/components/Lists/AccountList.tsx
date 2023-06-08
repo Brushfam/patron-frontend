@@ -3,15 +3,19 @@ import ListItemButton from "@mui/material/ListItemButton";
 import { UseUser } from "../../context/UserContext";
 import Box from "@mui/material/Box";
 import { List } from "@mui/material";
-import React, {useCallback, useEffect, useState} from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import styles from "./AccountList.module.css";
 import { useNavigate } from "react-router-dom";
-import {LoginPOST} from "../../api/LoginApi";
+import { LoginPOST } from "../../api/LoginApi";
 import { parseAddress } from "../../helpers/helpers";
-import {Wallet, WalletAccount} from "@subwallet/wallet-connect/types";
+import { Wallet, WalletAccount } from "@subwallet/wallet-connect/types";
 
-const RenderRow = (props: { name: string | undefined; address: string, wallet: Wallet|undefined }) => {
-    const userContext = UseUser()
+const RenderRow = (props: {
+    name: string | undefined;
+    address: string;
+    wallet: Wallet | undefined;
+}) => {
+    const userContext = UseUser();
     const navigate = useNavigate();
 
     const signMessage = useCallback(
@@ -42,7 +46,7 @@ const RenderRow = (props: { name: string | undefined; address: string, wallet: W
                                     address,
                                     bearerToken.token.toString()
                                 );
-                            })
+                            });
                         })();
                         navigate("/");
                     }
@@ -76,9 +80,7 @@ const RenderRow = (props: { name: string | undefined; address: string, wallet: W
                         className={styles.row}
                         onClick={accountClicked(props.address)}
                     >
-                        <p className={styles.name}>
-                            {props.name}
-                        </p>
+                        <p className={styles.name}>{props.name}</p>
                         <p className={styles.address}>
                             {parseAddress(props.address)}
                         </p>
@@ -89,7 +91,34 @@ const RenderRow = (props: { name: string | undefined; address: string, wallet: W
     );
 };
 
-export function AccountList(props: {wallet: Wallet|undefined}) {
+function NoAccountComponent(props: {previousStep: React.Dispatch<React.SetStateAction<boolean>>}) {
+    const [show, setShow] = useState(false)
+
+    useEffect(() => {
+        setTimeout(() => {
+            setShow(true)
+        }, 200)
+    }, [show])
+
+    return show ? <div className={styles.noAccountDiv}>
+        <p className={styles.noAccountText}>No account found</p>
+        <button
+            type={"button"}
+            className={styles.chooseWalletButton}
+            onClick={() => {
+                props.previousStep(true);
+            }}
+        >
+            Choose another wallet
+        </button>
+    </div> : <></>
+}
+
+
+export function AccountList(props: {
+    wallet: Wallet | undefined;
+    previousStep: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
     const [accounts, setAccounts] = useState<WalletAccount[]>([]);
 
     useEffect(() => {
@@ -98,13 +127,12 @@ export function AccountList(props: {wallet: Wallet|undefined}) {
                 const userAccounts = await props.wallet?.getAccounts();
                 setTimeout(() => {
                     userAccounts && setAccounts(userAccounts);
-                }, 150)
-            })()
+                }, 150);
+            })();
         }
+    }, [accounts]);
 
-    }, [accounts])
-
-    return (
+    return accounts.length ? (
         <Box
             sx={[
                 {
@@ -116,22 +144,27 @@ export function AccountList(props: {wallet: Wallet|undefined}) {
                     borderColor: "#49525A",
                     borderRadius: 3,
                     marginTop: "20px",
+                    "scrollbar-width": "none",
                 },
                 { "&::-webkit-scrollbar": { display: "none" } },
             ]}
         >
-            <List sx={{ paddingTop: 0, paddingBottom: 0 }}>
-                {accounts.map((account, i) => {
-                    return (
-                        <RenderRow
-                            name={account.name}
-                            address={account.address}
-                            key={i.toString()}
-                            wallet={props.wallet}
-                        />
-                    );
-                })}
-            </List>
+            {
+                <List sx={{ paddingTop: 0, paddingBottom: 0 }}>
+                    {accounts.map((account, i) => {
+                        return (
+                            <RenderRow
+                                name={account.name}
+                                address={account.address}
+                                key={i.toString()}
+                                wallet={props.wallet}
+                            />
+                        );
+                    })}
+                </List>
+            }
         </Box>
+    ) : (
+            <NoAccountComponent previousStep={props.previousStep}/>
     );
 }
