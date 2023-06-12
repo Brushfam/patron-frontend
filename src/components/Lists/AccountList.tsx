@@ -1,5 +1,3 @@
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
 import { UseUser } from "../../context/UserContext";
 import Box from "@mui/material/Box";
 import { List } from "@mui/material";
@@ -14,6 +12,7 @@ const RenderRow = (props: {
     name: string | undefined;
     address: string;
     wallet: Wallet | undefined;
+    isLastElement: boolean;
 }) => {
     const userContext = UseUser();
     const navigate = useNavigate();
@@ -66,54 +65,51 @@ const RenderRow = (props: {
     );
 
     return (
-        <>
-            <ListItem
-                disablePadding
-                sx={{
-                    borderBottom: 1,
-                    borderColor: "#49525A",
-                    backgroundColor: "#323D47",
-                }}
+        <div
+            className={styles.rowWrapper}
+            onClick={accountClicked(props.address)}
+        >
+            <div
+                className={styles.row}
+                style={
+                    props.isLastElement ? {} : { borderBottom: "1px solid #ECEDF1" }
+                }
             >
-                <ListItemButton sx={{ padding: 0 }}>
-                    <div
-                        className={styles.row}
-                        onClick={accountClicked(props.address)}
-                    >
-                        <p className={styles.name}>{props.name}</p>
-                        <p className={styles.address}>
-                            {parseAddress(props.address)}
-                        </p>
-                    </div>
-                </ListItemButton>
-            </ListItem>
-        </>
+                <p className={styles.name}>{props.name}</p>
+                <p className={styles.address}>{parseAddress(props.address)}</p>
+            </div>
+        </div>
     );
 };
 
-function NoAccountComponent(props: {previousStep: React.Dispatch<React.SetStateAction<boolean>>}) {
-    const [show, setShow] = useState(false)
+function NoAccountComponent(props: {
+    previousStep: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
+    const [show, setShow] = useState(false);
 
     useEffect(() => {
         setTimeout(() => {
-            setShow(true)
-        }, 200)
-    }, [show])
+            setShow(true);
+        }, 200);
+    }, [show]);
 
-    return show ? <div className={styles.noAccountDiv}>
-        <p className={styles.noAccountText}>No account found</p>
-        <button
-            type={"button"}
-            className={styles.chooseWalletButton}
-            onClick={() => {
-                props.previousStep(true);
-            }}
-        >
-            Choose another wallet
-        </button>
-    </div> : <></>
+    return show ? (
+        <div className={styles.noAccountDiv}>
+            <p className={styles.noAccountText}>No account found</p>
+            <button
+                type={"button"}
+                className={styles.chooseWalletButton}
+                onClick={() => {
+                    props.previousStep(true);
+                }}
+            >
+                Choose another wallet
+            </button>
+        </div>
+    ) : (
+        <></>
+    );
 }
-
 
 export function AccountList(props: {
     wallet: Wallet | undefined;
@@ -137,13 +133,11 @@ export function AccountList(props: {
             sx={[
                 {
                     width: "100%",
-                    height: 140,
+                    height: 206,
                     overflowY: "auto",
                     overflowX: "hidden",
-                    border: 1,
-                    borderColor: "#49525A",
-                    borderRadius: 3,
-                    marginTop: "20px",
+                    borderRadius: "10px",
+                    marginTop: "10px",
                     "scrollbar-width": "none",
                 },
                 { "&::-webkit-scrollbar": { display: "none" } },
@@ -158,6 +152,7 @@ export function AccountList(props: {
                                 address={account.address}
                                 key={i.toString()}
                                 wallet={props.wallet}
+                                isLastElement={accounts.length === i + 1}
                             />
                         );
                     })}
@@ -165,6 +160,6 @@ export function AccountList(props: {
             }
         </Box>
     ) : (
-            <NoAccountComponent previousStep={props.previousStep}/>
+        <NoAccountComponent previousStep={props.previousStep} />
     );
 }
