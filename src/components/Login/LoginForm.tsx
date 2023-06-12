@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { LoginStepTitle } from "../LoginStepTitle";
+import { LoginStepTitle } from "./LoginStepTitle";
 import styles from "./LoginForm.module.css";
 import { AccountList } from "../Lists/AccountList";
 import {WalletsList} from "../Lists/WalletsList";

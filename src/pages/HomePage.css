@@ -61,7 +61,15 @@
     }
 }
 
-@media (max-height: 650px) {
+@media (max-height: 900px) and (max-width: 640px){
+    .mainDiv {
+        position: static;
+        padding-top: 220px;
+        margin-bottom: 180px;
+    }
+}
+
+@media (max-height: 650px) and (min-width: 641px){
     .mainDiv {
         position: static;
         padding-top: 220px;
