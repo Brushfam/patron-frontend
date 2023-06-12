@@ -11,7 +11,6 @@ export const LoginLayout = (props: {
         <div className={"loginLayout"}>
             <BaseHeader />
             <div className={"formDiv"}>
-                <div className={"headerBorder"}></div>
                 <div className={"headerTextDiv"}>
                     <p>{props.headerText}</p>
                 </div>

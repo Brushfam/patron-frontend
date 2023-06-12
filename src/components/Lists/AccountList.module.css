@@ -1,9 +1,18 @@
+.rowWrapper {
+    padding: 8px 10px 0 10px;
+    background: #49525A;
+}
+
+.rowWrapper:hover {
+    cursor: pointer;
+    filter: brightness(120%);
+}
+
 .row {
     display: flex;
     flex-direction: column;
     height: 100%;
     width: 100%;
-    padding: 8px 10px;
 }
 
 .walletRow {
@@ -24,7 +33,7 @@
 }
 
 .address {
-
+    margin-bottom: 8px;
 }
 
 .noAccountDiv {
@@ -32,7 +41,7 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    margin-top: 40px;
+    margin-top: 70px;
 }
 
 .noAccountText {
@@ -50,7 +59,7 @@
     background: #4170E7;
     border-radius: 80px;
     border: none;
-    margin-top: 54px;
+    margin-top: 64px;
 
     font-weight: 600;
     font-size: 14px;

@@ -1,0 +1,25 @@
+.walletRow {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    padding: 16px;
+}
+
+.walletListItem {
+    margin-top: 10px;
+    width: 100%;
+    background-color: #49525A;
+    border: none;
+    border-radius: 10px;
+    padding: 0;
+}
+
+.name {
+    font-family: 'SF Compact', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 100%;
+    color: #ECEDF1;
+}
