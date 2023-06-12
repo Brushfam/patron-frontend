@@ -20,23 +20,8 @@
     line-height: 24px;
 }
 
-.footerDiv1, .footerDiv2 {
-    width: 220px;
-    display: flex;
-    flex-direction: row;
-    height: 39px;
-    align-items: center;
-}
-
-.footerDiv1 {
-    justify-content: right;
-    border-right: 1px solid #ECEDF1;
-    padding: 0 40px 0 0;
-}
-
-.footerDiv2 {
-    justify-content: left;
-    padding: 0 0 0 40px;
+.footerDocsWrapper {
+    margin-left: 24px;
 }
 
 .footerDocs {
@@ -45,8 +30,8 @@
     column-gap: 10px;
     padding: 0 18px;
     align-items: center;
-    width: 158px;
-    height: 39px;
+    width: 156px;
+    height: 36px;
     background: #49525A;
     border-radius: 30px;
 }
@@ -54,8 +39,8 @@
 .footerDocs p {
     font-weight: 400;
     font-size: 16px;
-    line-height: 120%;
     color: #ECEDF1;
+    padding-top: 2px;
 }
 
 .footerDocs:hover {
@@ -63,24 +48,59 @@
     filter: brightness(120%);
 }
 
-@media (max-height: 650px) {
+.footerMediaBlock {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 36px;
+    padding: 0 20px;
+    margin: 0 20px;
+    column-gap: 10px;
+    border-left: 1px solid #ECEDF1;
+    border-right: 1px solid #ECEDF1;
+}
+
+.footerMediaBlock img {
+    margin-top: 4px;
+}
+
+.footerMobileBorder {
+    display: none;
+}
+
+@media (max-height: 900px) and (max-width: 640px){
     .footerContainer {
         position: static;
         padding-bottom: 40px;
     }
 }
 
-@media (max-width: 460px) {
+@media (max-height: 650px) and (min-width: 641px){
+    .footerContainer {
+        position: static;
+        padding-bottom: 40px;
+    }
+}
+
+@media (max-width: 640px) {
     .footer {
+        width: 94%;
         flex-direction: column;
+        row-gap: 30px;
     }
 
-    .footerDiv1 {
-        border: none
+    .footerMediaBlock {
+        border: none;
+        column-gap: 24px;
     }
 
-    .footerDiv1, .footerDiv2 {
-        width: auto;
-        padding: 0;
+    .footerDocsWrapper {
+        margin-left: 0;
+    }
+
+    .footerMobileBorder {
+        display: block;
+        width: 100%;
+        border-bottom: 1px solid #49525A;
     }
 }
