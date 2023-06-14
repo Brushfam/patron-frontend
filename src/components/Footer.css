@@ -48,20 +48,24 @@
     filter: brightness(120%);
 }
 
-.footerMediaBlock {
+.footerContactsBlock {
     display: flex;
     flex-direction: row;
     align-items: center;
     height: 36px;
     padding: 0 20px;
     margin: 0 20px;
-    column-gap: 10px;
     border-left: 1px solid #ECEDF1;
     border-right: 1px solid #ECEDF1;
 }
 
-.footerMediaBlock img {
-    margin-top: 4px;
+.footerContactsBlock a:hover {
+    filter: brightness(140%);
+}
+
+.footerContactsBlock a {
+    display: flex;
+    flex-direction: row;
 }
 
 .footerMobileBorder {
@@ -89,7 +93,7 @@
         row-gap: 30px;
     }
 
-    .footerMediaBlock {
+    .footerContactsBlock {
         border: none;
         column-gap: 24px;
     }
