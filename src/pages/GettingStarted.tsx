@@ -1,15 +1,28 @@
 import styles from "./GettingStarted.module.css";
 import { ExplorerHeader } from "../components/Headers/ExplorerHeader";
-import { useState } from "react";
-import Tooltip from "@mui/material/Tooltip";
 
 export function GettingStarted() {
     return (
         <div className={styles.pageContainer}>
             <ExplorerHeader />
             <div className={styles.mainBlock}>
+                <p className={styles.mainTitle}>About project</p>
+                <p className={styles.docsText}>
+                    Smart contract verification ensures the security,
+                    reliability, and trustworthiness of dApps and blockchain
+                    platforms. With Patron, you can simplify the deployment
+                    flow, manage your builds and make the Polkadot ecosystem
+                    more secure and transparent.
+                </p>
+                <p className={styles.docsText} style={{marginBottom: 40}}>
+                    So, in other words, Patron is an all-in-one contracts
+                    platform, which allows you to build and verify ink! smart
+                    contracts inside of an isolated environment, explore
+                    contract verification details.
+                </p>
+
                 <p className={styles.mainTitle}>Getting started</p>
-                <p className={styles.docsText} style={{ marginBottom: 60 }}>
+                <p className={styles.docsText}>
                     Patron is created by{" "}
                     <a
                         href={"https://brushfam.io/"}
@@ -22,8 +35,28 @@ export function GettingStarted() {
                     </a>{" "}
                     team as unified solution for smart contract verification.
                     First, it provides a developer-oriented CLI that allows to
-                    deploy and verify a contract in one step. Patron uses Astar
-                    network for deployment. Another part of the project is
+                    deploy and verify a contract in one step. Patron uses{" "}
+                    <a
+                        href={"https://astar.network/"}
+                        style={{
+                            color: "#ECEDF1",
+                            textDecoration: "underline",
+                        }}
+                    >
+                        Astar
+                    </a>{" "}
+                    and
+                    {" "}
+                    <a
+                        href={"https://alephzero.org/"}
+                        style={{
+                            color: "#ECEDF1",
+                            textDecoration: "underline",
+                        }}
+                    >
+                        Aleph Zero
+                    </a>{" "}
+                    networks for deployment. Another part of the project is
                     Patron UI, where you can find smart contracts by their
                     address or hash code and see the data of contracts.
                 </p>
@@ -135,12 +168,11 @@ export function GettingStarted() {
                     using <span style={{ color: "#19CB76" }}>--</span> syntax:
                 </p>
                 <div className={styles.codeBlock}>
-                    <p>
-                        patron deploy new --suri //Alice -- --password 123
-                    </p>
+                    <p>patron deploy new --suri //Alice -- --password 123</p>
                 </div>
                 <p className={styles.docsText}>
-                    To get more information, invoke the deploy command with the <span style={{ color: "#19CB76" }}>--help</span> flag.
+                    To get more information, invoke the deploy command with the{" "}
+                    <span style={{ color: "#19CB76" }}>--help</span> flag.
                 </p>
             </div>
         </div>
