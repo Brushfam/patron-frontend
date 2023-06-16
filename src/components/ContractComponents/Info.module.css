@@ -8,11 +8,14 @@
 
 .infoBlock {
     position: relative;
+    display: flex;
+    flex-direction: column;
     width: 100%;
-    height: 80px;
+    height: auto;
     margin-bottom: 20px;
     background: #21282F;
     padding: 30px;
+    row-gap: 16px;
     border: 1px solid #49525A;
     box-shadow: 0px 10px 80px -10px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
@@ -28,13 +31,7 @@
     font-size: 14px;
     font-weight: 600;
     margin-right: 30px;
-}
-
-.dateText {
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 120%;
-    color: #ECEDF1;
+    width: 84px;
 }
 
 .hashText, .hashTextVerified {
@@ -50,6 +47,18 @@
 
 .hashTextVerified {
     color: #4170E7;
+}
+
+.infoText, .infoTextOwner {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    color: #ECEDF1;
+}
+
+.infoTextOwner:hover {
+    cursor: pointer;
+    filter: opacity(0.4);
 }
 
 .contractList {
@@ -200,7 +209,15 @@
         left: 60%;
     }
 
-    .event {
+    .infoBlock {
+        padding: 20px;
+    }
 
+    .ListHeader {
+        padding: 20px 20px 10px 20px;
+    }
+
+    .listRow {
+        padding: 10px 20px;
     }
 }

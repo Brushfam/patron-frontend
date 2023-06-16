@@ -67,7 +67,7 @@ export function SearchInput() {
                 placeholder={
                     searchFailed
                         ? "This code hash was not verified yet"
-                        : "Search Accounts, Contracts, Transactions..."
+                        : "Search Contracts, Code hashes"
                 }
                 className={
                     searchFailed ? styles.inputSearchError : styles.inputSearch

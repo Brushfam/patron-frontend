@@ -13,7 +13,7 @@ export function UserContractsList() {
         buildSessionsGET(userContext.bearerToken).then((sessions) => {
             setSessionData(sessions);
         });
-    }, []);
+    }, [userContext.bearerToken]);
 
     const BuildSessionList = () => {
         return (

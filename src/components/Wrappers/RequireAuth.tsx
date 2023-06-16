@@ -1,13 +1,12 @@
 import {UseUser} from "../../context/UserContext";
 import {Navigate} from "react-router-dom";
 
-
 export const RequireAuth = (props: {children: JSX.Element}) => {
-    const auth = UseUser()
+    const userContext = UseUser()
 
-    if (!auth.currentUser) {
-        return <Navigate to={'/'} />
+    if (userContext.cState === "loading") {
+        return <></>
     }
 
-    return props.children
+    return userContext.currentUser ? props.children : <Navigate to={'/'} />
 }

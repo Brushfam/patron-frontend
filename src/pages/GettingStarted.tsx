@@ -14,11 +14,30 @@ export function GettingStarted() {
                     flow, manage your builds and make the Polkadot ecosystem
                     more secure and transparent.
                 </p>
-                <p className={styles.docsText} style={{marginBottom: 40}}>
+                <p className={styles.docsText} style={{ marginBottom: 40 }}>
                     So, in other words, Patron is an all-in-one contracts
                     platform, which allows you to build and verify ink! smart
                     contracts inside of an isolated environment, explore
                     contract verification details.
+                </p>
+
+                <p className={styles.mainTitle}>Main problem</p>
+                <p className={styles.docsText}>
+                    Our project solves the problem of reproducible and
+                    verifiable smart contract builds. We utilize isolated and
+                    constrained environments to build your project in a manner,
+                    which produces the same code hash for the same source code.
+                    By using such reproducible builds for your smart contracts
+                    you can improve trust with your users by guaranteeing that
+                    the source code that you publish is the same source code
+                    that is used to deploy the contract on-chain.
+                </p>
+                <p className={styles.docsText} style={{ marginBottom: 40 }}>
+                    Your deployment entrypoint is provided by the{" "}
+                    <span style={{ color: "#19CB76" }}>patron deploy </span>
+                    command, which encapsulates both build, upload and
+                    instantiation phases of your smart contract deployment
+                    lifecycle.
                 </p>
 
                 <p className={styles.mainTitle}>Getting started</p>
@@ -45,8 +64,7 @@ export function GettingStarted() {
                     >
                         Astar
                     </a>{" "}
-                    and
-                    {" "}
+                    and{" "}
                     <a
                         href={"https://alephzero.org/"}
                         style={{

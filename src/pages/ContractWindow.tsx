@@ -16,9 +16,12 @@ export default function ContractWindow() {
     const navigate = useNavigate();
 
     const [contractAddress, setContractAddress] = useState("");
-    const [contractHash, setContractHash] = useState("");
     const [verified, setVerified] = useState(false);
     const [codeSourceId, setCodeSourceId] = useState(0);
+
+    const [contractHash, setContractHash] = useState("");
+    const [contractNetwork, setContractNetwork] = useState("");
+    const [contractOwner, setContractOwner] = useState("");
 
     useEffect(() => {
         let dataPromise = fetch(
@@ -46,10 +49,20 @@ export default function ContractWindow() {
                     setCodeSourceId(detailsList.source_code_id);
                 });
                 setContractHash(data.code_hash);
+                setContractOwner(data.owner);
+                setContractNetwork(data.node);
+                if (data.node === "astar") {
+                    setContractNetwork("Astar");
+                } else if (data.node === "alephzero") {
+                    setContractNetwork("Aleph Zero");
+                } else {
+                    setContractNetwork('')
+                }
             }
 
             fetch(
-                process.env.REACT_APP_SERVER_URL + "/buildSessions/logs/" +
+                process.env.REACT_APP_SERVER_URL +
+                    "/buildSessions/logs/" +
                     data.code_hash,
                 {
                     method: "GET",
@@ -64,7 +77,6 @@ export default function ContractWindow() {
                 }
             });
         });
-
     }, [params.id, codeSourceId, contractHash]);
 
     const CurrentContractWindow = () => {
@@ -73,7 +85,15 @@ export default function ContractWindow() {
             : ["", 0];
 
         if (ContractContext.pages[0]) {
-            return <Info address={contractAddress} hash={contractHash} isVerified={verified}></Info>;
+            return (
+                <Info
+                    address={contractAddress}
+                    isVerified={verified}
+                    hash={contractHash}
+                    node={contractNetwork}
+                    owner={contractOwner}
+                ></Info>
+            );
         } else if (ContractContext.pages[1]) {
             return <Log hash={logHash}></Log>;
         } else return <Code source_id={source}></Code>;
@@ -88,7 +108,7 @@ export default function ContractWindow() {
                     address={contractAddress}
                     verified={verified}
                 />
-                <ContractButtons isVerified={verified}/>
+                <ContractButtons isVerified={verified} />
                 <CurrentContractWindow />
             </div>
         </div>
