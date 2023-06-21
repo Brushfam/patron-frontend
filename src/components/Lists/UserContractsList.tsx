@@ -3,7 +3,7 @@ import { UseUser } from "../../context/UserContext";
 import { useEffect, useState } from "react";
 import { buildSessionsGET } from "../../api/BuildSessionsApi";
 import { parseCodeHash, parseDate } from "../../helpers/helpers";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export function UserContractsList() {
     const userContext = UseUser();
@@ -17,17 +17,19 @@ export function UserContractsList() {
 
     const BuildSessionList = () => {
         return (
-            <div style={{display: "flex", flexDirection: "column", rowGap: 10}}>
-                {sessionData.length ?
+            <div
+                style={{ display: "flex", flexDirection: "column", rowGap: 10 }}
+            >
+                {sessionData.length ? (
                     sessionData.map((data) => {
-                        if (data.status === 'failed' || data.status === 'new') {
-                            return <></>
+                        if (data.status === "failed" || data.status === "new") {
+                            return <></>;
                         }
 
                         return (
                             <div className={styles.listRow} key={data.id}>
                                 <div className={styles.codeHash}>
-                                    <Link to={'/codeHash/' + data.code_hash}>
+                                    <Link to={"/codeHash/" + data.code_hash}>
                                         <p>
                                             {data.code_hash
                                                 ? parseCodeHash(data.code_hash)
@@ -40,7 +42,12 @@ export function UserContractsList() {
                                 </p>
                             </div>
                         );
-                    }) : <p className={styles.noDataText}>no build sessions was found</p>}
+                    })
+                ) : (
+                    <p className={styles.noDataText}>
+                        no build sessions was found
+                    </p>
+                )}
             </div>
         );
     };
@@ -49,11 +56,7 @@ export function UserContractsList() {
         <div className={styles.userContractsList}>
             <div style={{ width: "100%" }}>
                 <div className={styles.ListHeader}>
-                    <p
-                        className={styles.listColumnHeader}
-                    >
-                        Code Hash
-                    </p>
+                    <p className={styles.listColumnHeader}>Code Hash</p>
                     <p className={styles.listColumnHeaderTime}>Created on</p>
                 </div>
                 <BuildSessionList />

@@ -67,15 +67,15 @@ const RenderRow = (props: {
             className={styles.rowWrapper}
             onClick={accountClicked(props.address)}
         >
-            <div
-                className={styles.row}
-            >
+            <div className={styles.row}>
                 <div className={styles.circle}>
-                    <img src={"/icons/user.svg"}/>
+                    <img src={"/icons/user.svg"} />
                 </div>
                 <div className={styles.rowInfo}>
                     <p className={styles.name}>{props.name}</p>
-                    <p className={styles.address}>{parseAddress(props.address)}</p>
+                    <p className={styles.address}>
+                        {parseAddress(props.address)}
+                    </p>
                 </div>
             </div>
         </div>

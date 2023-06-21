@@ -8,30 +8,30 @@ import { LoginModal } from "../modal/LoginModal";
 
 export default function HomePage() {
     const userContext = UseUser();
-    const [loginOpen, setLoginOpen] = useState(false)
+    const [loginOpen, setLoginOpen] = useState(false);
 
     useEffect(() => {
-        let params = new URL(window.location.href)
-            .searchParams;
+        let params = new URL(window.location.href).searchParams;
         if (params.get("cli_token")) {
-            setLoginOpen(true)
+            setLoginOpen(true);
         }
-    }, [])
+    }, []);
 
     return (
         <div className={styles.mainContainer}>
-            <LoginModal isOpen={loginOpen} setModal={setLoginOpen}/>
+            <LoginModal isOpen={loginOpen} setModal={setLoginOpen} />
             {!userContext.currentUser ? (
                 <button
                     className={styles.loginButton}
                     onClick={() => {
-                        setLoginOpen(true)
+                        setLoginOpen(true);
                     }}
                 >
                     <img
                         src={"icons/buttons/log-in.svg"}
                         style={{ marginRight: 10 }}
-                     alt={"log in button"}/>
+                        alt={"log in button"}
+                    />
                     Log in
                 </button>
             ) : (
