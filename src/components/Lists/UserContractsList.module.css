@@ -2,7 +2,7 @@
     width: 100%;
     height: 519px;
     margin-bottom: 98px;
-
+    padding: 0 10px;
     background: #21282F;
     border: 1px solid #49525A;
     box-shadow: 0px 10px 80px -10px rgba(0, 0, 0, 0.2);
@@ -16,20 +16,23 @@
 }
 
 .ListHeader {
-    position: relative;
+    position: sticky;
+    top: 0;
+    z-index: 10;
     display: flex;
+    background: #21282F;
     flex-direction: row;
-    border-bottom: 1px solid #49525A;
-    padding: 30px 30px 20px 30px;
+    padding: 30px 20px 20px 20px;
 }
 
 .listRow {
+    z-index: 1;
     position: relative;
     display: flex;
     flex-direction: row;
-    border-bottom: 1px solid #49525A;
-    padding: 20px 30px;
-
+    padding: 20px;
+    background: #29323B;
+    border-radius: 10px;
 }
 
 .listColumnHeader, .listColumnHeaderTime {
@@ -37,11 +40,12 @@
     font-size: 18px;
     line-height: 120%;
     color: #ECEDF1;
+    text-transform: uppercase;
 }
 
 .listColumnHeaderTime {
     position: absolute;
-    left: 255px;
+    left: 290px;
 }
 
 .noDataText {
@@ -61,10 +65,10 @@
 .time {
     font-size: 14px;
     position: absolute;
-    left: 255px;
+    left: 290px;
 }
 
-@media (max-width: 660px) {
+@media (max-width: 700px) {
     .ListHeader {
         padding: 20px 20px 10px 20px
     }
@@ -92,6 +96,6 @@
     }
 
     .listColumnHeader {
-        width: 132px;
+        width: 136px;
     }
 }

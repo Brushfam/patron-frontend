@@ -1,0 +1,35 @@
+.examplesBlock {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    margin-top: 20px;
+    column-gap: 10px;
+}
+
+.examplesBlock p {
+    font-size: 16px;
+}
+
+.exampleButton {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 8px 14px;
+    width: auto;
+    height: 30px;
+    background: #29323B;
+    border-radius: 20px;
+    border: 0;
+    column-gap: 6px;
+}
+
+.exampleButton p {
+    font-size: 14px;
+}
+
+.examplesBlock p, .exampleButton p {
+    font-weight: 400;
+    line-height: 100%;
+    color: #ECEDF1;
+}

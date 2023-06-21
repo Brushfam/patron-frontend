@@ -1,10 +1,7 @@
 .userContextBlock {
-    position: absolute;
     display: flex;
     flex-direction: row;
-    right: 120px;
     column-gap: 40px;
-    top: 36px;
 }
 
 @media (max-width: 1440px) {

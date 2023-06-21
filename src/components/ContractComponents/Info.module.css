@@ -3,7 +3,6 @@
     flex-direction: column;
     width: 100%;
     max-width: 1200px;
-    margin-top: 20px;
 }
 
 .infoBlock {
@@ -31,7 +30,7 @@
     font-size: 14px;
     font-weight: 600;
     margin-right: 30px;
-    width: 84px;
+    width: 92px;
 }
 
 .hashText, .hashTextVerified {
@@ -39,6 +38,10 @@
     font-size: 14px;
     line-height: 120%;
     cursor: pointer;
+}
+
+.hashText {
+    text-decoration: underline;
 }
 
 .hashText:hover {
@@ -56,15 +59,21 @@
     color: #ECEDF1;
 }
 
+.infoTextOwner {
+    text-decoration: underline;
+}
+
 .infoTextOwner:hover {
     cursor: pointer;
     filter: opacity(0.4);
 }
 
-.contractList {
+.eventListBlock {
+    position: relative;
     width: 100%;
     height: 300px;
     margin-bottom: 56px;
+    padding: 0 10px;
 
     background: #21282F;
     border: 1px solid #49525A;
@@ -73,17 +82,29 @@
     overflow: auto;
 }
 
-.contractList::-webkit-scrollbar {
+.eventListBlock::-webkit-scrollbar {
     width: 0;
     background: transparent;
 }
 
 .ListHeader {
-    position: relative;
+    position: sticky;
+    top: 0;
+    z-index: 10;
     display: flex;
     flex-direction: row;
-    border-bottom: 1px solid #49525A;
-    padding: 30px 30px 20px 30px;
+    background: #21282F;
+    padding: 30px 0 20px 20px;
+}
+
+.eventsList {
+    z-index: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .listRow {
@@ -91,8 +112,9 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    border-bottom: 1px solid #49525A;
-    padding: 10px 30px;
+    background: #29323B;
+    border-radius: 10px;
+    padding: 20px 30px;
 }
 
 .listColumnHeader {
@@ -105,23 +127,24 @@
 
 .ContractHeader, .TimeHeader, .EventHeader {
     font-weight: 600;
-    font-size: 18px;
+    font-size: 16px;
     line-height: 120%;
     color: #ECEDF1;
+    text-transform: uppercase;
 }
 
 .ContractHeader {
-    width: 152px
+    position: absolute;
+    left: 271px;
 }
 
 .TimeHeader {
     position: absolute;
-    left: 255px;
+    left: 541px;
 }
 
 .EventHeader {
-    position: absolute;
-    left: 563px;
+    width: 130px
 }
 
 .contract, .contractMobile, .time, .event {
@@ -132,6 +155,8 @@
 
 .contract {
     display: block;
+    position: absolute;
+    left: 271px;
 }
 
 .contractMobile {
@@ -140,22 +165,28 @@
 
 .time {
     position: absolute;
-    left: 255px;
-}
-
-.eventWrapper {
-    position: relative;
-    left: 398px;
+    left: 541px;
 }
 
 .event {
-    padding: 10px 20px;
-    border: 1px solid #49525A;
-    box-shadow: 0 10px 80px -10px rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    column-gap: 6px;
+    width: 130px
 }
 
-@media (max-width: 910px) {
+.event p {
+    font-size: 14px;
+    line-height: 120%;
+    color: #ECEDF1;
+}
+
+@media (max-width: 980px) {
+    .listRow {
+        padding: 20px;
+    }
+
     .contract {
         display: none;
     }
@@ -165,25 +196,25 @@
     }
 
     .contractMobile, .ContractHeader {
-        width: 75px;
+        width: 110px;
+        position: static;
+        margin-left: 10%;
     }
 
     .TimeHeader, .time {
         width: 114px;
         position: static;
+        left: 0;
         margin-left: 10%;
     }
 
     .eventWrapper, .EventHeader {
-        left: 0;
-        margin-left: 10%;
+
     }
 
     .event {
         position: static;
         font-size: 14px;
-        padding: 0;
-        border: 0;
     }
 
     .EventHeader {
@@ -205,8 +236,8 @@
     }
 
     .eventWrapper, .EventHeader {
-        position: absolute;
-        left: 60%;
+        /*position: absolute;*/
+        /*left: 60%;*/
     }
 
     .infoBlock {
@@ -219,5 +250,17 @@
 
     .listRow {
         padding: 10px 20px;
+    }
+
+    .contractMobile {
+        font-size: 12px;
+    }
+
+    .event, .EventHeader {
+        width: 110px
+    }
+
+    .event p {
+        font-size: 12px;
     }
 }

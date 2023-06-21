@@ -1,37 +1,51 @@
-import "./HomePage.css";
-import {useNavigate} from "react-router-dom";
+import styles from "./HomePage.module.css";
 import { Footer } from "../components/Footer";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { UseUser } from "../context/UserContext";
 import HeaderBlocks from "../components/Headers/HeaderBlocks";
-import {SearchInput} from "../components/SearchInput";
-import {HeaderBlocksLayout} from "../components/Headers/HeaderBlocksLayout";
-
+import { SearchBlock } from "../components/HomePage/SearchBlock";
+import { LoginModal } from "../modal/LoginModal";
 
 export default function HomePage() {
-    const userContext = UseUser()
-    const navigate = useNavigate();
+    const userContext = UseUser();
+    const [loginOpen, setLoginOpen] = useState(false)
 
-    function navigateToLogin() {
-        navigate("/login");
-    }
+    useEffect(() => {
+        let params = new URL(window.location.href)
+            .searchParams;
+        if (params.get("cli_token")) {
+            setLoginOpen(true)
+        }
+    }, [])
 
     return (
-        <div className={"mainContainer"}>
-            {
-                !userContext.currentUser ? (
-                    <button className={"loginButton"} onClick={navigateToLogin}>
-                        Log in
-                    </button>
-                ) : <HeaderBlocksLayout blocks={<HeaderBlocks/>}/>
-            }
-            <div className={"mainDiv"}>
+        <div className={styles.mainContainer}>
+            <LoginModal isOpen={loginOpen} setModal={setLoginOpen}/>
+            {!userContext.currentUser ? (
+                <button
+                    className={styles.loginButton}
+                    onClick={() => {
+                        setLoginOpen(true)
+                    }}
+                >
+                    <img
+                        src={"icons/buttons/log-in.svg"}
+                        style={{ marginRight: 10 }}
+                     alt={"log in button"}/>
+                    Log in
+                </button>
+            ) : (
+                <div className={styles.homePageHeaderBlocks}>
+                    <HeaderBlocks />
+                </div>
+            )}
+            <div className={styles.mainDiv}>
                 <img
                     src={"patron-main-logo.svg"}
                     alt={"Patron logo"}
-                    className={"mainLogo"}
+                    className={styles.mainLogo}
                 />
-                <div className={"polkadotNote"}>
+                <div className={styles.polkadotNote}>
                     <p>Product works in the</p>
                     <a
                         href={"https://polkadot.network/"}
@@ -43,7 +57,7 @@ export default function HomePage() {
                     </a>
                     <p>ecosystem</p>
                 </div>
-                <SearchInput/>
+                <SearchBlock />
             </div>
             <Footer />
         </div>

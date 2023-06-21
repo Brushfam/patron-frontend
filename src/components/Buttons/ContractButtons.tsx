@@ -14,7 +14,9 @@ export function ContractButtons(props: {isVerified: boolean}) {
                         : { backgroundColor: "#49525A" }
                 }
                 onClick={() => {ContractContext.changePage([true, false, false])}}
-            >Info</button>
+            >
+                <img src={"/icons/buttons/info.svg"}/>
+                Info</button>
             {
                 props.isVerified ? <button
                     className={styles.log}
@@ -24,7 +26,9 @@ export function ContractButtons(props: {isVerified: boolean}) {
                             : { backgroundColor: "#49525A" }
                     }
                     onClick={() => {ContractContext.changePage([false, true, false])}}
-                >Build log</button> : <></>
+                >
+                    <img src={"/icons/buttons/gear.svg"}/>
+                    Build log</button> : <></>
             }
             {
                 props.isVerified ? <button
@@ -35,7 +39,9 @@ export function ContractButtons(props: {isVerified: boolean}) {
                             : { backgroundColor: "#49525A" }
                     }
                     onClick={() => {ContractContext.changePage([false, false, true])}}
-                >Code</button> : <></>
+                >
+                    <img src={"/icons/buttons/code.svg"}/>
+                    Code</button> : <></>
             }
         </div>
     );

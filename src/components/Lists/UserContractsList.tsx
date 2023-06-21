@@ -17,7 +17,7 @@ export function UserContractsList() {
 
     const BuildSessionList = () => {
         return (
-            <>
+            <div style={{display: "flex", flexDirection: "column", rowGap: 10}}>
                 {sessionData.length ?
                     sessionData.map((data) => {
                         if (data.status === 'failed' || data.status === 'new') {
@@ -41,7 +41,7 @@ export function UserContractsList() {
                             </div>
                         );
                     }) : <p className={styles.noDataText}>no build sessions was found</p>}
-            </>
+            </div>
         );
     };
 
@@ -52,9 +52,9 @@ export function UserContractsList() {
                     <p
                         className={styles.listColumnHeader}
                     >
-                        Build sessions:
+                        Code Hash
                     </p>
-                    <p className={styles.listColumnHeaderTime}>Created on:</p>
+                    <p className={styles.listColumnHeaderTime}>Created on</p>
                 </div>
                 <BuildSessionList />
             </div>

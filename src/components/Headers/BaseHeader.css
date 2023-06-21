@@ -6,50 +6,38 @@
 
 .baseHeader {
     position: absolute;
+    top: 40px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    width: 1440px;
-    height: 112px;
-    border-bottom: 1px solid #49525A;
+    width: 1200px;
+    padding: 22px 20px;
+    /*border-bottom: 1px solid #49525A;*/
+    background: #21282F;
+    border: 1px solid #49525A;
+    border-radius: 20px;
 }
 
 .patronLogo {
-    margin-left: 8.3%;
+
 }
 
 @media (max-width: 1440px) {
     .baseHeader {
-        width: 100%;
+        width: 83.3%;
     }
 }
 
-@media (max-width: 860px) {
+@media (max-width: 940px) {
     .baseHeader {
+        top: 80px;
         border-top: 1px solid #49525A;
-    }
-}
-
-@media (max-width: 860px) {
-    .baseHeader {
-        padding-right: 8.5%;
     }
 }
 
 @media (max-width: 460px) {
     .baseHeader {
-        width: 100%;
-        height: 80px;
-        padding: 4%;
-    }
-
-    .patronLogo {
-        margin-left: 0;
-        width: 120px;
-    }
-
-    .patronLogo img {
-        width: 120px;
+        width: 93%;
     }
 }

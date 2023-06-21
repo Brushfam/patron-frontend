@@ -1,10 +1,41 @@
 import styles from "./GettingStarted.module.css";
-import { ExplorerHeader } from "../components/Headers/ExplorerHeader";
+import { UseUser } from "../context/UserContext";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { GettingStartedHeader } from "../components/Headers/GettingStartedHeader";
+import { MainHeaderLogged } from "../components/Headers/MainHeader";
+import { LoginModal } from "../modal/LoginModal";
 
 export function GettingStarted() {
+    const userContext = UseUser()
+    const [loginOpen, setLoginOpen] = useState(false)
+
+    function LoginButton() {
+        return(
+            <button
+                className={styles.loginButton}
+                onClick={() => {
+                    setLoginOpen(true)
+                }}
+            >
+                <img
+                    src={"icons/buttons/log-in.svg"}
+                    style={{ marginRight: 10 }}
+                    alt={"log in button"}/>
+                Log in
+            </button>
+        )
+    }
+
     return (
         <div className={styles.pageContainer}>
-            <ExplorerHeader />
+            <LoginModal isOpen={loginOpen} setModal={setLoginOpen}/>
+            {
+                !userContext.currentUser ? (
+                        <GettingStartedHeader loginButton={<LoginButton/>}/>
+
+                ) : <MainHeaderLogged/>
+            }
             <div className={styles.mainBlock}>
                 <p className={styles.mainTitle}>About project</p>
                 <p className={styles.docsText}>
@@ -34,7 +65,7 @@ export function GettingStarted() {
                 </p>
                 <p className={styles.docsText} style={{ marginBottom: 40 }}>
                     Your deployment entrypoint is provided by the{" "}
-                    <span style={{ color: "#19CB76" }}>patron deploy </span>
+                    <span style={{ color: "#4170E7" }}>patron deploy </span>
                     command, which encapsulates both build, upload and
                     instantiation phases of your smart contract deployment
                     lifecycle.
@@ -94,15 +125,15 @@ export function GettingStarted() {
                     contracts in an instant, with a vastly simplified deploy
                     flow. For deploy purposes, ensure that you have the Rust
                     toolchain installed (the builds themselves are not local,
-                    but <span style={{ color: "#19CB76" }}>cargo</span> is used
+                    but <span style={{ color: "#4170E7" }}>cargo</span> is used
                     to install and invoke{" "}
-                    <span style={{ color: "#19CB76" }}>cargo-contract</span>).
+                    <span style={{ color: "#4170E7" }}>cargo-contract</span>).
                 </p>
 
                 <p className={styles.secondTitle}>Authentication</p>
                 <p className={styles.docsText}>
                     To authenticate, use the{" "}
-                    <span style={{ color: "#19CB76" }}>auth</span> subcommand,
+                    <span style={{ color: "#4170E7" }}>auth</span> subcommand,
                     which automatically redirects you to website to sign an
                     authentication message:
                 </p>
@@ -111,8 +142,8 @@ export function GettingStarted() {
                 </div>
                 <p className={styles.docsText}>
                     If you are using a custom server, you can also pass{" "}
-                    <span style={{ color: "#19CB76" }}>-s</span> and{" "}
-                    <span style={{ color: "#19CB76" }}>-w</span> flags to
+                    <span style={{ color: "#4170E7" }}>-s</span> and{" "}
+                    <span style={{ color: "#4170E7" }}>-w</span> flags to
                     provide URLs for the API server and website.
                 </p>
                 <div className={styles.codeBlock}>
@@ -134,20 +165,18 @@ export function GettingStarted() {
                 </p>
                 <p className={styles.docsText}>
                     First of all, you need to create a{" "}
-                    <span style={{ color: "#19CB76" }}>Deploy.toml</span> file
+                    <span style={{ color: "#4170E7" }}>Deploy.toml</span> file
                     at the root of your contract source code. This file
                     describes the Rust toolchain and{" "}
-                    <span style={{ color: "#19CB76" }}>cargo-contract</span>{" "}
+                    <span style={{ color: "#4170E7" }}>cargo-contract</span>{" "}
                     versions that will be used during the build:
                 </p>
                 <div className={styles.tomlBlock}>
                     <p>
-                        rustc_version ={" "}
-                        <span style={{ color: "#4170E7" }}>"1.69.0"</span>
+                        rustc_version = "1.69.0"
                     </p>
                     <p>
-                        cargo_contract_version ={" "}
-                        <span style={{ color: "#4170E7" }}>"3.0.1"</span>
+                        cargo_contract_version = "3.0.1"
                     </p>
                 </div>
                 <p className={styles.docsText}>
@@ -165,14 +194,14 @@ export function GettingStarted() {
                 <p className={styles.docsText}>
                     If your contract constructor requires any arguments, simply
                     pass them with the same syntax that you use with the
-                    <span style={{ color: "#19CB76" }}> cargo-contract</span>:
+                    <span style={{ color: "#4170E7" }}> cargo-contract</span>:
                 </p>
                 <div className={styles.codeBlock}>
                     <p>patron deploy new --args 123 --suri //Alice</p>
                 </div>
                 <p className={styles.docsText}>
                     Custom node URL can be provided with the{" "}
-                    <span style={{ color: "#19CB76" }}>--url</span> flag:
+                    <span style={{ color: "#4170E7" }}>--url</span> flag:
                 </p>
                 <div className={styles.codeBlock}>
                     <p>
@@ -182,15 +211,15 @@ export function GettingStarted() {
                 </div>
                 <p className={styles.docsText}>
                     You can also pass arbitrary flags to{" "}
-                    <span style={{ color: "#19CB76" }}>cargo-contract</span>{" "}
-                    using <span style={{ color: "#19CB76" }}>--</span> syntax:
+                    <span style={{ color: "#4170E7" }}>cargo-contract</span>{" "}
+                    using <span style={{ color: "#4170E7" }}>--</span> syntax:
                 </p>
                 <div className={styles.codeBlock}>
                     <p>patron deploy new --suri //Alice -- --password 123</p>
                 </div>
                 <p className={styles.docsText}>
                     To get more information, invoke the deploy command with the{" "}
-                    <span style={{ color: "#19CB76" }}>--help</span> flag.
+                    <span style={{ color: "#4170E7" }}>--help</span> flag.
                 </p>
             </div>
         </div>

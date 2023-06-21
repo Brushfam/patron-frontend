@@ -8,6 +8,10 @@
 
 .loginButton {
     position: absolute;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
     width: 124px;
     height: 43px;
     top: 40px;
@@ -53,6 +57,12 @@
     color: #49525A;
 }
 
+.homePageHeaderBlocks {
+    position: absolute;
+    top: 40px;
+    right: 156px;
+}
+
 @media (max-height: 940px) {
     .mainDiv {
         position: absolute;
@@ -69,7 +79,7 @@
     }
 }
 
-@media (max-height: 650px) and (min-width: 641px){
+@media (max-height: 700px) and (min-width: 641px){
     .mainDiv {
         position: static;
         padding-top: 220px;
@@ -77,9 +87,9 @@
     }
 }
 
-@media (max-width: 1440px) {
-    .loginButton {
-        right: 10.8%;
+@media (max-width: 1200px) {
+    .loginButton, .homePageHeaderBlocks {
+        right: 3%;
     }
 }
 
@@ -88,7 +98,7 @@
         width: 94%;
     }
 
-    .loginButton {
+    .loginButton, .homePageHeaderBlocks {
         right: 3%
     }
 }

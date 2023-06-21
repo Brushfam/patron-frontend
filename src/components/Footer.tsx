@@ -9,7 +9,7 @@ export function Footer() {
                 <div className={"footerDocsWrapper"}>
                     <Link to={'/getting-started'}>
                         <div className={"footerDocs"}>
-                            <img src={"/icons/docs.svg"} alt={"docs icon"}/>
+                            <img src={"/icons/buttons/docs.svg"} alt={"docs icon"}/>
                             <p>How it works</p>
                         </div>
                     </Link>

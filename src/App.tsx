@@ -4,7 +4,6 @@ import './App.css';
 import HomePage from "./pages/HomePage";
 import {Profile} from "./pages/Profile";
 import {UserProvider} from "./context/UserContext";
-import Login from "./pages/Login";
 import {RequireAuth} from "./components/Wrappers/RequireAuth";
 import ContractWindow from "./pages/ContractWindow";
 import {ContractProviderLayout} from "./layouts/ContractProviderLayout";
@@ -19,7 +18,6 @@ function App() {
           <Routes>
               <Route path={"/"} element={<HomePage/>}></Route>
               <Route path={"/getting-started"} element={<GettingStarted/>}></Route>
-              <Route path={"/login"}  element={<Login/>} />
               <Route path={"/profile"} element={<RequireAuth children={<Profile />}/>}></Route>
               <Route path={"/contract"} element={<Navigate to={'/'}/>}></Route>
               <Route element={<ContractProviderLayout/>}>

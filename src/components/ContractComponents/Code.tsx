@@ -16,16 +16,17 @@ export function Code(props: {source_id: number}) {
     }, [props.source_id])
 
     return(
-        <div className={styles.code}>
-            {
-                codeState &&
-                codeState.map((text, i) => {
-                    return(
-                        <p key={i.toString()} style={{whiteSpace: "pre"}}>{text}</p>
-                    )
-                })
-            }
+        <div className={styles.codeWrapper}>
+            <div className={styles.code}>
+                {
+                    codeState &&
+                    codeState.map((text, i) => {
+                        return(
+                            <p key={i.toString()} style={{whiteSpace: "pre"}}>{text}</p>
+                        )
+                    })
+                }
+            </div>
         </div>
-
     )
 }

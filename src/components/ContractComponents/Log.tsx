@@ -32,13 +32,15 @@ export function Log(props: {hash: string}) {
 
 
     return (
-        <div className={styles.logBlock}>
-            {
-                codeHashLogs &&
-                codeHashLogs.map((line, i) => {
-                    return <p key={i}>{line}</p>;
-                })
-            }
+        <div className={styles.logBlockWrapper}>
+            <div className={styles.logBlock}>
+                {
+                    codeHashLogs &&
+                    codeHashLogs.map((line, i) => {
+                        return <p key={i}>{line}</p>;
+                    })
+                }
+            </div>
         </div>
     );
 }

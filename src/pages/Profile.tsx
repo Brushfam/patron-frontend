@@ -12,7 +12,9 @@ export function Profile() {
         <div className={styles.profile}>
             <MainHeaderLogged/>
             <div className={styles.mainBlock}>
-                <AddressElements name={"Address"} address={userContext.currentUser} verified={false}/>
+                <div className={styles.addressWrapper}>
+                    <AddressElements name={"Address"} iconPath={"/address-square.svg"} address={userContext.currentUser} verified={false}/>
+                </div>
                 <UserContractsList/>
             </div>
         </div>

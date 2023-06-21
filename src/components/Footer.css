@@ -79,7 +79,7 @@
     }
 }
 
-@media (max-height: 650px) and (min-width: 641px){
+@media (max-height: 700px) and (min-width: 641px){
     .footerContainer {
         position: static;
         padding-bottom: 40px;

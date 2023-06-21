@@ -5,11 +5,11 @@ import { useState } from "react";
 
 export function AddressElements(props: {
     name: string;
+    iconPath: string;
     address: string;
     verified: boolean;
 }) {
     const [open, setOpen] = useState(false);
-    const [openMobile, setOpenMobile] = useState(false);
 
     function handleCopy() {
         navigator.clipboard.writeText(props.address);
@@ -50,22 +50,21 @@ export function AddressElements(props: {
     };
 
     return (
-        <div style={{ marginBottom: 40, width: "100%" }}>
-            <div className={styles.addressElements}>
-                <div className={styles.userBlock}>
-                    <img src={props.name == "Address" ? "/icons/user.svg" : "/icons/contract-icon.svg"} alt={"user icon"} />
-                </div>
-                <p className={styles.name}>{props.name}</p>
-                <div className={styles.addressDesktop}>
-                    <CopyAddress
-                        isOpen={open}
-                        handleCLose={() => {setOpen(false)}}
-                        handleOpen={() => {setOpen(true)}}
-                    />
+        <div className={styles.addressBlock}>
+            <div className={styles.addressBlockInfo}>
+                <div
+                    style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                    }}
+                >
+                    <img src={props.iconPath} alt={"user icon"} />
+                    <p className={styles.name}>{props.name}</p>
                 </div>
                 {props.verified ? (
                     <img
-                        src={"/verified.svg"}
+                        src={"/verified-badge.svg"}
                         alt={"verified icon"}
                         className={styles.verifiedIcon}
                     />
@@ -73,14 +72,14 @@ export function AddressElements(props: {
                     <></>
                 )}
             </div>
-            <div className={styles.addressMobile}>
+            <div className={styles.address}>
                 <CopyAddress
-                    isOpen={openMobile}
+                    isOpen={open}
                     handleCLose={() => {
-                        setOpenMobile(false);
+                        setOpen(false);
                     }}
                     handleOpen={() => {
-                        setOpenMobile(true);
+                        setOpen(true);
                     }}
                 />
             </div>

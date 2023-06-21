@@ -120,51 +120,122 @@ export function Info(props: {
                     <></>
                 )}
             </div>
-            <div className={styles.contractList}>
-                <div style={{ width: "100%" }}>
+            <div className={styles.eventListBlock}>
                     <div className={styles.ListHeader}>
-                        <p className={styles.ContractHeader}>Code Hash:</p>
-                        <p className={styles.TimeHeader}>Created on:</p>
-                        <p className={styles.EventHeader}>Type:</p>
+                        <p className={styles.EventHeader}>Type</p>
+                        <p className={styles.ContractHeader}>Code Hash</p>
+                        <p className={styles.TimeHeader}>Created on</p>
                     </div>
-                    {events &&
-                        events.map((value, i) => {
-                            let tmp = JSON.parse(value.body);
-                            let eventType = "";
-                            let new_code_hash = "";
-                            if (typeof tmp === "string") {
-                                eventType = tmp;
-                            } else {
-                                eventType = "CodeHash Update";
-                                new_code_hash = tmp.new_code_hash;
-                            }
-                            return (
-                                <div
-                                    className={styles.listRow}
-                                    key={i.toString()}
-                                >
-                                    <p className={styles.contract}>
-                                        {new_code_hash
-                                            ? parseAddress(new_code_hash)
-                                            : parseAddress(props.hash)}
-                                    </p>
-                                    <p className={styles.contractMobile}>
-                                        {new_code_hash
-                                            ? parseAddressPTag(new_code_hash)
-                                            : parseAddressPTag(props.hash)}
-                                    </p>
-                                    <p className={styles.time}>
-                                        {parseDate(value.timestamp)}
-                                    </p>
-                                    <div className={styles.eventWrapper}>
-                                        <p className={styles.event}>
-                                            {eventType}
+                    <div className={styles.eventsList}>
+                        {events &&
+                            events.map((value, i) => {
+                                let tmp = JSON.parse(value.body);
+                                let eventType = "";
+                                let new_code_hash = "";
+                                if (typeof tmp === "string") {
+                                    eventType = tmp;
+                                } else {
+                                    eventType = "CodeHash Update";
+                                    new_code_hash = tmp.new_code_hash;
+                                }
+                                return (
+                                    <div
+                                        className={styles.listRow}
+                                        key={i.toString()}
+                                    >
+                                        <div className={styles.event}>
+                                            <img src={"/green-point.svg"}/>
+                                            <p>{eventType}</p>
+                                        </div>
+                                        <p className={styles.contract}>
+                                            {new_code_hash
+                                                ? parseAddress(new_code_hash)
+                                                : parseAddress(props.hash)}
+                                        </p>
+                                        <p className={styles.contractMobile}>
+                                            {new_code_hash
+                                                ? parseAddressPTag(new_code_hash)
+                                                : parseAddressPTag(props.hash)}
+                                        </p>
+                                        <p className={styles.time}>
+                                            {parseDate(value.timestamp)}
                                         </p>
                                     </div>
-                                </div>
-                            );
-                        })}
-                </div>
+                                );
+                            })}
+                        {events &&
+                            events.map((value, i) => {
+                                let tmp = JSON.parse(value.body);
+                                let eventType = "";
+                                let new_code_hash = "";
+                                if (typeof tmp === "string") {
+                                    eventType = tmp;
+                                } else {
+                                    eventType = "CodeHash Update";
+                                    new_code_hash = tmp.new_code_hash;
+                                }
+                                return (
+                                    <div
+                                        className={styles.listRow}
+                                        key={i.toString()}
+                                    >
+                                        <div className={styles.event}>
+                                            <img src={"/green-point.svg"}/>
+                                            <p>{eventType}</p>
+                                        </div>
+                                        <p className={styles.contract}>
+                                            {new_code_hash
+                                                ? parseAddress(new_code_hash)
+                                                : parseAddress(props.hash)}
+                                        </p>
+                                        <p className={styles.contractMobile}>
+                                            {new_code_hash
+                                                ? parseAddressPTag(new_code_hash)
+                                                : parseAddressPTag(props.hash)}
+                                        </p>
+                                        <p className={styles.time}>
+                                            {parseDate(value.timestamp)}
+                                        </p>
+                                    </div>
+                                );
+                            })}
+                        {events &&
+                            events.map((value, i) => {
+                                let tmp = JSON.parse(value.body);
+                                let eventType = "";
+                                let new_code_hash = "";
+                                if (typeof tmp === "string") {
+                                    eventType = tmp;
+                                } else {
+                                    eventType = "CodeHash Update";
+                                    new_code_hash = tmp.new_code_hash;
+                                }
+                                return (
+                                    <div
+                                        className={styles.listRow}
+                                        key={i.toString()}
+                                    >
+                                        <div className={styles.event}>
+                                            <img src={"/green-point.svg"}/>
+                                            <p>{eventType}</p>
+                                        </div>
+                                        <p className={styles.contract}>
+                                            {new_code_hash
+                                                ? parseAddress(new_code_hash)
+                                                : parseAddress(props.hash)}
+                                        </p>
+                                        <p className={styles.contractMobile}>
+                                            {new_code_hash
+                                                ? parseAddressPTag(new_code_hash)
+                                                : parseAddressPTag(props.hash)}
+                                        </p>
+                                        <p className={styles.time}>
+                                            {parseDate(value.timestamp)}
+                                        </p>
+                                    </div>
+                                );
+                            })}
+                    </div>
             </div>
         </div>
     );

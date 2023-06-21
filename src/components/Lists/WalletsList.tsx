@@ -43,18 +43,18 @@ export function WalletsList(props: {
                             onClickDotsamaWallet(wallet);
                         }}
                     >
+                        <p className={styles.name}>{wallet.extensionName}</p>
                         <img
                             src={wallet.logo?.src}
                             alt={wallet.logo?.alt}
-                            style={{ width: 30, height: 30, marginRight: 10 }}
+                            style={{ width: 30, height: 30 }}
                         />
-                        <p className={styles.name}>{wallet.extensionName}</p>
                     </div>
                 </button>
         );
     };
 
     return (
-        <div style={{width: "100%"}}>{dotsamaWallets.map((wallet) => WalletRow(wallet))}</div>
+        <div className={styles.walletListBlock}>{dotsamaWallets.map((wallet) => WalletRow(wallet))}</div>
     );
 }

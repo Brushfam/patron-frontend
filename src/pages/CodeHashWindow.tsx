@@ -58,8 +58,10 @@ export default function CodeHashWindow() {
         <div className={styles.contractContainer}>
             <ExplorerHeader />
             <div className={styles.mainBlock}>
-                <AddressElements name={"Hash Code"} address={codeHashAddress} verified={true}/>
-                <CodeHashButtons />
+                <div className={styles.addressAndButtons}>
+                    <AddressElements name={"Hash Code"} iconPath={"/code-hash-square.svg"} address={codeHashAddress} verified={true} />
+                    <CodeHashButtons />
+                </div>
                 <CurrentContractWindow />
             </div>
         </div>

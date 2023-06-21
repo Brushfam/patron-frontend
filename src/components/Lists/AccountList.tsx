@@ -12,7 +12,6 @@ const RenderRow = (props: {
     name: string | undefined;
     address: string;
     wallet: Wallet | undefined;
-    isLastElement: boolean;
 }) => {
     const userContext = UseUser();
     const navigate = useNavigate();
@@ -47,7 +46,6 @@ const RenderRow = (props: {
                                 );
                             });
                         })();
-                        navigate("/");
                     }
                 });
             }
@@ -71,12 +69,14 @@ const RenderRow = (props: {
         >
             <div
                 className={styles.row}
-                style={
-                    props.isLastElement ? {} : { borderBottom: "1px solid #ECEDF1" }
-                }
             >
-                <p className={styles.name}>{props.name}</p>
-                <p className={styles.address}>{parseAddress(props.address)}</p>
+                <div className={styles.circle}>
+                    <img src={"/icons/user.svg"}/>
+                </div>
+                <div className={styles.rowInfo}>
+                    <p className={styles.name}>{props.name}</p>
+                    <p className={styles.address}>{parseAddress(props.address)}</p>
+                </div>
             </div>
         </div>
     );
@@ -133,7 +133,7 @@ export function AccountList(props: {
             sx={[
                 {
                     width: "100%",
-                    maxHeight: "206px",
+                    maxHeight: "200px",
                     overflowY: "auto",
                     overflowX: "hidden",
                     borderRadius: "10px",
@@ -144,7 +144,7 @@ export function AccountList(props: {
             ]}
         >
             {
-                <List sx={{ paddingTop: 0, paddingBottom: 0 }}>
+                <div className={styles.accountList}>
                     {accounts.map((account, i) => {
                         return (
                             <RenderRow
@@ -152,11 +152,10 @@ export function AccountList(props: {
                                 address={account.address}
                                 key={i.toString()}
                                 wallet={props.wallet}
-                                isLastElement={accounts.length === i + 1}
                             />
                         );
                     })}
-                </List>
+                </div>
             }
         </Box>
     ) : (

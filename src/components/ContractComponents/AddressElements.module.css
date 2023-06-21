@@ -1,34 +1,26 @@
-.addressElements {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    column-gap: 20px;
-    width: 100%;
-    max-width: 1200px;
-}
 
-.userBlock {
+.addressBlock {
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    padding: 14px;
-    width: 60px;
-    height: 60px;
+    flex-direction: column;
+    width: 655px;
+    height: auto;
+    padding: 30px;
+    row-gap: 14px;
     background: #21282F;
     border: 1px solid #49525A;
-    box-shadow: 0 10px 80px -10px rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
+    border-radius: 20px;
 }
 
-.userBlock img {
-    width: 30px;
-    height: 30px;
+.addressBlockInfo {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .name {
-    font-weight: 700;
+    font-weight: 600;
     font-size: 30px;
+    margin-left: 10px;
 }
 
 .copyButton {
@@ -41,7 +33,7 @@
     font-weight: 400;
     line-height: 120%;
     color: #ECEDF1;
-    height: 36px;
+    height: 26px;
 }
 
 .copyButton:hover {
@@ -53,40 +45,27 @@
     width: 19px;
 }
 
-.addressDesktop {
+.address {
     display: block;
 }
 
-.addressMobile {
-    margin-top: 10px;
-    display: none;
-}
-
 .addressText {
-    font-size: 30px;
+    font-size: 24px;
 }
 
 .verifiedIcon {
 
 }
 
-@media (max-width: 860px) {
-    .addressMobile {
-        display: block;
-    }
-
-    .addressDesktop {
-        display: none;
-    }
-
-    .addressText {
-        font-size: 26px;
+@media (max-width: 920px) {
+    .addressBlock {
+        width: 100%;
     }
 }
 
 @media (max-width: 460px) {
     .addressText {
-        font-size: 14px;
+        font-size: 18px;
     }
 
     .copyIcon {
@@ -98,22 +77,12 @@
         font-size: 20px;
     }
 
-    .userBlock {
-        width: 40px;
-        height: 40px;
-        padding: 8px;
-    }
-
-    .userBlock img {
-        width: 22px
-    }
-
-    .addressElements {
-        column-gap: 10px;
+    .addressBlock {
+        padding: 20px;
     }
 
     .verifiedIcon {
-        width: 86px;
+        width: 107px;
     }
 }
 

@@ -103,12 +103,15 @@ export default function ContractWindow() {
         <div className={styles.contractContainer}>
             <ExplorerHeader />
             <div className={styles.mainBlock}>
-                <AddressElements
-                    name={"Contract"}
-                    address={contractAddress}
-                    verified={verified}
-                />
-                <ContractButtons isVerified={verified} />
+                <div className={styles.addressAndButtons}>
+                    <AddressElements
+                        name={"Contract"}
+                        iconPath={"/contract-square.svg"}
+                        address={contractAddress}
+                        verified={verified}
+                    />
+                    <ContractButtons isVerified={verified} />
+                </div>
                 <CurrentContractWindow />
             </div>
         </div>

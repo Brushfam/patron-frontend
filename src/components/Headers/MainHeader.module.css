@@ -6,7 +6,7 @@
     display: none;
 }
 
-@media (max-width: 860px) {
+@media (max-width: 940px) {
     .mobile {
         display: block;
         width: 83.3%;

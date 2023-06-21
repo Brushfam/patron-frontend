@@ -63,7 +63,7 @@ export function HeaderSearchBar(props: {elementId : string, barWidth?: string}) 
         <div className={styles.inputWrapper} style={props.barWidth ? {width: props.barWidth} : {}}>
             <input
                 id={props.elementId}
-                placeholder={ searchFailed ? "This code hash was not verified yet" : "Search Contracts, Code hashes"}
+                placeholder={ searchFailed ? "This code hash was not verified yet" : "Search Contract or Hash Code"}
                 className={
                     searchFailed ? styles.inputSearchError : styles.inputSearch
                 }
@@ -76,7 +76,7 @@ export function HeaderSearchBar(props: {elementId : string, barWidth?: string}) 
                 onKeyDown={(e) => {handleKeyDown(e)}}
             />
                 <img
-                    src={"/icons/search.svg"}
+                    src={"/icons/search-header.svg"}
                     className={styles.searchIcon}
                     alt={"search icon"}
                 />

@@ -14,7 +14,9 @@ export function CodeHashButtons() {
                         : { backgroundColor: "#49525A" }
                 }
                 onClick={() => {codeHashContext.changePage([true, false])}}
-            >Build log</button>
+            >
+                <img src={"/icons/buttons/gear.svg"}/>
+                Build log</button>
             <button
                 className={styles.code}
                 style={
@@ -23,7 +25,9 @@ export function CodeHashButtons() {
                         : { backgroundColor: "#49525A" }
                 }
                 onClick={() => {codeHashContext.changePage([false, true])}}
-            >Code</button>
+            >
+                <img src={"/icons/buttons/code.svg"}/>
+                Code</button>
         </div>
     );
 }
