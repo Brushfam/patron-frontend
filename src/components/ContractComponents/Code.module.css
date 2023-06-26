@@ -1,6 +1,7 @@
 .codeWrapper {
+    position: relative;
     width: 100%;
-    padding: 30px 30px 0 30px;
+    padding: 84px 30px 0 30px;
     max-width: 1200px;
     margin-bottom: 80px;
     background: #21282F;
@@ -45,12 +46,69 @@
     font-style: normal;
     font-size: 12px;
     line-height: 140%;
-    color: #FFFFFF;
+    color: #ECEDF1;
 }
+
+.fileListButton, .oneFileButton {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    column-gap: 16px;
+    left: 30px;
+    top: 30px;
+    width: auto;
+    height: 34px;
+    padding: 10px 20px;
+    border-radius: 17px;
+    background: #49525A;
+    border: 0;
+}
+
+.oneFileButton {
+
+}
+
+.fileListButton p, .oneFileButton p, .fileRow, .currentFileRow p {
+    font-family: 'Space Mono', monospace;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 100%;
+    color: #ECEDF1;
+}
+
+.fileList {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    overflow: hidden;
+    left: 30px;
+    top: 30px;
+    width: auto;
+    border-radius: 17px;
+    background: #49525A;
+}
+
+.currentFileRow {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    column-gap: 16px;
+}
+
+.fileRow, .currentFileRow {
+    padding: 10px 20px;
+}
+
+.fileRow:hover, .currentFileRow:hover {
+    background: rgba(236, 237, 241, 0.20);
+    cursor: pointer;
+}
+
 
 @media (max-width: 500px) {
     .codeWrapper {
-        padding: 20px 20px 0 20px;
+        padding: 74px 20px 0 20px;
     }
 
     .code {
@@ -61,5 +119,12 @@
         width: 0;
         height: 0;
         background: transparent;
+    }
+}
+
+@media (max-width: 500px) {
+    .fileListButton, .oneFileButton, .fileList {
+        top: 20px;
+        left: 20px;
     }
 }

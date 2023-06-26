@@ -100,7 +100,7 @@ export function SearchBlock() {
                     alt={"search icon"}
                 />
                 <button type={"button"} className={styles.searchButton} onClick={()  => {handleSearch()}}>
-                    <img src={"icons/search-arrow.svg"} className={styles.searchButtonIcon}/>
+                    <img src={"icons/search-arrow.svg"} className={styles.searchButtonIcon} alt={"search arrow"}/>
                 </button>
             </div>
             <SearchExamples setSearchText={setSearchText}/>

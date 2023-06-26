@@ -17,7 +17,7 @@ export function LoginModal(props: {
         if (userContext.currentUser) {
             props.setModal(false);
         }
-    }, [userContext.currentUser]);
+    }, [userContext.currentUser, props]);
 
     if (!props.isOpen) {
         return <></>;

@@ -4,7 +4,6 @@ import {
     getWallets,
 } from "@subwallet/wallet-connect/dotsama/wallets";
 import { Wallet } from "@subwallet/wallet-connect/types";
-import ListItemButton from "@mui/material/ListItemButton";
 import styles from './WalletsList.module.css'
 import { walletLinkData } from "../../data/walletLinksData";
 
@@ -31,7 +30,7 @@ export function WalletsList(props: {
                 })
             }
         },
-        []
+        [props]
     );
 
     const WalletRow = (wallet: Wallet) => {

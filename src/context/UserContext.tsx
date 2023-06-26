@@ -1,4 +1,4 @@
-import {createContext, ReactNode, useContext, useEffect, useState} from "react";
+import {createContext, ReactNode, useContext, useState} from "react";
 import {Wallet} from "@subwallet/wallet-connect/types";
 import {getWalletBySource} from "@subwallet/wallet-connect/dotsama/wallets";
 import {useLocalStorage} from "../local-storage/LocalStorage";

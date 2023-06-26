@@ -77,7 +77,7 @@ export default function ContractWindow() {
                 }
             });
         });
-    }, [params.id, codeSourceId, contractHash]);
+    }, [params.id, codeSourceId, contractHash, navigate]);
 
     const CurrentContractWindow = () => {
         const [logHash, source] = verified

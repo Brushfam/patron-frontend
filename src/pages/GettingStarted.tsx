@@ -1,7 +1,6 @@
 import styles from "./GettingStarted.module.css";
 import { UseUser } from "../context/UserContext";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { GettingStartedHeader } from "../components/Headers/GettingStartedHeader";
 import { MainHeaderLogged } from "../components/Headers/MainHeader";
 import { LoginModal } from "../modal/LoginModal";

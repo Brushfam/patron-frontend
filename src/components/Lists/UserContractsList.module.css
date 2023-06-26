@@ -49,7 +49,7 @@
 }
 
 .noDataText {
-    margin: 30px;
+    margin: 20px;
     font-weight: 500;
 }
 
@@ -95,7 +95,7 @@
         margin-left: 20px;
     }
 
-    .listColumnHeader {
+    .listColumnHeader, .codeHash p {
         width: 136px;
     }
 }

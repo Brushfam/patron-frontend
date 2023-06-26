@@ -1,66 +1,63 @@
-import { UseUser } from "../../context/UserContext";
-import Box from "@mui/material/Box";
-import { List } from "@mui/material";
-import React, { useCallback, useEffect, useState } from "react";
-import styles from "./AccountList.module.css";
-import { useNavigate } from "react-router-dom";
-import { LoginPOST } from "../../api/LoginApi";
-import { parseAddress } from "../../helpers/helpers";
-import { Wallet, WalletAccount } from "@subwallet/wallet-connect/types";
+import { UseUser } from "../../context/UserContext"
+import Box from "@mui/material/Box"
+import React, { useCallback, useEffect, useState } from "react"
+import styles from "./AccountList.module.css"
+import { LoginPOST } from "../../api/LoginApi"
+import { parseAddress } from "../../helpers/helpers"
+import { Wallet, WalletAccount } from "@subwallet/wallet-connect/types"
 
 const RenderRow = (props: {
-    name: string | undefined;
-    address: string;
-    wallet: Wallet | undefined;
+    name: string | undefined
+    address: string
+    wallet: Wallet | undefined
 }) => {
-    const userContext = UseUser();
-    const navigate = useNavigate();
+    const userContext = UseUser()
 
     const signMessage = useCallback(
         (address: string) => {
-            const signer = props.wallet?.signer;
+            const signer = props.wallet?.signer
 
             if (signer && signer.signRaw) {
                 const signPromise = signer.signRaw({
                     address,
                     data: address,
                     type: "bytes",
-                });
+                })
 
                 signPromise.then((response: any) => {
                     if (response.signature.match("0x[0-9a-fA-F]+")) {
-                        (async () => {
+                        ;(async () => {
                             let params = new URL(window.location.href)
-                                .searchParams;
-                            let cli_token = params.get("cli_token");
+                                .searchParams
+                            let cli_token = params.get("cli_token")
 
                             let tokenPromise = LoginPOST(
                                 address,
                                 response.signature,
                                 cli_token
-                            );
+                            )
                             tokenPromise.then((bearerToken) => {
                                 userContext.login(
                                     address,
                                     bearerToken.token.toString()
-                                );
-                            });
-                        })();
+                                )
+                            })
+                        })()
                     }
-                });
+                })
             }
         },
-        [navigate, userContext]
-    );
+        [userContext]
+    )
 
     const accountClicked = useCallback(
         (address: string) => {
             return () => {
-                signMessage(address);
-            };
+                signMessage(address)
+            }
         },
         [signMessage]
-    );
+    )
 
     return (
         <div
@@ -69,7 +66,7 @@ const RenderRow = (props: {
         >
             <div className={styles.row}>
                 <div className={styles.circle}>
-                    <img src={"/icons/user.svg"} />
+                    <img src={"/icons/user.svg"} alt={"account icon"} />
                 </div>
                 <div className={styles.rowInfo}>
                     <p className={styles.name}>{props.name}</p>
@@ -79,19 +76,19 @@ const RenderRow = (props: {
                 </div>
             </div>
         </div>
-    );
-};
+    )
+}
 
 function NoAccountComponent(props: {
-    previousStep: React.Dispatch<React.SetStateAction<boolean>>;
+    previousStep: React.Dispatch<React.SetStateAction<boolean>>
 }) {
-    const [show, setShow] = useState(false);
+    const [show, setShow] = useState(false)
 
     useEffect(() => {
         setTimeout(() => {
-            setShow(true);
-        }, 200);
-    }, [show]);
+            setShow(true)
+        }, 200)
+    }, [show])
 
     return show ? (
         <div className={styles.noAccountDiv}>
@@ -100,7 +97,7 @@ function NoAccountComponent(props: {
                 type={"button"}
                 className={styles.chooseWalletButton}
                 onClick={() => {
-                    props.previousStep(true);
+                    props.previousStep(true)
                 }}
             >
                 Choose another wallet
@@ -108,25 +105,25 @@ function NoAccountComponent(props: {
         </div>
     ) : (
         <></>
-    );
+    )
 }
 
 export function AccountList(props: {
-    wallet: Wallet | undefined;
-    previousStep: React.Dispatch<React.SetStateAction<boolean>>;
+    wallet: Wallet | undefined
+    previousStep: React.Dispatch<React.SetStateAction<boolean>>
 }) {
-    const [accounts, setAccounts] = useState<WalletAccount[]>([]);
+    const [accounts, setAccounts] = useState<WalletAccount[]>([])
 
     useEffect(() => {
         if (props.wallet) {
-            (async () => {
-                const userAccounts = await props.wallet?.getAccounts();
+            ;(async () => {
+                const userAccounts = await props.wallet?.getAccounts()
                 setTimeout(() => {
-                    userAccounts && setAccounts(userAccounts);
-                }, 150);
-            })();
+                    userAccounts && setAccounts(userAccounts)
+                }, 150)
+            })()
         }
-    }, [accounts]);
+    }, [accounts])
 
     return accounts.length ? (
         <Box
@@ -153,12 +150,12 @@ export function AccountList(props: {
                                 key={i.toString()}
                                 wallet={props.wallet}
                             />
-                        );
+                        )
                     })}
                 </div>
             }
         </Box>
     ) : (
         <NoAccountComponent previousStep={props.previousStep} />
-    );
+    )
 }

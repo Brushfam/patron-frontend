@@ -10,6 +10,7 @@ import {ContractProviderLayout} from "./layouts/ContractProviderLayout";
 import {CodeHashProviderLayout} from "./layouts/CodeHashProviderLayout";
 import CodeHashWindow from "./pages/CodeHashWindow";
 import { GettingStarted } from "./pages/GettingStarted";
+import Login from "./pages/Login";
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
               <Route element={<CodeHashProviderLayout/>}>
                   <Route path={"/codeHash/:id"} element={<CodeHashWindow />}></Route>
               </Route>
+              <Route path={"/login"} element={<Login/>}></Route>
               <Route path={"*"} element={<Navigate to={'/'}/>}></Route>
           </Routes>
       </UserProvider>
