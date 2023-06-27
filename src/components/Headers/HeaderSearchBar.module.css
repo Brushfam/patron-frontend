@@ -10,7 +10,7 @@
     z-index: 10;
 }
 
-.inputSearch, .inputSearchError {
+.searchInput, .searchInputError {
     width: 100%;
     height: 40px;
     background: #ECEDF1;
@@ -26,16 +26,16 @@
     color: black;
 }
 
-.inputSearch::placeholder, .inputSearchError::placeholder {
+.searchInput::placeholder, .searchInputError::placeholder {
     font-weight: 400;
     font-size: 14px;
     line-height: 120%;
 }
 
-.inputSearch::placeholder {
+.searchInput::placeholder {
     color: #49525A;
 }
 
-.inputSearchError::placeholder {
+.searchInputError::placeholder {
     color: #FF0C0C;
 }

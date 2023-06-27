@@ -1,0 +1,37 @@
+.searchBlock {
+    border-bottom: 1px solid #49525A;
+    padding: 20px 0;
+}
+
+.inputWrapper {
+    position: relative;
+}
+
+.searchInput {
+    width: 100%;
+    height: 40px;
+    padding: 12px 12px 12px 38px;
+    border-radius: 20px;
+    background: #ECEDF1;
+    border: 1px solid #49525A;
+    outline-style: none;
+
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.searchInput::placeholder {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 120%;
+}
+
+.searchIcon {
+    position: absolute;
+    left: 11px;
+    top: 11px;
+    z-index: 10;
+}

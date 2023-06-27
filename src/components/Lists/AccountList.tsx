@@ -3,10 +3,11 @@ import Box from "@mui/material/Box"
 import React, { useCallback, useEffect, useState } from "react"
 import styles from "./AccountList.module.css"
 import { LoginPOST } from "../../api/LoginApi"
-import { parseAddress } from "../../helpers/helpers"
+import { parseAddress, textContainString } from "../../helpers/helpers";
 import { Wallet, WalletAccount } from "@subwallet/wallet-connect/types"
+import { AccountSearch } from "../AccountSearch";
 
-const RenderRow = (props: {
+const AccountRow = (props: {
     name: string | undefined
     address: string
     wallet: Wallet | undefined
@@ -79,6 +80,7 @@ const RenderRow = (props: {
     )
 }
 
+
 function NoAccountComponent(props: {
     previousStep: React.Dispatch<React.SetStateAction<boolean>>
 }) {
@@ -108,11 +110,13 @@ function NoAccountComponent(props: {
     )
 }
 
+
 export function AccountList(props: {
     wallet: Wallet | undefined
     previousStep: React.Dispatch<React.SetStateAction<boolean>>
 }) {
     const [accounts, setAccounts] = useState<WalletAccount[]>([])
+    const [searchText, setSearchText] = useState("")
 
     useEffect(() => {
         if (props.wallet) {
@@ -126,35 +130,40 @@ export function AccountList(props: {
     }, [accounts])
 
     return accounts.length ? (
-        <Box
-            sx={[
+        <div>
+            <AccountSearch setSearchText={setSearchText}/>
+            <Box
+                sx={[
+                    {
+                        width: "100%",
+                        maxHeight: "200px",
+                        overflowY: "auto",
+                        overflowX: "hidden",
+                        borderRadius: "10px",
+                        marginTop: "10px",
+                        "scrollbar-width": "none",
+                    },
+                    { "&::-webkit-scrollbar": { display: "none" } },
+                ]}
+            >
                 {
-                    width: "100%",
-                    maxHeight: "200px",
-                    overflowY: "auto",
-                    overflowX: "hidden",
-                    borderRadius: "10px",
-                    marginTop: "10px",
-                    "scrollbar-width": "none",
-                },
-                { "&::-webkit-scrollbar": { display: "none" } },
-            ]}
-        >
-            {
-                <div className={styles.accountList}>
-                    {accounts.map((account, i) => {
-                        return (
-                            <RenderRow
-                                name={account.name}
-                                address={account.address}
-                                key={i.toString()}
-                                wallet={props.wallet}
-                            />
-                        )
-                    })}
-                </div>
-            }
-        </Box>
+                    <div className={styles.accountList}>
+                        {accounts.map((account, i) => {
+                            if (textContainString(account.name, searchText)) {
+                                return (
+                                    <AccountRow
+                                        name={account.name}
+                                        address={account.address}
+                                        key={i.toString()}
+                                        wallet={props.wallet}
+                                    />
+                                )
+                            } else return <></>
+                        })}
+                    </div>
+                }
+            </Box>
+        </div>
     ) : (
         <NoAccountComponent previousStep={props.previousStep} />
     )
