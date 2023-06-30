@@ -45,7 +45,7 @@ export function UserContractsList() {
                     })
                 ) : (
                     <p className={styles.noDataText}>
-                        no build sessions was found
+                        No build sessions was found
                     </p>
                 )}
             </div>

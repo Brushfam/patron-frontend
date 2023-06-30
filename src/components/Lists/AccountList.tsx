@@ -81,9 +81,7 @@ const AccountRow = (props: {
 }
 
 
-function NoAccountComponent(props: {
-    previousStep: React.Dispatch<React.SetStateAction<boolean>>
-}) {
+function NoAccountComponent() {
     const [show, setShow] = useState(false)
 
     useEffect(() => {
@@ -95,15 +93,6 @@ function NoAccountComponent(props: {
     return show ? (
         <div className={styles.noAccountDiv}>
             <p className={styles.noAccountText}>No account found</p>
-            <button
-                type={"button"}
-                className={styles.chooseWalletButton}
-                onClick={() => {
-                    props.previousStep(true)
-                }}
-            >
-                Choose another wallet
-            </button>
         </div>
     ) : (
         <></>
@@ -140,7 +129,7 @@ export function AccountList(props: {
                         overflowY: "auto",
                         overflowX: "hidden",
                         borderRadius: "10px",
-                        marginTop: "10px",
+                        marginTop: "20px",
                         "scrollbar-width": "none",
                     },
                     { "&::-webkit-scrollbar": { display: "none" } },
@@ -165,6 +154,6 @@ export function AccountList(props: {
             </Box>
         </div>
     ) : (
-        <NoAccountComponent previousStep={props.previousStep} />
+        <NoAccountComponent />
     )
 }
