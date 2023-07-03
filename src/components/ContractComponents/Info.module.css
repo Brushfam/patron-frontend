@@ -17,7 +17,7 @@
     row-gap: 16px;
     border: 1px solid #49525A;
     box-shadow: 0px 10px 80px -10px rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
+    border-radius: 20px;
 }
 
 .infoRow {
@@ -68,33 +68,34 @@
     filter: opacity(0.4);
 }
 
+
+.ListHeader {
+    position: relative;
+    width: 100%;
+    height: auto;
+    background: #21282F;
+    border: 1px solid #49525A;
+    box-shadow: 0px 10px 80px -10px rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: row;
+    padding: 30px;
+}
+
 .eventListBlock {
+    display: flex;
     position: relative;
     width: 100%;
     height: 300px;
     margin-bottom: 56px;
-    padding: 0 10px;
+    padding: 10px;
+    margin-top: -1px;
 
     background: #21282F;
     border: 1px solid #49525A;
     box-shadow: 0px 10px 80px -10px rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
-    overflow: auto;
-}
-
-.eventListBlock::-webkit-scrollbar {
-    width: 0;
-    background: transparent;
-}
-
-.ListHeader {
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    display: flex;
-    flex-direction: row;
-    background: #21282F;
-    padding: 30px 0 20px 20px;
+    border-radius: 20px;
+    overflow: hidden;
 }
 
 .eventsList {
@@ -103,8 +104,28 @@
     display: flex;
     flex-direction: column;
     row-gap: 10px;
-    overflow-x: hidden;
-    overflow-y: auto;
+    padding-right: 10px;
+    overflow: auto;
+}
+
+.eventsList::-webkit-scrollbar {
+    width: auto;
+}
+
+.eventsList::-webkit-scrollbar-track {
+    width: 2px;
+    background-color: #49525A;
+    border: 6px solid transparent;
+    background-clip: content-box;
+}
+
+.eventsList::-webkit-scrollbar-thumb {
+    background-color: #B0B7BF;
+    height: 125px;
+    width: 6px;
+    border: 4px solid transparent;
+    border-radius: 9px;
+    background-clip: content-box;
 }
 
 .listRow {
@@ -114,7 +135,7 @@
     align-items: center;
     background: #29323B;
     border-radius: 10px;
-    padding: 20px 30px;
+    padding: 20px;
 }
 
 .listColumnHeader {
@@ -135,12 +156,12 @@
 
 .ContractHeader {
     position: absolute;
-    left: 271px;
+    left: 281px;
 }
 
 .TimeHeader {
     position: absolute;
-    left: 541px;
+    left: 551px;
 }
 
 .EventHeader {
@@ -180,6 +201,15 @@
     font-size: 14px;
     line-height: 120%;
     color: #ECEDF1;
+}
+
+.noDataText {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    font-weight: 600;
+    font-size: 24px;
 }
 
 @media (max-width: 980px) {
@@ -222,22 +252,13 @@
     }
 }
 
-@media (max-width: 460px) {
+@media (max-width: 700px) {
     .ContractHeader, .TimeHeader, .EventHeader {
         font-size: 14px;
     }
 
-    .TimeHeader, .time {
-        width: 74px;
-    }
-
     .time {
         font-size: 12px;
-    }
-
-    .eventWrapper, .EventHeader {
-        /*position: absolute;*/
-        /*left: 60%;*/
     }
 
     .infoBlock {
@@ -245,11 +266,11 @@
     }
 
     .ListHeader {
-        padding: 20px 20px 10px 20px;
+        padding: 20px;
     }
 
     .listRow {
-        padding: 10px 20px;
+        padding: 10px;
     }
 
     .contractMobile {
@@ -262,5 +283,18 @@
 
     .event p {
         font-size: 12px;
+    }
+
+    .eventsList::-webkit-scrollbar {
+        width: 0;
+        background: transparent;
+    }
+
+    .eventsList {
+        padding-right: 0;
+    }
+
+    .noDataText {
+        font-size: 16px;
     }
 }

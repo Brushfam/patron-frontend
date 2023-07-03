@@ -1,29 +1,27 @@
-import styles from "./UserContractsList.module.css";
-import { UseUser } from "../../context/UserContext";
-import { useEffect, useState } from "react";
-import { buildSessionsGET } from "../../api/BuildSessionsApi";
-import { parseCodeHash, parseDate } from "../../helpers/helpers";
-import { Link } from "react-router-dom";
+import styles from "./UserContractsList.module.css"
+import { UseUser } from "../../context/UserContext"
+import { useEffect, useState } from "react"
+import { buildSessionsGET } from "../../api/BuildSessionsApi"
+import { parseCodeHash, parseDate } from "../../helpers/helpers"
+import { Link } from "react-router-dom"
 
 export function UserContractsList() {
-    const userContext = UseUser();
-    const [sessionData, setSessionData] = useState<any[]>([]);
+    const userContext = UseUser()
+    const [sessionData, setSessionData] = useState<any[]>([])
 
     useEffect(() => {
         buildSessionsGET(userContext.bearerToken).then((sessions) => {
-            setSessionData(sessions);
-        });
-    }, [userContext.bearerToken]);
+            setSessionData(sessions)
+        })
+    }, [userContext.bearerToken])
 
     const BuildSessionList = () => {
         return (
-            <div
-                style={{ display: "flex", flexDirection: "column", rowGap: 10 }}
-            >
+            <div className={styles.userContractsList}>
                 {sessionData.length ? (
                     sessionData.map((data) => {
                         if (data.status === "failed" || data.status === "new") {
-                            return <></>;
+                            return <></>
                         }
 
                         return (
@@ -41,7 +39,7 @@ export function UserContractsList() {
                                     {parseDate(data.timestamp)}
                                 </p>
                             </div>
-                        );
+                        )
                     })
                 ) : (
                     <p className={styles.noDataText}>
@@ -49,18 +47,18 @@ export function UserContractsList() {
                     </p>
                 )}
             </div>
-        );
-    };
+        )
+    }
 
     return (
-        <div className={styles.userContractsList}>
-            <div style={{ width: "100%" }}>
-                <div className={styles.ListHeader}>
-                    <p className={styles.listColumnHeader}>Code Hash</p>
-                    <p className={styles.listColumnHeaderTime}>Created on</p>
-                </div>
+        <>
+            <div className={styles.ListHeader}>
+                <p className={styles.listColumnHeaderHash}>Code Hash</p>
+                <p className={styles.listColumnHeaderTime}>Created on</p>
+            </div>
+            <div className={styles.userContractsListWrapper}>
                 <BuildSessionList />
             </div>
-        </div>
-    );
+        </>
+    )
 }

@@ -28,6 +28,7 @@ export function AddressElements(props: {
                 open={copyProps.isOpen}
                 disableTouchListener
                 title="Copied!"
+                placement="right-end"
             >
                 <button
                     className={styles.copyButton}
@@ -40,7 +41,7 @@ export function AddressElements(props: {
                         {parseAddress(props.address)}
                     </p>
                     <img
-                        src={"/icons/copy-user.svg"}
+                        src={"/icons/copy.svg"}
                         className={styles.copyIcon}
                         alt={"copy icon"}
                     />
@@ -50,7 +51,7 @@ export function AddressElements(props: {
     };
 
     return (
-        <div className={styles.addressBlock}>
+        <div className={styles.addressBlock} style={props.name === "Address" ? {width: "100%"} : {}}>
             <div className={styles.addressBlockInfo}>
                 <div
                     style={{

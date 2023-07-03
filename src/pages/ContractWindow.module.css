@@ -34,9 +34,7 @@
     .addressAndButtons {
         flex-direction: column;
     }
-}
 
-@media (max-width: 900px) {
     .mainBlock {
         padding-top: 146px;
     }
