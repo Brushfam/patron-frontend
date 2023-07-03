@@ -1,6 +1,5 @@
 import React from "react";
 import { BaseHeader } from "../components/Headers/BaseHeader";
-import { Footer } from "../components/Footer";
 import "./LoginLayout.css";
 
 export const LoginLayout = (props: {

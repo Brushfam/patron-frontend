@@ -53,7 +53,7 @@ export function AddressElements(props: {
         <div style={{ marginBottom: 40, width: "100%" }}>
             <div className={styles.addressElements}>
                 <div className={styles.userBlock}>
-                    <img src={props.name == "Address" ? "/icons/user.svg" : "/icons/contract-icon.svg"} alt={"user icon"} />
+                    <img src={props.name === "Address" ? "/icons/user.svg" : "/icons/contract-icon.svg"} alt={"user icon"} />
                 </div>
                 <p className={styles.name}>{props.name}</p>
                 <div className={styles.addressDesktop}>

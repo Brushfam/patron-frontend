@@ -43,7 +43,7 @@ export default function CodeHashWindow() {
             }
         })
 
-    }, [params.id]);
+    }, [params.id, navigate]);
 
     const CurrentContractWindow = () => {
         if (ContractContext.pages[0]) {

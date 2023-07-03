@@ -52,7 +52,7 @@ export function Info(props: {
             let parsedJson = JSON.parse(data);
             setEvents(parsedJson);
         });
-    }, []);
+    }, [props.address]);
 
     return (
         <div className={styles.info}>

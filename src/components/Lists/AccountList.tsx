@@ -52,7 +52,7 @@ const RenderRow = (props: {
                 });
             }
         },
-        [navigate, userContext]
+        [navigate, userContext, props.wallet?.signer]
     );
 
     const accountClicked = useCallback(
@@ -126,7 +126,7 @@ export function AccountList(props: {
                 }, 150);
             })();
         }
-    }, [accounts]);
+    }, [accounts, props.wallet]);
 
     return accounts.length ? (
         <Box
