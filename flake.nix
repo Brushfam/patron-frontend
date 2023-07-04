@@ -12,15 +12,17 @@
         inherit system;
       };
     in {
+      formatter = pkgs.alejandra;
       packages.default = pkgs.buildNpmPackage {
         pname = "patron-ui";
         version = "0.1.0";
         src = ./.;
 
         npmDepsHash = "sha256-76hd+8m6FHK3jAeXXJqihG6NnAI+03vyoPf6g+iul6g=";
+        REACT_APP_SERVER_URL = "https://api.patron.works";
 
         installPhase = ''
-            cp -r build $out
+          cp -r build $out
         '';
       };
     });
