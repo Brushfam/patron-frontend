@@ -48,8 +48,8 @@ const AccountRow = (props: {
                 })
             }
         },
-        [userContext]
-    )
+        [navigate, userContext, props.wallet?.signer]
+    );
 
     const accountClicked = useCallback(
         (address: string) => {
@@ -116,7 +116,7 @@ export function AccountList(props: {
                 }, 150)
             })()
         }
-    }, [accounts])
+    }, [accounts, props.wallet]);
 
     return accounts.length ? (
         <div>

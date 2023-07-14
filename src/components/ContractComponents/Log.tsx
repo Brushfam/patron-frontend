@@ -28,7 +28,7 @@ export function Log(props: {hash: string}) {
                 setCodeHashLogs([""])
             }
         })
-    }, [])
+    }, [props.hash])
 
 
     return (
