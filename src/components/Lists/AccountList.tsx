@@ -48,7 +48,7 @@ const AccountRow = (props: {
                 })
             }
         },
-        [navigate, userContext, props.wallet?.signer]
+        [userContext, props.wallet?.signer]
     );
 
     const accountClicked = useCallback(

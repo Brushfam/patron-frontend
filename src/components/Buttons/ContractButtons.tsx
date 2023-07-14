@@ -15,7 +15,7 @@ export function ContractButtons(props: {isVerified: boolean}) {
                 }
                 onClick={() => {ContractContext.changePage([true, false, false])}}
             >
-                <img src={"/icons/buttons/info.svg"}/>
+                <img src={"/icons/buttons/info.svg"} alt={"info button"}/>
                 Info</button>
             {
                 props.isVerified ? <button
@@ -27,7 +27,7 @@ export function ContractButtons(props: {isVerified: boolean}) {
                     }
                     onClick={() => {ContractContext.changePage([false, true, false])}}
                 >
-                    <img src={"/icons/buttons/logs.svg"}/>
+                    <img src={"/icons/buttons/logs.svg"} alt={"logs button"}/>
                     Build log</button> : <></>
             }
             {
@@ -40,7 +40,7 @@ export function ContractButtons(props: {isVerified: boolean}) {
                     }
                     onClick={() => {ContractContext.changePage([false, false, true])}}
                 >
-                    <img src={"/icons/buttons/code.svg"}/>
+                    <img src={"/icons/buttons/code.svg"} alt={"code button"}/>
                     Code</button> : <></>
             }
         </div>

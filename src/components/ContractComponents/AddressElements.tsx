@@ -2,7 +2,7 @@ import styles from "./AddressElements.module.css";
 import { parseAddress } from "../../helpers/helpers";
 import Tooltip from "@mui/material/Tooltip";
 import { useState } from "react";
-import { Fade, Zoom } from "@mui/material";
+import { Fade } from "@mui/material";
 
 export function AddressElements(props: {
     name: string;

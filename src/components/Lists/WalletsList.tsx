@@ -23,7 +23,7 @@ export function WalletsList(props: {
                     props.setNextStep(false);
                 }, 200)
             } else {
-                walletLinkData.map((dotWallet) => {
+                walletLinkData.forEach((dotWallet) => {
                     if (wallet.extensionName === dotWallet.name) {
                         window.open(dotWallet.link, '_blank', 'noreferrer')
                     }

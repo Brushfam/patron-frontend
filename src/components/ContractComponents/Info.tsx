@@ -53,7 +53,7 @@ export function Info(props: {
             let parsedJson = JSON.parse(data)
             setEvents(parsedJson)
         })
-    }, [])
+    }, [props.address])
 
     return (
         <div className={styles.info}>
@@ -153,7 +153,7 @@ export function Info(props: {
                                     key={i.toString()}
                                 >
                                     <div className={styles.event}>
-                                        <img src={"/green-point.svg"} />
+                                        <img src={"/green-point.svg"} alt={"green point"}/>
                                         <p>{eventType}</p>
                                     </div>
                                     <p className={styles.contract}>

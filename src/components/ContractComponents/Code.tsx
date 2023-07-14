@@ -1,5 +1,5 @@
 import styles from "./Code.module.css"
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react";
 import { fileGET, fileListGET } from "../../api/FilesApi"
 
 export function Code(props: { source_id: number }) {
@@ -8,13 +8,13 @@ export function Code(props: { source_id: number }) {
     const [currentFile, setCurrentFile] = useState("")
     const [fileListOpen, setFileListOpen] = useState(false)
 
-    function chooseFile(fileNumber: number) {
+    const chooseFile = useCallback((fileNumber: number) => {
         let filePromise = fileGET(props.source_id, fileNumber)
         filePromise.then((data) => {
             let parsedText = data.text.replaceAll("\n\n", "\n \n")
             setCurrentCode(parsedText.split("\n"))
         })
-    }
+    }, [props.source_id])
 
     useEffect(() => {
         let fileListPromise = fileListGET(props.source_id)
@@ -26,7 +26,7 @@ export function Code(props: { source_id: number }) {
         })
 
         chooseFile(0)
-    }, [props.source_id])
+    }, [props.source_id, chooseFile])
 
     function FileListButton() {
         if (fileList.length > 1) {
