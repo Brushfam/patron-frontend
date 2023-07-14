@@ -16,7 +16,7 @@ export function Footer() {
                 </div>
                 <div className={"footerContactsBlock"}>
                     <Link to={"https://github.com/Brushfam/patron-backend/issues"} target={"_blank"} >
-                        <img src={"/icons/our-contacts.svg"} alt={"our contact icon"}/>
+                        <img src={"/icons/buttons/our-contacts.svg"} alt={"our contact icon"}/>
                         <p style={{marginLeft: 12}}>Our Contacts</p>
                     </Link>
                 </div>

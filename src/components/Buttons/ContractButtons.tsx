@@ -27,7 +27,7 @@ export function ContractButtons(props: {isVerified: boolean}) {
                     }
                     onClick={() => {ContractContext.changePage([false, true, false])}}
                 >
-                    <img src={"/icons/buttons/gear.svg"}/>
+                    <img src={"/icons/buttons/logs.svg"}/>
                     Build log</button> : <></>
             }
             {

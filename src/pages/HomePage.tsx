@@ -41,7 +41,7 @@ export default function HomePage() {
             )}
             <div className={styles.mainDiv}>
                 <img
-                    src={"patron-main-logo.svg"}
+                    src={"/logos/patron-main-logo.svg"}
                     alt={"Patron logo"}
                     className={styles.mainLogo}
                 />
@@ -53,7 +53,7 @@ export default function HomePage() {
                         target={"_blank"}
                         rel={"noreferrer"}
                     >
-                        <img src={"polkadot-logo.svg"} alt={"Polkadot logo"} />
+                        <img src={"/logos/polkadot-logo.svg"} alt={"Polkadot logo"} />
                     </a>
                     <p>ecosystem</p>
                 </div>

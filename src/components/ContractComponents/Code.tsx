@@ -42,7 +42,7 @@ export function Code(props: { source_id: number }) {
                 >
                     <p>{currentFile}</p>
                     <p>|</p>
-                    <img src={"/file-list-arrow.svg"} alt={"file list arrow"} />
+                    <img src={"/icons/file-list-arrow.svg"} alt={"file list arrow"} />
                 </button>
             )
         } else {
@@ -68,7 +68,7 @@ export function Code(props: { source_id: number }) {
                         <p>{currentFile}</p>
                         <p>|</p>
                         <img
-                            src={"/file-list-arrow.svg"}
+                            src={"/icons/file-list-arrow.svg"}
                             alt={"file list arrow"}
                             style={{ transform: "rotate(180deg)" }}
                         />

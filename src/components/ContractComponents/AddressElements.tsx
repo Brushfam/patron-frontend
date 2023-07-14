@@ -2,6 +2,7 @@ import styles from "./AddressElements.module.css";
 import { parseAddress } from "../../helpers/helpers";
 import Tooltip from "@mui/material/Tooltip";
 import { useState } from "react";
+import { Fade, Zoom } from "@mui/material";
 
 export function AddressElements(props: {
     name: string;
@@ -27,8 +28,9 @@ export function AddressElements(props: {
                 }}
                 open={copyProps.isOpen}
                 disableTouchListener
+                TransitionComponent={Fade}
+                TransitionProps={{ timeout: 400 }}
                 title="Copied!"
-                placement="right-end"
             >
                 <button
                     className={styles.copyButton}
@@ -40,11 +42,17 @@ export function AddressElements(props: {
                     <p className={styles.addressText}>
                         {parseAddress(props.address)}
                     </p>
-                    <img
-                        src={"/icons/copy.svg"}
-                        className={styles.copyIcon}
-                        alt={"copy icon"}
-                    />
+                    { open ?
+                        <img
+                            src={"/icons/copied.svg"}
+                            className={styles.copyIcon}
+                            alt={"copied icon"}
+                        /> :
+                        <img
+                            src={"/icons/copy.svg"}
+                            className={styles.copyIcon}
+                            alt={"copy icon"}
+                        />}
                 </button>
             </Tooltip>
         );

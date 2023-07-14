@@ -15,7 +15,7 @@ export function CodeHashButtons() {
                 }
                 onClick={() => {codeHashContext.changePage([true, false])}}
             >
-                <img src={"/icons/buttons/gear.svg"}/>
+                <img src={"/icons/buttons/logs.svg"}/>
                 Build log</button>
             <button
                 className={styles.code}

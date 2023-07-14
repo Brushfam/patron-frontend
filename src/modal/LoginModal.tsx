@@ -50,7 +50,7 @@ export function LoginModal(props: {
                         <p className={styles.loginTitle}>Connect your wallet</p>
                         <div className={styles.loginDescription}>
                             <img
-                                src={"/icons/buttons/back-to-wallets.svg"}
+                                src={"/icons/back-to-wallets.svg"}
                                 alt={"back to wallet button"}
                                 style={{ marginRight: 6 }}
                             />

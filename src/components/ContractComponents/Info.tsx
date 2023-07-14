@@ -8,6 +8,7 @@ import {
     parseDate,
 } from "../../helpers/helpers"
 import Tooltip from "@mui/material/Tooltip"
+import { Fade } from "@mui/material";
 
 export function Info(props: {
     address: string
@@ -74,7 +75,8 @@ export function Info(props: {
                             open={open}
                             disableTouchListener
                             title={"Copied!"}
-                            placement="right-end"
+                            TransitionComponent={Fade}
+                            TransitionProps={{ timeout: 400 }}
                         >
                             <p
                                 className={styles.hashText}
@@ -108,7 +110,8 @@ export function Info(props: {
                             open={openOwner}
                             disableTouchListener
                             title={"Copied!"}
-                            placement="right-end"
+                            TransitionComponent={Fade}
+                            TransitionProps={{ timeout: 400 }}
                         >
                             <p
                                 className={styles.infoTextOwner}

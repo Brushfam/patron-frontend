@@ -125,7 +125,7 @@ export function AccountList(props: {
                 sx={[
                     {
                         width: "100%",
-                        maxHeight: "200px",
+                        maxHeight: "190px",
                         overflowY: "auto",
                         overflowX: "hidden",
                         borderRadius: "10px",
