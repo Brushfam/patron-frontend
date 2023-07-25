@@ -12,7 +12,7 @@ export function SearchExamples(props: {
         props.setSearchText(text);
     }
 
-    const contractExample = "5FCeeM1W235pbJk9soS9kqRtY4jvfzqbhBxLhJzUHrrsiena"
+    const contractExample = "XDaqMoSSwgCr5ShwUfKwzPwuHrH7EVjDCWCrswJf7kDxcAx"
     const hashExample = "c71df4b0424191e8e21850b1668668dafe0726a7ecc40837b4a8ef3d90ecf7cf"
 
     return (
