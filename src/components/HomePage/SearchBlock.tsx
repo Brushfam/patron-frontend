@@ -37,7 +37,6 @@ export function SearchBlock() {
         };
 
         let text = searchText.trim()
-        console.log(text)
         if ((text.length === 64) || (text.length === 66)) {
             let searchCodeHash = (searchText.slice(0,2) === "0x") ? searchText.slice(2) : searchText
 

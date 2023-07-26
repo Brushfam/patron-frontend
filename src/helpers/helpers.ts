@@ -21,3 +21,15 @@ export function textContainString(text: string = "", stringToSearch: string) {
         (stringToSearch && text.toLowerCase().includes(stringToSearch.trim().toLowerCase()))
     )
 }
+
+export function getHashFromString(text: string) {
+    if (!text.length) return 0;
+    let hash = 0;
+
+    for (let i = 0; i < text.length; i++) {
+        hash = ((hash << 5) - hash) + text.charCodeAt(i)
+        hash |= hash
+    }
+
+    return hash
+}

@@ -40,7 +40,7 @@
     filter: opacity(0.4);
 }
 
-.copyIcon {
+.copyButton img {
     margin-bottom: 1px;
     margin-left: 12px;
 }
@@ -68,7 +68,7 @@
         font-size: 18px;
     }
 
-    .copyIcon {
+    .copyButton img {
         width: 12px;
         margin-left: 5px;
     }
@@ -85,6 +85,3 @@
         width: 107px;
     }
 }
-
-
-

@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { GettingStartedHeader } from "../components/Headers/GettingStartedHeader";
 import { MainHeaderLogged } from "../components/Headers/MainHeader";
 import { LoginModal } from "../modal/LoginModal";
+import { CodeBlock, TomlBlock } from "../components/GettingStarted/CodeBlocks";
 
 export function GettingStarted() {
     const userContext = UseUser()
@@ -113,12 +114,7 @@ export function GettingStarted() {
                 <p className={styles.docsText}>
                     Start using the CLI by installing it using Cargo:
                 </p>
-                <div className={styles.codeBlock}>
-                    <p>
-                        cargo install patron --git
-                        https://github.com/brushfam/patron-backend
-                    </p>
-                </div>
+                <CodeBlock command={"cargo install patron --git https://github.com/brushfam/patron-backend"}/>
                 <p className={styles.docsText}>
                     Using our CLI, you can authenticate and deploy your smart
                     contracts in an instant, with a vastly simplified deploy
@@ -136,21 +132,14 @@ export function GettingStarted() {
                     which automatically redirects you to website to sign an
                     authentication message:
                 </p>
-                <div className={styles.codeBlock}>
-                    <p>patron auth</p>
-                </div>
+                <CodeBlock command={"patron auth"}/>
                 <p className={styles.docsText}>
                     If you are using a custom server, you can also pass{" "}
                     <span style={{ color: "#4170E7" }}>-s</span> and{" "}
                     <span style={{ color: "#4170E7" }}>-w</span> flags to
                     provide URLs for the API server and website.
                 </p>
-                <div className={styles.codeBlock}>
-                    <p>
-                        patron auth -s https://api.example.com -w
-                        https://example.com
-                    </p>
-                </div>
+                <CodeBlock command={"patron auth -s https://api.example.com -w https://example.com"}/>
                 <p className={styles.docsText}>
                     Custom server URLs are later propagated to other commands
                     (such as deploy) automatically.
@@ -170,14 +159,7 @@ export function GettingStarted() {
                     <span style={{ color: "#4170E7" }}>cargo-contract</span>{" "}
                     versions that will be used during the build:
                 </p>
-                <div className={styles.tomlBlock}>
-                    <p>
-                        rustc_version = "1.69.0"
-                    </p>
-                    <p>
-                        cargo_contract_version = "3.0.1"
-                    </p>
-                </div>
+                <TomlBlock commands={["rustc_version = \"1.69.0\"", "cargo_contract_version = \"3.0.1\""]}/>
                 <p className={styles.docsText}>
                     You can check this file into your VCS to share the same
                     configuration with your development team.
@@ -187,35 +169,24 @@ export function GettingStarted() {
                     node simply pass the constructor name and secret URI for the
                     private key:
                 </p>
-                <div className={styles.codeBlock}>
-                    <p>patron deploy new --suri //Alice</p>
-                </div>
+                <CodeBlock command={"patron deploy new --suri //Alice"}/>
                 <p className={styles.docsText}>
                     If your contract constructor requires any arguments, simply
                     pass them with the same syntax that you use with the
                     <span style={{ color: "#4170E7" }}> cargo-contract</span>:
                 </p>
-                <div className={styles.codeBlock}>
-                    <p>patron deploy new --args 123 --suri //Alice</p>
-                </div>
+                <CodeBlock command={"patron deploy new --args 123 --suri //Alice"}/>
                 <p className={styles.docsText}>
                     Custom node URL can be provided with the{" "}
                     <span style={{ color: "#4170E7" }}>--url</span> flag:
                 </p>
-                <div className={styles.codeBlock}>
-                    <p>
-                        patron deploy new --url wss://node.example.com:443
-                        --suri ...
-                    </p>
-                </div>
+                <CodeBlock command={"patron deploy new --url wss://node.example.com:443 --suri ..."}/>
                 <p className={styles.docsText}>
                     You can also pass arbitrary flags to{" "}
                     <span style={{ color: "#4170E7" }}>cargo-contract</span>{" "}
                     using <span style={{ color: "#4170E7" }}>--</span> syntax:
                 </p>
-                <div className={styles.codeBlock}>
-                    <p>patron deploy new --suri //Alice -- --password 123</p>
-                </div>
+                <CodeBlock command={"patron deploy new --suri //Alice -- --password 123"}/>
                 <p className={styles.docsText}>
                     To get more information, invoke the deploy command with the{" "}
                     <span style={{ color: "#4170E7" }}>--help</span> flag.
