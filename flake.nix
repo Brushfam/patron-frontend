@@ -42,6 +42,9 @@
         };
     in {
       formatter = pkgs.alejandra;
+      lib = {
+        inherit mkFrontend;
+      };
       packages = {
         development = mkFrontend "http://localhost:3000";
         production = mkFrontend "https://api.patron.works";
