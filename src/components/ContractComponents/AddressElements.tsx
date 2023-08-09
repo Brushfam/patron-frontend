@@ -3,6 +3,7 @@ import { parseAddress } from "../../helpers/helpers";
 import Tooltip from "@mui/material/Tooltip";
 import { useState } from "react";
 import { Fade } from "@mui/material";
+import { CopyIcon } from "../CopyIcon";
 
 export function AddressElements(props: {
     name: string;
@@ -19,14 +20,13 @@ export function AddressElements(props: {
     const CopyAddress = (copyProps: {
         handleCLose: () => void;
         handleOpen: () => void;
-        isOpen: boolean;
     }) => {
         return (
             <Tooltip
                 onClose={() => {
                     copyProps.handleCLose();
                 }}
-                open={copyProps.isOpen}
+                open={open}
                 disableTouchListener
                 TransitionComponent={Fade}
                 TransitionProps={{ timeout: 400 }}
@@ -42,17 +42,7 @@ export function AddressElements(props: {
                     <p className={styles.addressText}>
                         {parseAddress(props.address)}
                     </p>
-                    { open ?
-                        <img
-                            src={"/icons/copied.svg"}
-                            className={styles.copyIcon}
-                            alt={"copied icon"}
-                        /> :
-                        <img
-                            src={"/icons/copy.svg"}
-                            className={styles.copyIcon}
-                            alt={"copy icon"}
-                        />}
+                    <CopyIcon open={open}/>
                 </button>
             </Tooltip>
         );
@@ -83,7 +73,6 @@ export function AddressElements(props: {
             </div>
             <div className={styles.address}>
                 <CopyAddress
-                    isOpen={open}
                     handleCLose={() => {
                         setOpen(false);
                     }}

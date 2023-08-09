@@ -25,3 +25,15 @@ export function textContainString(text: string = "", stringToSearch: string) {
 export function setFileNameLength(name: string) {
     return name.length > 26 ? name.slice(0,26) + "..." : name
 }
+
+export function getHashFromString(text: string) {
+    if (!text.length) return 0;
+    let hash = 0;
+
+    for (let i = 0; i < text.length; i++) {
+        hash = ((hash << 5) - hash) + text.charCodeAt(i)
+        hash |= hash
+    }
+
+    return hash
+}
