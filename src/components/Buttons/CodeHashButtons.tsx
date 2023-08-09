@@ -1,30 +1,30 @@
 import styles from "./ContractButtons.module.css";
-import {useCodeHash} from "../../context/CodeHashContext";
+import {useContract} from "../../context/ContractContext";
 
 export function CodeHashButtons() {
-    const codeHashContext = useCodeHash()
+    const codeHashContext = useContract()
 
     return (
         <div className={styles.contractButtons}>
             <button
                 className={styles.log}
                 style={
-                    codeHashContext.pages[0]
+                    codeHashContext.page === "1"
                         ? { backgroundColor: "#4270E7" }
                         : { backgroundColor: "#49525A" }
                 }
-                onClick={() => {codeHashContext.changePage([true, false])}}
+                onClick={() => {codeHashContext.changePage("1")}}
             >
                 <img src={"/icons/buttons/logs.svg"} alt={"logs button"}/>
                 Build log</button>
             <button
                 className={styles.code}
                 style={
-                    codeHashContext.pages[1]
+                    codeHashContext.page === "2"
                         ? { backgroundColor: "#4270E7" }
                         : { backgroundColor: "#49525A" }
                 }
-                onClick={() => {codeHashContext.changePage([false, true])}}
+                onClick={() => {codeHashContext.changePage("2")}}
             >
                 <img src={"/icons/buttons/code.svg"} alt={"code button"}/>
                 Code</button>

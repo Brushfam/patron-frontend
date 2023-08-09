@@ -2,25 +2,25 @@ import {createContext, ReactNode, useContext, useState} from "react";
 
 
 type ContractContent = {
-    pages: boolean[],
-    changePage: (pages: boolean[]) => void,
+    page: string,
+    changePage: (pages: string) => void,
 }
 
 const ContractContext = createContext<ContractContent>(
     {
-        pages: [true, false, false],
+        page: "1",
         changePage: () => {},
     }
 )
 
 export const ContractProvider = ({children}: {children: ReactNode}) => {
-    const [pages, setPages] = useState([true, false, false])
+    const [page, setPage] = useState("1")
 
-    const changePage = (pages: boolean[]) => {
-        setPages(pages)
+    const changePage = (page: string) => {
+        setPage(page)
     }
 
-    return <ContractContext.Provider value={{pages, changePage}}>{children}</ContractContext.Provider>
+    return <ContractContext.Provider value={{page, changePage}}>{children}</ContractContext.Provider>
 }
 
 export const useContract = () => {

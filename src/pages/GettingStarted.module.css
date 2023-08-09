@@ -1,22 +1,3 @@
-.loginButton {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    width: 124px;
-    height: 43px;
-    background: #4170E7;
-    border-radius: 22px;
-    border: 0;
-
-    font-style: normal;
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 120%;
-    text-align: center;
-    color: #ECEDF1;
-}
-
 .pageContainer {
     height: 100vh;
     display: flex;
@@ -60,20 +41,7 @@
     border-bottom: 1px solid #49525A;
 }
 
-.tomlBlock {
-    display: flex;
-    flex-direction: column;
-}
-
-.tomlBlock p {
-    font-family: 'Space Mono', monospace;
-}
-
 .codeBlock {
-
-}
-
-.codeBlock, .tomlBlock {
     position: relative;
     width: 100%;
     padding: 20px 15px;

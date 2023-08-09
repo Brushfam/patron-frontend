@@ -12,7 +12,8 @@ export function WalletsList(props: {
     setNextStep: React.Dispatch<React.SetStateAction<boolean>>,
     setNewWallet:  React.Dispatch<React.SetStateAction<Wallet | undefined>>
 }) {
-    const dotsamaWallets = getWallets();
+    const allDotsamaWallets = getWallets();
+    const dotsamaWallets = allDotsamaWallets.slice(0,4)
 
     const onClickDotsamaWallet = useCallback(
         async (wallet: Wallet) => {

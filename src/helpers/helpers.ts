@@ -21,3 +21,7 @@ export function textContainString(text: string = "", stringToSearch: string) {
         (stringToSearch && text.toLowerCase().includes(stringToSearch.trim().toLowerCase()))
     )
 }
+
+export function setFileNameLength(name: string) {
+    return name.length > 26 ? name.slice(0,26) + "..." : name
+}

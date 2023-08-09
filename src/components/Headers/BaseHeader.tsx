@@ -2,6 +2,11 @@ import React from 'react';
 import './BaseHeader.css'
 import { Link } from "react-router-dom";
 
+// The most complete BaseHeader structure:
+// BaseHeader
+// |- HeaderBlocksLayout (optional)
+//    |- HeaderSearchBar (optional)
+//    |- HeaderBlocks (optional)
 export function BaseHeader(props: {children?: JSX.Element}) {
     return(
         <div className={"baseHeaderContainer"}>

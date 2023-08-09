@@ -1,6 +1,7 @@
 import styles from "./Code.module.css"
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react"
 import { fileGET, fileListGET } from "../../api/FilesApi"
+import { setFileNameLength } from "../../helpers/helpers"
 
 export function Code(props: { source_id: number }) {
     const [fileList, setFileList] = useState<string[]>([])
@@ -8,13 +9,16 @@ export function Code(props: { source_id: number }) {
     const [currentFile, setCurrentFile] = useState("")
     const [fileListOpen, setFileListOpen] = useState(false)
 
-    const chooseFile = useCallback((fileNumber: number) => {
-        let filePromise = fileGET(props.source_id, fileNumber)
-        filePromise.then((data) => {
-            let parsedText = data.text.replaceAll("\n\n", "\n \n")
-            setCurrentCode(parsedText.split("\n"))
-        })
-    }, [props.source_id])
+    const chooseFile = useCallback(
+        (fileNumber: number) => {
+            let filePromise = fileGET(props.source_id, fileNumber)
+            filePromise.then((data) => {
+                let parsedText = data.text.replaceAll("\n\n", "\n \n")
+                setCurrentCode(parsedText.split("\n"))
+            })
+        },
+        [props.source_id]
+    )
 
     useEffect(() => {
         let fileListPromise = fileListGET(props.source_id)
@@ -40,7 +44,7 @@ export function Code(props: { source_id: number }) {
                         setFileListOpen(true)
                     }}
                 >
-                    <p>{currentFile}</p>
+                    <p>{setFileNameLength(currentFile)}</p>
                     <p>|</p>
                     <img src={"/icons/file-list-arrow.svg"} alt={"file list arrow"} />
                 </button>
@@ -48,7 +52,7 @@ export function Code(props: { source_id: number }) {
         } else {
             return (
                 <div className={styles.oneFileButton}>
-                    <p>{currentFile}</p>
+                    <p>{setFileNameLength(currentFile)}</p>
                 </div>
             )
         }
@@ -65,7 +69,7 @@ export function Code(props: { source_id: number }) {
                             setFileListOpen(false)
                         }}
                     >
-                        <p>{currentFile}</p>
+                        <p>{setFileNameLength(currentFile)}</p>
                         <p>|</p>
                         <img
                             src={"/icons/file-list-arrow.svg"}
@@ -87,7 +91,7 @@ export function Code(props: { source_id: number }) {
                                     }}
                                     className={styles.fileRow}
                                 >
-                                    {name}
+                                    {setFileNameLength(name)}
                                 </p>
                             )
                         })}
@@ -104,6 +108,7 @@ export function Code(props: { source_id: number }) {
                             </p>
                         )
                     })}
+                <p style={{ height: 20}}></p>
             </div>
         </div>
     )

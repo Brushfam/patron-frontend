@@ -5,10 +5,7 @@ export function RegistrationPOST() {
         method: "POST",
     }
 
-    return fetch(
-        process.env.REACT_APP_SERVER_URL + "/auth/register",
-        options
-    ).then((response) => {
+    return fetch(process.env.REACT_APP_SERVER_URL + "/auth/register", options).then((response) => {
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`)
         }
@@ -16,11 +13,7 @@ export function RegistrationPOST() {
     })
 }
 
-export function LoginPOST(
-    address: string,
-    signature: string,
-    cli_token: string | null
-) {
+export function LoginPOST(address: string, signature: string, cli_token: string | null) {
     const options = {
         method: "POST",
         headers: {
@@ -31,12 +24,7 @@ export function LoginPOST(
     }
 
     let loginPromise = cli_token
-        ? fetch(
-              process.env.REACT_APP_SERVER_URL +
-                  "/auth/login?cli_token=" +
-                  cli_token,
-              options
-          )
+        ? fetch(process.env.REACT_APP_SERVER_URL + "/auth/login?cli_token=" + cli_token, options)
         : fetch(process.env.REACT_APP_SERVER_URL + "/auth/login", options)
 
     return loginPromise.then((response) => {
@@ -52,18 +40,10 @@ export function LoginPOST(
                         let tokenPromise = RegistrationPOST()
                         tokenPromise.then((token) => {
                             ;(async () => {
-                                await KeysPOST(
-                                    address,
-                                    signature,
-                                    token.token.toString()
-                                )
+                                KeysPOST(address, signature, token.token.toString())
                                 if (cli_token) {
                                     setTimeout(() => {
-                                        return LoginPOST(
-                                            address,
-                                            signature,
-                                            cli_token
-                                        )
+                                        return LoginPOST(address, signature, cli_token)
                                     }, 200)
                                 }
                             })()

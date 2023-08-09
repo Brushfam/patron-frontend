@@ -84,7 +84,7 @@ export default function ContractWindow() {
             ? [contractHash, codeSourceId]
             : ["", 0];
 
-        if (ContractContext.pages[0]) {
+        if (ContractContext.page === "1") {
             return (
                 <Info
                     address={contractAddress}
@@ -94,7 +94,7 @@ export default function ContractWindow() {
                     owner={contractOwner}
                 ></Info>
             );
-        } else if (ContractContext.pages[1]) {
+        } else if (ContractContext.page === "2") {
             return <Log hash={logHash}></Log>;
         } else return <Code source_id={source}></Code>;
     };

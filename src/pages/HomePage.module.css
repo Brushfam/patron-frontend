@@ -6,26 +6,10 @@
     background-color: #141D25;
 }
 
-.loginButton {
+.loginButtonWrapper {
     position: absolute;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    width: 124px;
-    height: 43px;
     top: 40px;
     right: 156px;
-    background: #4170E7;
-    border-radius: 22px;
-    border: 0;
-
-    font-style: normal;
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 120%;
-    text-align: center;
-    color: #ECEDF1;
 }
 
 .mainDiv {
@@ -88,7 +72,7 @@
 }
 
 @media (max-width: 1200px) {
-    .loginButton, .homePageHeaderBlocks {
+    .loginButtonWrapper, .homePageHeaderBlocks {
         right: 3%;
     }
 }
@@ -98,7 +82,7 @@
         width: 94%;
     }
 
-    .loginButton, .homePageHeaderBlocks {
+    .loginButtonWrapper, .homePageHeaderBlocks {
         right: 3%
     }
 }

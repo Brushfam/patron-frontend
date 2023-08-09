@@ -7,7 +7,6 @@ import {UserProvider} from "./context/UserContext";
 import {RequireAuth} from "./components/Wrappers/RequireAuth";
 import ContractWindow from "./pages/ContractWindow";
 import {ContractProviderLayout} from "./layouts/ContractProviderLayout";
-import {CodeHashProviderLayout} from "./layouts/CodeHashProviderLayout";
 import CodeHashWindow from "./pages/CodeHashWindow";
 import { GettingStarted } from "./pages/GettingStarted";
 import Login from "./pages/Login";
@@ -25,7 +24,7 @@ function App() {
                   <Route path={"/contract/:id"} element={<ContractWindow />}></Route>
               </Route>
               <Route path={"/codeHash"} element={<Navigate to={'/'}/>}></Route>
-              <Route element={<CodeHashProviderLayout/>}>
+              <Route element={<ContractProviderLayout/>}>
                   <Route path={"/codeHash/:id"} element={<CodeHashWindow />}></Route>
               </Route>
               <Route path={"/login"} element={<Login/>}></Route>

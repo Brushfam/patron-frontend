@@ -1,39 +1,30 @@
-import styles from "./HomePage.module.css";
-import { Footer } from "../components/Footer";
-import React, { useEffect, useState } from "react";
-import { UseUser } from "../context/UserContext";
-import HeaderBlocks from "../components/Headers/HeaderBlocks";
-import { SearchBlock } from "../components/HomePage/SearchBlock";
-import { LoginModal } from "../modal/LoginModal";
+import styles from "./HomePage.module.css"
+import { Footer } from "../components/Footer"
+import React, { useEffect, useState } from "react"
+import { UseUser } from "../context/UserContext"
+import HeaderBlocks from "../components/Headers/HeaderBlocks"
+import { SearchBlock } from "../components/HomePage/SearchBlock"
+import { LoginModal } from "../modal/LoginModal"
+import { LoginButton } from "../components/Buttons/LoginButton"
 
 export default function HomePage() {
-    const userContext = UseUser();
-    const [loginOpen, setLoginOpen] = useState(false);
+    const userContext = UseUser()
+    const [loginOpen, setLoginOpen] = useState(false)
 
     useEffect(() => {
-        let params = new URL(window.location.href).searchParams;
+        let params = new URL(window.location.href).searchParams
         if (params.get("cli_token")) {
-            setLoginOpen(true);
+            setLoginOpen(true)
         }
-    }, []);
+    }, [])
 
     return (
         <div className={styles.mainContainer}>
             <LoginModal isOpen={loginOpen} setModal={setLoginOpen} />
             {!userContext.currentUser ? (
-                <button
-                    className={styles.loginButton}
-                    onClick={() => {
-                        setLoginOpen(true);
-                    }}
-                >
-                    <img
-                        src={"icons/buttons/log-in.svg"}
-                        style={{ marginRight: 10 }}
-                        alt={"log in button"}
-                    />
-                    Log in
-                </button>
+                <div className={styles.loginButtonWrapper}>
+                    <LoginButton onClickEvent={setLoginOpen} />
+                </div>
             ) : (
                 <div className={styles.homePageHeaderBlocks}>
                     <HeaderBlocks />
@@ -49,7 +40,10 @@ export default function HomePage() {
                     <p>Product works in the</p>
                     <a
                         href={"https://polkadot.network/"}
-                        style={{ margin: "0 10px", height: 22 }}
+                        style={{
+                            margin: "0 10px",
+                            height: 22,
+                        }}
                         target={"_blank"}
                         rel={"noreferrer"}
                     >
@@ -61,5 +55,5 @@ export default function HomePage() {
             </div>
             <Footer />
         </div>
-    );
+    )
 }

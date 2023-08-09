@@ -15,9 +15,17 @@ export function Footer() {
                     </Link>
                 </div>
                 <div className={"footerContactsBlock"}>
-                    <Link to={"https://github.com/Brushfam/patron-backend/issues"} target={"_blank"} >
-                        <img src={"/icons/buttons/our-contacts.svg"} alt={"contract icon"}/>
-                        <p style={{marginLeft: 12}}>Our Contacts</p>
+                    <Link to={"https://discord.gg/9FRETSPmp9"} target={"_blank"} >
+                        <img src={"/icons/social/discord.svg"} alt={"discord icon"}/>
+                    </Link>
+                    <Link to={"https://matrix.to/#/!utTuYglskDvqRRMQta:matrix.org?via=matrix.org&via=t2bot.io&via=web3.foundation"} target={"_blank"} >
+                        <img src={"/icons/social/element.svg"} alt={"element icon"}/>
+                    </Link>
+                    <Link to={"https://github.com/Brushfam/patron-backend"} target={"_blank"} >
+                        <img src={"/icons/social/github.svg"} alt={"github icon"}/>
+                    </Link>
+                    <Link to={"https://brushfam.io/"} target={"_blank"} >
+                        <img src={"/icons/social/brushfam.svg"} alt={"brushfam icon"}/>
                     </Link>
                 </div>
                 <div className={"footerMobileBorder"}></div>
