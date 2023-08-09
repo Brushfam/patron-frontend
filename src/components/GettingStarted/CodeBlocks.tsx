@@ -19,7 +19,11 @@ function updateCopyIcon(
 export function CodeBlock(props: { command: string }) {
     const [copied, setCopied] = useState(false)
     const copyIconId = getHashFromString(props.command).toString()
-    let copyIcon = document.getElementById(copyIconId)
+    let copyIcon: HTMLElement | null = null
+    setTimeout(() => {
+        copyIcon = document.getElementById(copyIconId)
+    }, 100)
+
 
     return (
         <div className={styles.wrapper}>
@@ -36,16 +40,6 @@ export function CodeBlock(props: { command: string }) {
                     <CopyIcon open={copied} />
                 </div>
             </div>
-        </div>
-    )
-}
-
-export function TomlBlock(props: { commands: string[] }) {
-    return (
-        <div className={styles.tomlBlock}>
-            {props.commands.map((command, i) => {
-                return <p key={i.toString()}>{command}</p>
-            })}
         </div>
     )
 }

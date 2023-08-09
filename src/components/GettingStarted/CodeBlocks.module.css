@@ -6,7 +6,7 @@
     position: relative;
 }
 
-.codeBlock, .tomlBlock {
+.codeBlock {
     width: 100%;
     padding: 20px 15px;
     height: auto;
@@ -38,12 +38,7 @@
     background: #49525A;
 }
 
-.tomlBlock {
-    display: flex;
-    flex-direction: column;
-}
-
-.tomlBlock p, .codeBlock p {
+.codeBlock p {
     font-family: 'Roboto Mono', monospace;
     font-size: 16px;
     font-weight: 400;

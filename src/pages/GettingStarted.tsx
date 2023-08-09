@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { GettingStartedHeader } from "../components/Headers/GettingStartedHeader";
 import { MainHeaderLogged } from "../components/Headers/MainHeader";
 import { LoginModal } from "../modal/LoginModal";
-import { CodeBlock, TomlBlock } from "../components/GettingStarted/CodeBlocks";
+import { CodeBlock } from "../components/GettingStarted/CodeBlocks";
 import { LoginButton } from "../components/Buttons/LoginButton"
 
 export function GettingStarted() {
@@ -133,7 +133,7 @@ export function GettingStarted() {
                     <span style={{ color: "#4170E7" }}>cargo-contract</span> version that will be
                     used during the build:
                 </p>
-                <TomlBlock commands={["rustc_version = \"1.69.0\"", "cargo_contract_version = \"3.0.1\""]}/>
+                <CodeBlock command={"cargo_contract_version = \"3.0.1\""}/>
                 <p className={styles.docsText}>
                     You can check this file into your VCS to share the same configuration with your
                     development team.
@@ -169,9 +169,7 @@ export function GettingStarted() {
                 <p className={styles.docsText}>
                     You can get a verified WASM blob without automatic deployment:
                 </p>
-                <div className={styles.codeBlock}>
-                    <p>patron build</p>
-                </div>
+                <CodeBlock command={"patron build"}/>
             </div>
         </div>
     )
