@@ -1,0 +1,63 @@
+.overlay {
+    z-index: 30;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    backdrop-filter: blur(5px);
+    background: rgba(20, 29, 37, 0.5);
+}
+
+.loginModal {
+    position: relative;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 460px;
+    min-height: 336px;;
+    height: auto;
+    background: #21282F;
+    border: 1px solid #49525A;
+    border-radius: 20px;
+    padding: 30px;
+}
+
+.exitButton {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    cursor: pointer;
+}
+
+.login {
+    display: flex;
+    flex-direction: column;
+}
+
+.loginTitle {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 120%;
+    color: #ECEDF1;
+    margin-bottom: 20px;
+}
+
+.loginDescription {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #49525A;
+}
+
+.loginDescription p {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 120%;
+    color: #B0B7BF;
+}
+
+@media (max-width: 500px) {
+    .loginModal {
+        width: 93%;
+    }
+}

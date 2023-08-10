@@ -5,14 +5,13 @@ import {Code} from "../components/ContractComponents/Code";
 import styles from "./ContractWindow.module.css";
 import {ExplorerHeader} from "../components/Headers/ExplorerHeader";
 import {AddressElements} from "../components/ContractComponents/AddressElements";
-import {useCodeHash} from "../context/CodeHashContext";
+import {useContract} from "../context/ContractContext";
 import {CodeHashButtons} from "../components/Buttons/CodeHashButtons";
 import {buildSessionsDetailsGET} from "../api/BuildSessionsApi";
 
-
 export default function CodeHashWindow() {
     const params = useParams();
-    const ContractContext = useCodeHash();
+    const ContractContext = useContract();
     const navigate = useNavigate();
     const [codeHashAddress, setCodeHashAddress] = useState("");
     const [codeSourceId, setCodeSourceId] = useState(0)
@@ -46,7 +45,7 @@ export default function CodeHashWindow() {
     }, [params.id, navigate]);
 
     const CurrentContractWindow = () => {
-        if (ContractContext.pages[0]) {
+        if (ContractContext.page === "1") {
             if (params.id) {
                 return <Log hash={params.id}></Log>;
             } else return <Log hash={""}></Log>;
@@ -58,8 +57,10 @@ export default function CodeHashWindow() {
         <div className={styles.contractContainer}>
             <ExplorerHeader />
             <div className={styles.mainBlock}>
-                <AddressElements name={"Hash Code"} address={codeHashAddress} verified={true}/>
-                <CodeHashButtons />
+                <div className={styles.addressAndButtons}>
+                    <AddressElements name={"Hash Code"} iconPath={"/code-hash-square.svg"} address={codeHashAddress} verified={true} />
+                    <CodeHashButtons />
+                </div>
                 <CurrentContractWindow />
             </div>
         </div>

@@ -1,12 +1,12 @@
-import {LoginLayout} from "../layouts/LoginLayout";
+import { Navigate } from "react-router-dom";
 import React from "react";
-import {LoginForm} from "../components/Login/LoginForm";
-
 
 export default function Login() {
-    return(
-        <LoginLayout headerText="Log in">
-            <LoginForm></LoginForm>
-        </LoginLayout>
-    )
+    let params = new URL(window.location.href).searchParams
+    let cli_token = params.get("cli_token")
+    if (cli_token) {
+        return <Navigate to={"/?cli_token=" + cli_token} />
+    } else {
+        return <Navigate to={'/'}/>
+    }
 }

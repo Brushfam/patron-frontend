@@ -9,33 +9,39 @@ export function ContractButtons(props: {isVerified: boolean}) {
             <button
                 className={styles.info}
                 style={
-                    ContractContext.pages[0]
+                    ContractContext.page === "1"
                         ? { backgroundColor: "#4270E7" }
                         : { backgroundColor: "#49525A" }
                 }
-                onClick={() => {ContractContext.changePage([true, false, false])}}
-            >Info</button>
+                onClick={() => {ContractContext.changePage("1")}}
+            >
+                <img src={"/icons/buttons/info.svg"} alt={"info button"}/>
+                Info</button>
             {
                 props.isVerified ? <button
                     className={styles.log}
                     style={
-                        ContractContext.pages[1]
+                        ContractContext.page === "2"
                             ? { backgroundColor: "#4270E7" }
                             : { backgroundColor: "#49525A" }
                     }
-                    onClick={() => {ContractContext.changePage([false, true, false])}}
-                >Build log</button> : <></>
+                    onClick={() => {ContractContext.changePage("2")}}
+                >
+                    <img src={"/icons/buttons/logs.svg"} alt={"logs button"}/>
+                    Build log</button> : <></>
             }
             {
                 props.isVerified ? <button
                     className={styles.code}
                     style={
-                        ContractContext.pages[2]
+                        ContractContext.page === "3"
                             ? { backgroundColor: "#4270E7" }
                             : { backgroundColor: "#49525A" }
                     }
-                    onClick={() => {ContractContext.changePage([false, false, true])}}
-                >Code</button> : <></>
+                    onClick={() => {ContractContext.changePage("3")}}
+                >
+                    <img src={"/icons/buttons/code.svg"} alt={"code button"}/>
+                    Code</button> : <></>
             }
         </div>
     );

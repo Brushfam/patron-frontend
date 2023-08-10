@@ -1,6 +1,13 @@
+.accountList {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
 .rowWrapper {
-    padding: 8px 10px 0 10px;
-    background: #49525A;
+    background: #29323B;
+    border: 1px solid #49525A;
+    border-radius: 10px;
 }
 
 .rowWrapper:hover {
@@ -10,30 +17,32 @@
 
 .row {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     height: 100%;
     width: 100%;
+    padding: 10px;
+    column-gap: 10px;
 }
 
-.walletRow {
+.rowInfo {
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    width: 100%;
-    padding: 18px 10px;
+    flex-direction: column;
 }
 
 .name, .address {
     color: #ECEDF1;
-    font-size: 14px;
+    line-height: 100%;
 }
 
 .name {
-    margin-bottom: 1px;
+    font-weight: 600;
+    font-size: 16px;
+    margin-bottom: 6px;
 }
 
 .address {
-    margin-bottom: 8px;
+    font-weight: 400;
+    font-size: 12px;
 }
 
 .noAccountDiv {
@@ -41,7 +50,7 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    margin-top: 70px;
+    margin-top: 92px;
 }
 
 .noAccountText {
@@ -65,4 +74,14 @@
     font-size: 14px;
     line-height: 120%;
     color: #ECEDF1;
+}
+
+.circle{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #49525A;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
 }

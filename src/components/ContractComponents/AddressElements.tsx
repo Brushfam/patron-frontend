@@ -2,14 +2,16 @@ import styles from "./AddressElements.module.css";
 import { parseAddress } from "../../helpers/helpers";
 import Tooltip from "@mui/material/Tooltip";
 import { useState } from "react";
+import { Fade } from "@mui/material";
+import { CopyIcon } from "../CopyIcon";
 
 export function AddressElements(props: {
     name: string;
+    iconPath: string;
     address: string;
     verified: boolean;
 }) {
     const [open, setOpen] = useState(false);
-    const [openMobile, setOpenMobile] = useState(false);
 
     function handleCopy() {
         navigator.clipboard.writeText(props.address);
@@ -18,15 +20,16 @@ export function AddressElements(props: {
     const CopyAddress = (copyProps: {
         handleCLose: () => void;
         handleOpen: () => void;
-        isOpen: boolean;
     }) => {
         return (
             <Tooltip
                 onClose={() => {
                     copyProps.handleCLose();
                 }}
-                open={copyProps.isOpen}
+                open={open}
                 disableTouchListener
+                TransitionComponent={Fade}
+                TransitionProps={{ timeout: 400 }}
                 title="Copied!"
             >
                 <button
@@ -39,33 +42,28 @@ export function AddressElements(props: {
                     <p className={styles.addressText}>
                         {parseAddress(props.address)}
                     </p>
-                    <img
-                        src={"/icons/copy-user.svg"}
-                        className={styles.copyIcon}
-                        alt={"copy icon"}
-                    />
+                    <CopyIcon open={open}/>
                 </button>
             </Tooltip>
         );
     };
 
     return (
-        <div style={{ marginBottom: 40, width: "100%" }}>
-            <div className={styles.addressElements}>
-                <div className={styles.userBlock}>
-                    <img src={props.name === "Address" ? "/icons/user.svg" : "/icons/contract-icon.svg"} alt={"user icon"} />
-                </div>
-                <p className={styles.name}>{props.name}</p>
-                <div className={styles.addressDesktop}>
-                    <CopyAddress
-                        isOpen={open}
-                        handleCLose={() => {setOpen(false)}}
-                        handleOpen={() => {setOpen(true)}}
-                    />
+        <div className={styles.addressBlock} style={props.name === "Address" ? {width: "100%"} : {}}>
+            <div className={styles.addressBlockInfo}>
+                <div
+                    style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                    }}
+                >
+                    <img src={props.iconPath} alt={"user icon"} />
+                    <p className={styles.name}>{props.name}</p>
                 </div>
                 {props.verified ? (
                     <img
-                        src={"/verified.svg"}
+                        src={"/verified-badge.svg"}
                         alt={"verified icon"}
                         className={styles.verifiedIcon}
                     />
@@ -73,14 +71,13 @@ export function AddressElements(props: {
                     <></>
                 )}
             </div>
-            <div className={styles.addressMobile}>
+            <div className={styles.address}>
                 <CopyAddress
-                    isOpen={openMobile}
                     handleCLose={() => {
-                        setOpenMobile(false);
+                        setOpen(false);
                     }}
                     handleOpen={() => {
-                        setOpenMobile(true);
+                        setOpen(true);
                     }}
                 />
             </div>

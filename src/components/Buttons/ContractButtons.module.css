@@ -2,45 +2,39 @@
     display: flex;
     flex-direction: row;
     column-gap: 20px;
-    width: 100%;
+    height: 100%;
+    align-items: flex-end;
 }
 
 .info, .log, .code {
-    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    column-gap: 6px;
+    border-radius: 20px;
     border: none;
     font-style: normal;
     font-weight: 600;
     font-size: 14px;
     color: #ECEDF1;
-    height: 41px;
+    height: 40px;
 }
 
 .info {
-    width: 65px;
-}
-
-.log {
     width: 95px;
 }
 
+.log {
+    width: 126px;
+}
+
 .code {
-    width: 73px;
+    width: 102px;
 }
 
 @media (max-width: 460px) {
-    .info {
-        width: 53px;
-    }
-
-    .log {
-        width: 88px;
-    }
-
-    .code {
-        width: 61px;
-    }
-    .info, .log, .code {
-        height: 33px;
-        font-weight: 400;
+    .contractButtons {
+        column-gap: 10px;
     }
 }

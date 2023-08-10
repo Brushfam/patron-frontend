@@ -15,11 +15,11 @@
 }
 
 .mainTitle {
-    font-size: 34px;
+    font-size: 32px;
 }
 
 .secondTitle {
-    font-size: 26px;
+    font-size: 24px;
     margin-top: 20px;
 }
 
@@ -33,83 +33,13 @@
 .secondTitle, .mainTitle {
     text-align: left;
     font-style: normal;
-    font-weight: 700;
+    font-weight: 600;
     line-height: 100%;
     color: #ECEDF1;
     padding-bottom: 20px;
     margin-bottom: 20px;
     border-bottom: 1px solid #49525A;
 }
-
-.tomlBlock {
-    display: flex;
-    flex-direction: column;
-}
-
-.tomlBlock p {
-    font-family: 'Space Mono', monospace;
-}
-
-.codeBlock {
-
-}
-
-.codeBlock, .tomlBlock {
-    position: relative;
-    width: 100%;
-    padding: 20px 15px;
-    height: auto;
-    border-radius: 6px;
-    margin-bottom: 20px;
-    background: #1C2934;
-    overflow: auto;
-}
-
-.codeBlock:hover .copyIcon{
-    display: flex;
-}
-
-.codeBlock p {
-    overflow: hidden; white-space: nowrap;
-    display: inline;
-    font-family: 'Space Mono', monospace;
-}
-
-/* width */
-.codeBlock::-webkit-scrollbar {
-    height: 8px;
-}
-
-/* Track */
-.codeBlock::-webkit-scrollbar-track {
-    background:#131516;
-}
-
-/* Handle */
-.codeBlock::-webkit-scrollbar-thumb {
-    background: #49525A;
-}
-
-.copyIconWrapper {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-}
-
-.copyIcon {
-    display: none;
-    flex-direction: row;
-    align-items: center;
-    padding: 0;
-    background-color: transparent;
-    border: 0;
-}
-
-.copyIcon:hover {
-    cursor: pointer;
-    filter: brightness(120%);
-}
-
 
 @media (max-width: 1440px) {
     .mainBlock {

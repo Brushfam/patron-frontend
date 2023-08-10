@@ -11,4 +11,8 @@ export const walletLinkData = [
         name: "talisman",
         link: "https://www.talisman.xyz/wallet"
     },
+    {
+        name: "fearless-wallet",
+        link: "https://fearlesswallet.io/"
+    }
 ]

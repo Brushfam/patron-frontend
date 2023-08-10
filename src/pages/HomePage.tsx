@@ -1,51 +1,59 @@
-import "./HomePage.css";
-import {useNavigate} from "react-router-dom";
-import { Footer } from "../components/Footer";
-import React from "react";
-import { UseUser } from "../context/UserContext";
-import HeaderBlocks from "../components/Headers/HeaderBlocks";
-import {SearchInput} from "../components/SearchInput";
-import {HeaderBlocksLayout} from "../components/Headers/HeaderBlocksLayout";
-
+import styles from "./HomePage.module.css"
+import { Footer } from "../components/Footer"
+import React, { useEffect, useState } from "react"
+import { UseUser } from "../context/UserContext"
+import HeaderBlocks from "../components/Headers/HeaderBlocks"
+import { SearchBlock } from "../components/HomePage/SearchBlock"
+import { LoginModal } from "../modal/LoginModal"
+import { LoginButton } from "../components/Buttons/LoginButton"
 
 export default function HomePage() {
     const userContext = UseUser()
-    const navigate = useNavigate();
+    const [loginOpen, setLoginOpen] = useState(false)
 
-    function navigateToLogin() {
-        navigate("/login");
-    }
+    useEffect(() => {
+        let params = new URL(window.location.href).searchParams
+        if (params.get("cli_token")) {
+            setLoginOpen(true)
+        }
+    }, [])
 
     return (
-        <div className={"mainContainer"}>
-            {
-                !userContext.currentUser ? (
-                    <button className={"loginButton"} onClick={navigateToLogin}>
-                        Log in
-                    </button>
-                ) : <HeaderBlocksLayout blocks={<HeaderBlocks/>}/>
-            }
-            <div className={"mainDiv"}>
+        <div className={styles.mainContainer}>
+            <LoginModal isOpen={loginOpen} setModal={setLoginOpen} />
+            {!userContext.currentUser ? (
+                <div className={styles.loginButtonWrapper}>
+                    <LoginButton onClickEvent={setLoginOpen} />
+                </div>
+            ) : (
+                <div className={styles.homePageHeaderBlocks}>
+                    <HeaderBlocks />
+                </div>
+            )}
+            <div className={styles.mainDiv}>
                 <img
-                    src={"patron-main-logo.svg"}
+                    src={"/logos/patron-main-logo.svg"}
                     alt={"Patron logo"}
-                    className={"mainLogo"}
+                    className={styles.mainLogo}
                 />
-                <div className={"polkadotNote"}>
+                <div className={styles.polkadotNote}>
                     <p>Product works in the</p>
                     <a
                         href={"https://polkadot.network/"}
-                        style={{ margin: "0 10px", height: 22 }}
+                        style={{
+                            margin: "0 10px",
+                            height: 22,
+                        }}
                         target={"_blank"}
                         rel={"noreferrer"}
                     >
-                        <img src={"polkadot-logo.svg"} alt={"Polkadot logo"} />
+                        <img src={"/logos/polkadot-logo.svg"} alt={"Polkadot logo"} />
                     </a>
                     <p>ecosystem</p>
                 </div>
-                <SearchInput/>
+                <SearchBlock />
             </div>
             <Footer />
         </div>
-    );
+    )
 }

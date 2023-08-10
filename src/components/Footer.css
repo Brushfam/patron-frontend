@@ -52,15 +52,12 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    column-gap: 10px;
     height: 36px;
     padding: 0 20px;
     margin: 0 20px;
     border-left: 1px solid #ECEDF1;
     border-right: 1px solid #ECEDF1;
-}
-
-.footerContactsBlock a:hover {
-    filter: brightness(140%);
 }
 
 .footerContactsBlock a {
@@ -79,7 +76,7 @@
     }
 }
 
-@media (max-height: 650px) and (min-width: 641px){
+@media (max-height: 700px) and (min-width: 641px){
     .footerContainer {
         position: static;
         padding-bottom: 40px;
@@ -95,7 +92,8 @@
 
     .footerContactsBlock {
         border: none;
-        column-gap: 24px;
+        padding: 0;
+        margin: 0;
     }
 
     .footerDocsWrapper {
