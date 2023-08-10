@@ -15,7 +15,7 @@ export default function HeaderBlocks() {
         <div style={{display: "flex", alignItems: "center"}}>
             <Tooltip title={"Profile"}>
                 <button className={styles.profileButton} onClick={navigateToProfile}>
-                    <img src={'/icons/user.svg'} alt={"user icon"}/>
+                    <img src={'/icons/user.svg'} alt={"user icon"} style={{width: 15}}/>
                 </button>
             </Tooltip>
             <Tooltip title={"Log out"}>
