@@ -7,6 +7,7 @@ import { UseUser } from "../context/UserContext";
 
 export function LoginModal(props: {
     isOpen: boolean;
+    isLogin: boolean;
     setModal: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
     const [step1, setStep1] = useState(true);
@@ -14,7 +15,7 @@ export function LoginModal(props: {
 
     const userContext = UseUser();
     useEffect(() => {
-        if (userContext.currentUser) {
+        if (userContext.currentUser && !props.isLogin) {
             props.setModal(false);
         }
     }, [userContext.currentUser, props]);
