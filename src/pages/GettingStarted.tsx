@@ -13,7 +13,7 @@ export function GettingStarted() {
 
     return (
         <div className={styles.pageContainer}>
-            <LoginModal isOpen={loginOpen} setModal={setLoginOpen} />
+            <LoginModal isOpen={loginOpen} setModal={setLoginOpen} isLogin={false}/>
             {!userContext.currentUser ? (
                 <GettingStartedHeader loginButton={<LoginButton onClickEvent={setLoginOpen} />} />
             ) : (

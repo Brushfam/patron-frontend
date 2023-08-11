@@ -10,17 +10,19 @@ import { LoginButton } from "../components/Buttons/LoginButton"
 export default function HomePage() {
     const userContext = UseUser()
     const [loginOpen, setLoginOpen] = useState(false)
+    const [isLogin, setIsLogin] = useState(false)
 
     useEffect(() => {
         let params = new URL(window.location.href).searchParams
         if (params.get("cli_token")) {
             setLoginOpen(true)
+            setIsLogin(true)
         }
     }, [])
 
     return (
         <div className={styles.mainContainer}>
-            <LoginModal isOpen={loginOpen} setModal={setLoginOpen} />
+            <LoginModal isOpen={loginOpen} setModal={setLoginOpen} isLogin={isLogin}/>
             {!userContext.currentUser ? (
                 <div className={styles.loginButtonWrapper}>
                     <LoginButton onClickEvent={setLoginOpen} />
