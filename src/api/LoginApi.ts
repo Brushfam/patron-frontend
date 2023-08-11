@@ -24,7 +24,7 @@ export function LoginPOST(address: string, signature: string, cli_token: string 
     }
 
     let loginPromise = cli_token
-        ? fetch(process.env.REACT_APP_SERVER_URL + "/auth/login?cli_token=" + cli_token, options)
+        ? fetch(process.env.REACT_APP_SERVER_URL + "/auth/login?cli_token=" + cli_token.slice(0,64), options)
         : fetch(process.env.REACT_APP_SERVER_URL + "/auth/login", options)
 
     return loginPromise.then((response) => {
