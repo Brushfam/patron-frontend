@@ -24,6 +24,41 @@
     row-gap: 20px;
 }
 
+.contractCallerSection {
+    padding-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    width: 40%;
+}
+
+.contractCallerBlock {
+    display: flex;
+    flex-direction: row;
+    column-gap: 40px;
+    border-radius: 10px;
+    background: #29323B;
+    border: 0;
+}
+
+.contractCallerBlock button {
+    padding: 10px 20px 12px 20px;
+    border-radius: 5px;
+    background: #4170E7;
+    border: 0;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.contractCallerBlockResult{
+    padding: 10px 20px 12px 20px;
+    border-radius: 5px;
+    border: 1px solid #ECEDF1;
+    color: white;
+    font-size: 14px;
+}
+
 @media (max-width: 1440px) {
     .mainBlock {
         width: 83.3%;

@@ -7,7 +7,12 @@
     "@emotion/styled": "^11.10.6",
     "@fontsource/roboto": "^4.5.8",
     "@mui/material": "^5.11.15",
-    "@subwallet/wallet-connect": "^0.2.4",
+    "@polkadot/api": "^10.9.1",
+    "@polkadot/api-augment": "^10.9.1",
+    "@polkadot/api-base": "^10.9.1",
+    "@polkadot/api-contract": "^10.9.1",
+    "@polkadot/types": "^10.9.1",
+    "@subwallet/wallet-connect": "^0.2.6-beta.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -23,7 +28,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "GENERATE_SOURCEMAP=false react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
