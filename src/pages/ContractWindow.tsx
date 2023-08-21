@@ -109,6 +109,7 @@ export default function ContractWindow() {
                         iconPath={"/contract-square.svg"}
                         address={contractAddress}
                         verified={verified}
+                        contractHash={contractHash}
                     />
                     <ContractButtons isVerified={verified} />
                 </div>

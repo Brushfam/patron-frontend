@@ -1,30 +1,29 @@
-import styles from "./AddressElements.module.css";
-import { parseAddress } from "../../helpers/helpers";
-import Tooltip from "@mui/material/Tooltip";
-import { useState } from "react";
-import { Fade } from "@mui/material";
-import { CopyIcon } from "../CopyIcon";
+import styles from "./AddressElements.module.css"
+import { parseAddress } from "../../helpers/helpers"
+import Tooltip from "@mui/material/Tooltip"
+import { useState } from "react"
+import { Fade } from "@mui/material"
+import { CopyIcon } from "../CopyIcon"
+import { Link } from "react-router-dom"
 
 export function AddressElements(props: {
-    name: string;
-    iconPath: string;
-    address: string;
-    verified: boolean;
+    name: string
+    iconPath: string
+    address: string
+    verified: boolean
+    contractHash?: string
 }) {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false)
 
     function handleCopy() {
-        navigator.clipboard.writeText(props.address);
+        navigator.clipboard.writeText(props.address)
     }
 
-    const CopyAddress = (copyProps: {
-        handleCLose: () => void;
-        handleOpen: () => void;
-    }) => {
+    const CopyAddress = (copyProps: { handleCLose: () => void; handleOpen: () => void }) => {
         return (
             <Tooltip
                 onClose={() => {
-                    copyProps.handleCLose();
+                    copyProps.handleCLose()
                 }}
                 open={open}
                 disableTouchListener
@@ -35,22 +34,23 @@ export function AddressElements(props: {
                 <button
                     className={styles.copyButton}
                     onClick={() => {
-                        handleCopy();
-                        copyProps.handleOpen();
+                        handleCopy()
+                        copyProps.handleOpen()
                     }}
                 >
-                    <p className={styles.addressText}>
-                        {parseAddress(props.address)}
-                    </p>
-                    <CopyIcon open={open}/>
+                    <p className={styles.addressText}>{parseAddress(props.address)}</p>
+                    <CopyIcon open={open} />
                 </button>
             </Tooltip>
-        );
-    };
+        )
+    }
 
     return (
-        <div className={styles.addressBlock} style={props.name === "Address" ? {width: "100%"} : {}}>
-            <div className={styles.addressBlockInfo}>
+        <div
+            className={styles.addressBlock}
+            style={props.name === "Address" ? { width: "100%" } : {}}
+        >
+            <div className={styles.addressBlockTop}>
                 <div
                     style={{
                         display: "flex",
@@ -71,16 +71,25 @@ export function AddressElements(props: {
                     <></>
                 )}
             </div>
-            <div className={styles.address}>
-                <CopyAddress
-                    handleCLose={() => {
-                        setOpen(false);
-                    }}
-                    handleOpen={() => {
-                        setOpen(true);
-                    }}
-                />
+            <div className={styles.addressBlockBottom}>
+                <div className={styles.address}>
+                    <CopyAddress
+                        handleCLose={() => {
+                            setOpen(false)
+                        }}
+                        handleOpen={() => {
+                            setOpen(true)
+                        }}
+                    />
+                </div>
+                <Link
+                    className={styles.phalaLabel}
+                    to={"https://phat.phala.network/contracts/add/" + props.contractHash}
+                >
+                    <img src={"/logos/phala-logo.svg"} />
+                    <p>Deploy with Phala</p>
+                </Link>
             </div>
         </div>
-    );
+    )
 }

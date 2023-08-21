@@ -11,7 +11,7 @@
     border-radius: 20px;
 }
 
-.addressBlockInfo {
+.addressBlockTop {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -45,6 +45,13 @@
     margin-left: 12px;
 }
 
+.addressBlockBottom {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .address {
     display: block;
 }
@@ -57,13 +64,50 @@
 
 }
 
-@media (max-width: 920px) {
+.phalaLabel {
+    display: flex;
+    flex-direction: row;
+    padding: 5px 15px 5px 5px;
+    align-items: center;
+    gap: 10px;
+    border-radius: 30px;
+    border: 1px solid #757A80;
+    background: #49525A;
+}
+
+.phalaLabel:hover {
+    cursor: pointer;
+    filter: brightness(120%);
+}
+
+.phalaLabel p {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 100%;
+    color: #ECEDF1;
+}
+
+.phalaLabel img {
+    width: 30px;
+    height: 30px;
+}
+
+@media (max-width: 1140px) {
     .addressBlock {
         width: 100%;
     }
 }
 
-@media (max-width: 460px) {
+@media (max-width: 700px) {
+    .addressBlockBottom {
+        align-items: flex-start;
+        flex-direction: column-reverse;
+        row-gap: 14px;
+    }
+}
+
+@media (max-width: 490px) {
     .addressText {
         font-size: 18px;
     }
@@ -79,9 +123,25 @@
 
     .addressBlock {
         padding: 20px;
+        row-gap: 24px;
     }
 
     .verifiedIcon {
         width: 107px;
+    }
+
+    .phalaLabel {
+        padding: 5px 12px 5px 5px;
+        gap: 8px;
+        row-gap: 24px;
+    }
+
+    .phalaLabel p {
+        font-size: 14px;
+    }
+
+    .phalaLabel img {
+        width: 20px;
+        height: 20px;
     }
 }
