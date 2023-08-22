@@ -14,6 +14,7 @@ export function AddressElements(props: {
     contractHash?: string
 }) {
     const [open, setOpen] = useState(false)
+    const phalaHash = props.name === "Contract" ? props.contractHash : props.address
 
     function handleCopy() {
         navigator.clipboard.writeText(props.address)
@@ -84,7 +85,7 @@ export function AddressElements(props: {
                 </div>
                 <Link
                     className={styles.phalaLabel}
-                    to={"https://phat.phala.network/contracts/add/" + props.contractHash}
+                    to={"https://phat.phala.network/contracts/add/" + phalaHash}
                 >
                     <img src={"/logos/phala-logo.svg"} />
                     <p>Deploy with Phala</p>
