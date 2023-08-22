@@ -83,13 +83,16 @@ export function AddressElements(props: {
                         }}
                     />
                 </div>
-                <Link
-                    className={styles.phalaLabel}
-                    to={"https://phat.phala.network/contracts/add/" + phalaHash}
-                >
-                    <img src={"/logos/phala-logo.svg"} />
-                    <p>Deploy with Phala</p>
-                </Link>
+                {
+                    props.name === "Address" ? <></> :
+                        <Link
+                            className={styles.phalaLabel}
+                            to={"https://phat.phala.network/contracts/add/" + phalaHash}
+                        >
+                            <img src={"/logos/phala-logo.svg"} />
+                            <p>Deploy with Phala</p>
+                        </Link>
+                }
             </div>
         </div>
     )
