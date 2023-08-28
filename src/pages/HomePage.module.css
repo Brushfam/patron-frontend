@@ -17,7 +17,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    top: 33%;
+    top: 30%;
     margin-bottom: 240px;
 }
 
@@ -63,7 +63,7 @@
     }
 }
 
-@media (max-height: 700px) and (min-width: 641px){
+@media (max-height: 740px) and (min-width: 641px){
     .mainDiv {
         position: static;
         padding-top: 220px;
