@@ -89,6 +89,10 @@
 
 @media (max-width: 460px) {
     .mainLogo {
-        width: 90%;
+        width: 70%;
+    }
+
+    .polkadotNote {
+        margin-bottom: 40px;
     }
 }

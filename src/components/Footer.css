@@ -20,7 +20,7 @@
     line-height: 24px;
 }
 
-.footerFoundedBy {
+.footerFundedBy {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -29,7 +29,7 @@
     margin-bottom: 20px;
 }
 
-.footerFoundedBy p {
+.footerFundedBy p {
     color: #68737E;
     font-size: 16px;
     font-style: normal;
@@ -37,7 +37,7 @@
     line-height: 100%;
 }
 
-.footerFoundedBy img {
+.footerFundedBy img {
     display: block;
 }
 
@@ -136,16 +136,16 @@
         column-gap: 30px;
     }
 
-    .footerFoundedBy {
+    .footerFundedBy {
         column-gap: 14px;
         margin-bottom: 16px;
     }
 
-    .footerFoundedBy img {
+    .footerFundedBy img {
         transform: scale(0.9);
     }
 
-    .footerFoundedBy p {
+    .footerFundedBy p {
         font-size: 13px;
     }
 }

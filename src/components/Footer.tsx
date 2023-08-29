@@ -5,13 +5,13 @@ import { Link } from "react-router-dom";
 export function Footer() {
     return(
         <div className={"footerContainer"}>
-            <div className={"footerFoundedBy"}>
+            <div className={"footerFundedBy"}>
                 <p>Funded by </p>
                 <Link to={"https://alephzero.org/"}>
-                    <img src={"/logos/aleph-zero-logo.svg"}/>
+                    <img src={"/logos/aleph-zero-logo.svg"} alt={"Aleph Zero logo"}/>
                 </Link>
                 <Link to={"https://web3.foundation/"}>
-                    <img src={"/logos/w3f-logo.svg"}/>
+                    <img src={"/logos/w3f-logo.svg"} alt={"Web3 Foundation logo"}/>
                 </Link>
             </div>
             <div className={"footer"}>

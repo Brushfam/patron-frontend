@@ -85,7 +85,7 @@
 @media (max-width: 460px) {
     .inputSearch, .inputSearchError {
         width: calc(100% - 45px);
-        padding-left: 38px;
+        padding-left: 12%;
     }
 
     .searchButton {

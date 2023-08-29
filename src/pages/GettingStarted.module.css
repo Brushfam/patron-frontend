@@ -23,11 +23,26 @@
     margin-top: 20px;
 }
 
-.docsText {
+.docsText, .videoText p {
     font-weight: 400;
     font-size: 16px;
     line-height: 150%;
+}
+
+.docsText, .videoText {
     margin-bottom: 20px;
+}
+
+.videoText {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.videoText img {
+    width: 30px;
+    margin-right: 6px;
+    margin-bottom: 1px;
 }
 
 .secondTitle, .mainTitle {
