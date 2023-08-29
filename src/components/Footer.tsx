@@ -6,7 +6,7 @@ export function Footer() {
     return(
         <div className={"footerContainer"}>
             <div className={"footerFoundedBy"}>
-                <p>Founded by </p>
+                <p>Funded by </p>
                 <Link to={"https://alephzero.org/"}>
                     <img src={"/logos/aleph-zero-logo.svg"}/>
                 </Link>
