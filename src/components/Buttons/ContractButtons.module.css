@@ -1,18 +1,17 @@
-.contractButtons {
+.contractButtons, .contractButtonsRow {
     display: flex;
     flex-direction: row;
     column-gap: 20px;
-    height: 100%;
     align-items: flex-end;
 }
 
-.info, .log, .code {
+.info, .log, .code, .caller {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
     column-gap: 6px;
-    border-radius: 20px;
+    border-radius: 10px;
     border: none;
     font-style: normal;
     font-weight: 600;
@@ -33,8 +32,28 @@
     width: 102px;
 }
 
+.caller {
+    width: 103px;
+}
+
+@media (max-width: 600px) {
+    .contractButtons {
+        flex-direction: column;
+        row-gap: 20px;
+        align-items: flex-start;
+    }
+
+    .caller {
+        height: 40px;
+    }
+}
+
 @media (max-width: 460px) {
     .contractButtons {
+        row-gap: 10px;
+    }
+
+    .contractButtonsRow {
         column-gap: 10px;
     }
 }

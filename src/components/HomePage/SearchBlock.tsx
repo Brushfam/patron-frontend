@@ -38,7 +38,7 @@ export function SearchBlock() {
                         handleKeyDown(e)
                     }}
                 />
-                <img src={"icons/search.svg"} className={styles.searchIcon} alt={"search icon"} />
+                <img src={"/icons/search.svg"} className={styles.searchIcon} alt={"search icon"} />
                 <button
                     type={"button"}
                     className={styles.searchButton}
@@ -47,7 +47,7 @@ export function SearchBlock() {
                     }}
                 >
                     <img
-                        src={"icons/buttons/search-arrow.svg"}
+                        src={"icons/buttons/arrow.svg"}
                         className={styles.searchButtonIcon}
                         alt={"search arrow"}
                     />

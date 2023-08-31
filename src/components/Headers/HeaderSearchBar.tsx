@@ -28,11 +28,9 @@ export function HeaderSearchBar(props: { elementId: string; barWidth?: string })
             <input
                 id={props.elementId}
                 placeholder={
-                    searchFailed
-                        ? "This code hash was not verified yet"
-                        : "Search Contract or Hash Code"
+                    "Search Contract or Hash Code"
                 }
-                className={searchFailed ? styles.searchInputError : styles.searchInput}
+                className={styles.searchInput}
                 autoComplete={"off"}
                 autoCorrect={"off"}
                 spellCheck={"false"}

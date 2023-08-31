@@ -7,7 +7,7 @@ export function AccountSearch(props: {setSearchText: React.Dispatch<React.SetSta
         <div className={styles.searchBlock}>
             <div className={styles.inputWrapper}>
                 <img
-                    src={"icons/search-mini.svg"}
+                    src={"/icons/search-mini.svg"}
                     className={styles.searchIcon}
                     alt={"search icon"}
                 />

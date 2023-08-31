@@ -6,12 +6,14 @@ import {
 import { Wallet } from "@subwallet/wallet-connect/types";
 import styles from './WalletsList.module.css'
 import { walletLinkData } from "../../data/walletLinksData";
+import { UseUser } from "../../context/UserContext"
 
 
 export function WalletsList(props: {
     setNextStep: React.Dispatch<React.SetStateAction<boolean>>,
     setNewWallet:  React.Dispatch<React.SetStateAction<Wallet | undefined>>
 }) {
+    const userContext = UseUser()
     const allDotsamaWallets = getWallets();
     const dotsamaWallets = allDotsamaWallets.slice(0,4)
 
@@ -19,6 +21,8 @@ export function WalletsList(props: {
         async (wallet: Wallet) => {
             if (wallet && wallet.installed) {
                 props.setNewWallet(getWalletBySource(wallet.extensionName))
+                userContext.setWallet(wallet)
+                userContext.setWalletName(wallet.extensionName)
                 await wallet.enable();
                 setTimeout(() => {
                     props.setNextStep(false);

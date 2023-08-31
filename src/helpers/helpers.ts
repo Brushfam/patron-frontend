@@ -37,3 +37,11 @@ export function getHashFromString(text: string) {
 
     return hash
 }
+
+export function snakeToCamel(str: string){
+    return str.replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase());
+}
+
+export function isNumber(result: string) {
+    return result.slice(0, 2) === "0x";
+}

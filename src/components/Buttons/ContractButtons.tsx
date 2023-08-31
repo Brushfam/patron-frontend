@@ -6,42 +6,57 @@ export function ContractButtons(props: {isVerified: boolean}) {
 
     return (
         <div className={styles.contractButtons}>
-            <button
-                className={styles.info}
-                style={
-                    ContractContext.page === "1"
-                        ? { backgroundColor: "#4270E7" }
-                        : { backgroundColor: "#49525A" }
+            <div className={styles.contractButtonsRow}>
+                <button
+                    className={styles.info}
+                    style={
+                        ContractContext.page === "1"
+                            ? { backgroundColor: "#4270E7" }
+                            : { backgroundColor: "#49525A" }
+                    }
+                    onClick={() => {ContractContext.changePage("1")}}
+                >
+                    <img src={"/icons/buttons/info.svg"} alt={"info button"}/>
+                    Info</button>
+                {
+                    props.isVerified ? <button
+                        className={styles.log}
+                        style={
+                            ContractContext.page === "2"
+                                ? { backgroundColor: "#4270E7" }
+                                : { backgroundColor: "#49525A" }
+                        }
+                        onClick={() => {ContractContext.changePage("2")}}
+                    >
+                        <img src={"/icons/buttons/logs.svg"} alt={"logs button"}/>
+                        Build log</button> : <></>
                 }
-                onClick={() => {ContractContext.changePage("1")}}
-            >
-                <img src={"/icons/buttons/info.svg"} alt={"info button"}/>
-                Info</button>
+                {
+                    props.isVerified ? <button
+                        className={styles.code}
+                        style={
+                            ContractContext.page === "3"
+                                ? { backgroundColor: "#4270E7" }
+                                : { backgroundColor: "#49525A" }
+                        }
+                        onClick={() => {ContractContext.changePage("3")}}
+                    >
+                        <img src={"/icons/buttons/code.svg"} alt={"code button"}/>
+                        Code</button> : <></>
+                }
+            </div>
             {
                 props.isVerified ? <button
-                    className={styles.log}
+                    className={styles.caller}
                     style={
-                        ContractContext.page === "2"
+                        ContractContext.page === "4"
                             ? { backgroundColor: "#4270E7" }
                             : { backgroundColor: "#49525A" }
                     }
-                    onClick={() => {ContractContext.changePage("2")}}
+                    onClick={() => {ContractContext.changePage("4")}}
                 >
-                    <img src={"/icons/buttons/logs.svg"} alt={"logs button"}/>
-                    Build log</button> : <></>
-            }
-            {
-                props.isVerified ? <button
-                    className={styles.code}
-                    style={
-                        ContractContext.page === "3"
-                            ? { backgroundColor: "#4270E7" }
-                            : { backgroundColor: "#49525A" }
-                    }
-                    onClick={() => {ContractContext.changePage("3")}}
-                >
-                    <img src={"/icons/buttons/code.svg"} alt={"code button"}/>
-                    Code</button> : <></>
+                    <img src={"/icons/contract-icon.svg"} alt={"caller button"}/>
+                    Caller</button> : <></>
             }
         </div>
     );
