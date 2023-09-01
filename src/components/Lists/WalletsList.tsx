@@ -35,7 +35,7 @@ export function WalletsList(props: {
                 })
             }
         },
-        [props]
+        [props, userContext]
     );
 
     const WalletRow = (wallet: Wallet) => {

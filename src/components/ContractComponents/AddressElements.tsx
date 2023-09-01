@@ -89,7 +89,7 @@ export function AddressElements(props: {
                             className={styles.phalaLabel}
                             to={"https://phat.phala.network/contracts/add/" + phalaHash}
                         >
-                            <img src={"/logos/phala-logo.svg"} />
+                            <img src={"/logos/phala-logo.svg"} alt={"Phala logo"}/>
                             <p>Deploy with Phala</p>
                         </Link>
                 }

@@ -33,12 +33,13 @@ export function GettingStarted() {
                     explore contract verification details.
                 </p>
                 <div className={styles.videoText} style={{ marginBottom: 40 }}>
-                    <img src={"/icons/video-icon.svg"}/>
+                    <img src={"/icons/video-icon.svg"} alt={"video icon"}/>
                     <p>
                         Watch the{" "}
                         <a
                             href={"https://youtu.be/MFmkVMpV4_0?si=fgVZ3zCr2YeQyJXE"}
                             target={"_blank"}
+                            rel="noreferrer"
                             style={{
                                 color: "#ECEDF1",
                                 textDecoration: "underline",
@@ -72,6 +73,7 @@ export function GettingStarted() {
                     <a
                         href={"https://brushfam.io/"}
                         target={"_blank"}
+                        rel="noreferrer"
                         style={{
                             color: "#ECEDF1",
                             textDecoration: "underline",
@@ -85,6 +87,7 @@ export function GettingStarted() {
                     <a
                         href={"https://astar.network/"}
                         target={"_blank"}
+                        rel="noreferrer"
                         style={{
                             color: "#ECEDF1",
                             textDecoration: "underline",
@@ -96,6 +99,7 @@ export function GettingStarted() {
                     <a
                         href={"https://alephzero.org/"}
                         target={"_blank"}
+                        rel="noreferrer"
                         style={{
                             color: "#ECEDF1",
                             textDecoration: "underline",
@@ -123,12 +127,13 @@ export function GettingStarted() {
                     <span style={{ color: "#4170E7" }}>cargo-contract</span>).
                 </p>
                 <div className={styles.videoText}>
-                    <img src={"/icons/video-icon.svg"}/>
+                    <img src={"/icons/video-icon.svg"} alt={"video icon"}/>
                     <p>
                         Watch the{" "}
                         <a
                             href={"https://youtu.be/6-B64g3-ZSs?si=iD4_FZ6UdhMYnOqa"}
                             target={"_blank"}
+                            rel="noreferrer"
                             style={{
                                 color: "#ECEDF1",
                                 textDecoration: "underline",
