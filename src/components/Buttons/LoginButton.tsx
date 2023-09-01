@@ -10,7 +10,7 @@ export function LoginButton(props: {onClickEvent:  React.Dispatch<React.SetState
             }}
         >
             <img
-                src={"icons/buttons/log-in.svg"}
+                src={"/icons/buttons/log-in.svg"}
                 style={{ marginRight: 10 }}
                 alt={"log in button"}
             />

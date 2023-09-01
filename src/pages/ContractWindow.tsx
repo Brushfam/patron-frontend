@@ -1,107 +1,89 @@
-import { ExplorerHeader } from "../components/Headers/ExplorerHeader";
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { AddressElements } from "../components/ContractComponents/AddressElements";
-import styles from "./ContractWindow.module.css";
-import { ContractButtons } from "../components/Buttons/ContractButtons";
-import { useContract } from "../context/ContractContext";
-import { Info } from "../components/ContractComponents/Info";
-import { Log } from "../components/ContractComponents/Log";
-import { Code } from "../components/ContractComponents/Code";
-import { buildSessionsDetailsGET } from "../api/BuildSessionsApi";
+import React, { useEffect, useState } from "react"
+import { useNavigate, useParams } from "react-router-dom"
+import { AddressElements } from "../components/ContractComponents/AddressElements"
+import styles from "./ContractWindow.module.css"
+import { ContractButtons } from "../components/Buttons/ContractButtons"
+import { useContract } from "../context/ContractContext"
+import { buildSessionsDetailsGET } from "../api/BuildSessionsApi"
+import { LoginModal } from "../modal/LoginModal";
+import { GettingStartedHeader } from "../components/Headers/GettingStartedHeader";
+import { LoginButton } from "../components/Buttons/LoginButton";
+import { MainHeaderLogged } from "../components/Headers/MainHeader";
+import { UseUser } from "../context/UserContext";
 
-export default function ContractWindow() {
-    const params = useParams();
-    const ContractContext = useContract();
-    const navigate = useNavigate();
+export default function ContractWindow(props: {child: JSX.Element}) {
+    const params = useParams()
+    const ContractContext = useContract()
+    const navigate = useNavigate()
+    const userContext = UseUser()
 
-    const [contractAddress, setContractAddress] = useState("");
-    const [verified, setVerified] = useState(false);
-    const [codeSourceId, setCodeSourceId] = useState(0);
+    const [loginOpen, setLoginOpen] = useState(false)
 
-    const [contractHash, setContractHash] = useState("");
-    const [contractNetwork, setContractNetwork] = useState("");
-    const [contractOwner, setContractOwner] = useState("");
+    const [contractAddress, setContractAddress] = useState("")
+    const [verified, setVerified] = useState(false)
+    const [codeSourceId, setCodeSourceId] = useState(0)
+    const [contractHash, setContractHash] = useState("")
 
     useEffect(() => {
-        let dataPromise = fetch(
-            process.env.REACT_APP_SERVER_URL + "/contracts/" + params.id,
-            {
+        let dataPromise = fetch(process.env.REACT_APP_SERVER_URL + "/contracts/" + params.id, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            mode: "cors" as RequestMode,
+        }).then((response) => {
+            if (!response.ok) {
+                navigate("/")
+                throw new Error(`HTTP error! Status: ${response.status}`)
+            }
+            return response.json()
+        })
+
+        dataPromise.then((data) => {
+            if (params.id) {
+                ContractContext.setAddress(params.id.toString())
+                setContractAddress(params.id.toString())
+                let sourcePromise = buildSessionsDetailsGET(data.code_hash)
+                sourcePromise.then((detailsList) => {
+                    ContractContext.setSource(detailsList.source_code_id)
+                    setCodeSourceId(detailsList.source_code_id)
+                })
+                ContractContext.setHash(data.code_hash)
+                ContractContext.setLogHash(data.code_hash)
+                ContractContext.setOwner(data.owner)
+                setContractHash(data.code_hash)
+                if (data.node === "astar") {
+                    ContractContext.setNode("Astar")
+                } else if (data.node === "alephzero") {
+                    ContractContext.setNode("Aleph Zero")
+                } else {
+                    ContractContext.setNode("")
+                }
+            }
+
+            fetch(process.env.REACT_APP_SERVER_URL + "/buildSessions/logs/" + data.code_hash, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 mode: "cors" as RequestMode,
-            }
-        ).then((response) => {
-            if (!response.ok) {
-                navigate("/");
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.json();
-        });
-
-        dataPromise.then((data) => {
-            if (params.id) {
-                setContractAddress(params.id.toString());
-                let sourcePromise = buildSessionsDetailsGET(data.code_hash);
-                sourcePromise.then((detailsList) => {
-                    setCodeSourceId(detailsList.source_code_id);
-                });
-                setContractHash(data.code_hash);
-                setContractOwner(data.owner);
-                setContractNetwork(data.node);
-                if (data.node === "astar") {
-                    setContractNetwork("Astar");
-                } else if (data.node === "alephzero") {
-                    setContractNetwork("Aleph Zero");
-                } else {
-                    setContractNetwork('')
-                }
-            }
-
-            fetch(
-                process.env.REACT_APP_SERVER_URL +
-                    "/buildSessions/logs/" +
-                    data.code_hash,
-                {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    mode: "cors" as RequestMode,
-                }
-            ).then((response) => {
+            }).then((response) => {
                 if (response.ok) {
-                    setVerified(true);
+                    ContractContext.setIsVerified(true)
+                    setVerified(true)
                 }
-            });
-        });
-    }, [params.id, codeSourceId, contractHash, navigate]);
-
-    const CurrentContractWindow = () => {
-        const [logHash, source] = verified
-            ? [contractHash, codeSourceId]
-            : ["", 0];
-
-        if (ContractContext.page === "1") {
-            return (
-                <Info
-                    address={contractAddress}
-                    isVerified={verified}
-                    hash={contractHash}
-                    node={contractNetwork}
-                    owner={contractOwner}
-                ></Info>
-            );
-        } else if (ContractContext.page === "2") {
-            return <Log hash={logHash}></Log>;
-        } else return <Code source_id={source}></Code>;
-    };
+            })
+        })
+    }, [params.id, codeSourceId, contractHash, navigate, ContractContext])
 
     return (
         <div className={styles.contractContainer}>
-            <ExplorerHeader />
+            <LoginModal isOpen={loginOpen} setModal={setLoginOpen} isLogin={false}/>
+            {!userContext.currentUser ? (
+                <GettingStartedHeader loginButton={<LoginButton onClickEvent={setLoginOpen} />} />
+            ) : (
+                <MainHeaderLogged />
+            )}
             <div className={styles.mainBlock}>
                 <div className={styles.addressAndButtons}>
                     <AddressElements
@@ -113,8 +95,8 @@ export default function ContractWindow() {
                     />
                     <ContractButtons isVerified={verified} />
                 </div>
-                <CurrentContractWindow />
+                {props.child}
             </div>
         </div>
-    );
+    )
 }

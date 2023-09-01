@@ -1,7 +1,5 @@
 import {useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {Log} from "../components/ContractComponents/Log";
-import {Code} from "../components/ContractComponents/Code";
 import styles from "./ContractWindow.module.css";
 import {ExplorerHeader} from "../components/Headers/ExplorerHeader";
 import {AddressElements} from "../components/ContractComponents/AddressElements";
@@ -9,20 +7,20 @@ import {useContract} from "../context/ContractContext";
 import {CodeHashButtons} from "../components/Buttons/CodeHashButtons";
 import {buildSessionsDetailsGET} from "../api/BuildSessionsApi";
 
-export default function CodeHashWindow() {
+export default function CodeHashWindow(props: {child: JSX.Element}) {
     const params = useParams();
     const ContractContext = useContract();
     const navigate = useNavigate();
     const [codeHashAddress, setCodeHashAddress] = useState("");
-    const [codeSourceId, setCodeSourceId] = useState(0)
 
 
     useEffect(() => {
         if (params.id) {
             setCodeHashAddress(params.id.toString());
+            ContractContext.setLogHash(params.id.toString())
             let sourcePromise = buildSessionsDetailsGET(params.id.toString())
             sourcePromise.then((detailsList) => {
-                setCodeSourceId(detailsList.source_code_id)
+                ContractContext.setSource(detailsList.source_code_id)
             })
         }
 
@@ -42,16 +40,7 @@ export default function CodeHashWindow() {
             }
         })
 
-    }, [params.id, navigate]);
-
-    const CurrentContractWindow = () => {
-        if (ContractContext.page === "1") {
-            if (params.id) {
-                return <Log hash={params.id}></Log>;
-            } else return <Log hash={""}></Log>;
-        } else return <Code source_id={codeSourceId}></Code>;
-    };
-
+    }, [params.id, navigate, ContractContext]);
 
     return (
         <div className={styles.contractContainer}>
@@ -61,7 +50,7 @@ export default function CodeHashWindow() {
                     <AddressElements name={"Hash Code"} iconPath={"/code-hash-square.svg"} address={codeHashAddress} verified={true} />
                     <CodeHashButtons />
                 </div>
-                <CurrentContractWindow />
+                {props.child}
             </div>
         </div>
     );

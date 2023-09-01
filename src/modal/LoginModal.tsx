@@ -4,6 +4,7 @@ import { Wallet } from "@subwallet/wallet-connect/types";
 import { WalletsList } from "../components/Lists/WalletsList";
 import { AccountList } from "../components/Lists/AccountList";
 import { UseUser } from "../context/UserContext";
+import { useContract } from "../context/ContractContext";
 
 export function LoginModal(props: {
     isOpen: boolean;
@@ -12,15 +13,17 @@ export function LoginModal(props: {
 }) {
     const [step1, setStep1] = useState(true);
     const [wallet, setWallet] = useState<Wallet | undefined>(undefined);
+    const contractContext = useContract()
 
     const userContext = UseUser();
     useEffect(() => {
         if (userContext.currentUser && !props.isLogin) {
             props.setModal(false);
+            contractContext.setModalOpen(false)
         }
-    }, [userContext.currentUser, props]);
+    }, [userContext.currentUser, props, contractContext.modalOpen, contractContext]);
 
-    if (!props.isOpen) {
+    if (!props.isOpen && ! contractContext.modalOpen) {
         return <></>;
     }
 
@@ -33,6 +36,7 @@ export function LoginModal(props: {
                     className={styles.exitButton}
                     onClick={() => {
                         props.setModal(false);
+                        contractContext.setModalOpen(false)
                     }}
                 />
                 {step1 ? (

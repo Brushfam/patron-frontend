@@ -1,0 +1,27 @@
+<svg width="16" height="11" viewBox="0 0 16 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="16" height="11" fill="#787878"/>
+<g id="New Iteration">
+<rect width="18674" height="12939" transform="translate(-12361 -5257)" fill="#A0A0A0"/>
+<g id="Contract Window | Caller (Open)">
+<rect width="1440" height="1531" transform="translate(-355 -691)" fill="#141D25"/>
+<g id="Frame 6808">
+<rect x="-235" y="-335" width="1200" height="1056" rx="20" fill="#21282F"/>
+<g id="Frame 6783">
+<rect x="-225" y="-24" width="1180" height="135" rx="10" fill="#29323B"/>
+<g id="Frame 6848">
+<g id="Frame 6790">
+<g id="Read Badge">
+<rect x="-43" y="-6.5" width="68" height="24" rx="12" fill="#49525A"/>
+<g id="Group 63">
+<path id="Vector" d="M8 10C11.866 10 15 5.5 15 5.5C15 5.5 11.866 1 8 1C4.13402 1 1 5.5 1 5.5C1 5.5 4.13402 10 8 10Z" stroke="#ECEDF1" stroke-linejoin="round"/>
+<path id="Vector_2" d="M8 7.5C9.10455 7.5 10 6.60455 10 5.5C10 4.39545 9.10455 3.5 8 3.5C6.89545 3.5 6 4.39545 6 5.5C6 6.60455 6.89545 7.5 8 7.5Z" stroke="#ECEDF1" stroke-linejoin="round"/>
+</g>
+</g>
+</g>
+</g>
+</g>
+<rect x="-235" y="-335" width="1200" height="1056" rx="20" stroke="#49525A"/>
+</g>
+</g>
+</g>
+</svg>

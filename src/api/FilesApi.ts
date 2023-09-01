@@ -52,3 +52,23 @@ export function fileGET(sourceId: number, fileNumber: number) {
         return codeGET(sourceId, file)
     })
 }
+
+export function metadataGET(codeHash: string) {
+    const options = {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        mode: "cors" as RequestMode,
+    }
+
+    return fetch(
+        process.env.REACT_APP_SERVER_URL + "/buildSessions/metadata/" + codeHash,
+        options
+    ).then((response) => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`)
+        }
+        return response.json()
+    })
+}

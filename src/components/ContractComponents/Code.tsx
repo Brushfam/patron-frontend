@@ -2,8 +2,10 @@ import styles from "./Code.module.css"
 import { useCallback, useEffect, useState } from "react"
 import { fileGET, fileListGET } from "../../api/FilesApi"
 import { setFileNameLength } from "../../helpers/helpers"
+import { useContract } from "../../context/ContractContext";
 
-export function Code(props: { source_id: number }) {
+export function Code() {
+    const pageContext = useContract();
     const [fileList, setFileList] = useState<string[]>([])
     const [currentCode, setCurrentCode] = useState<string[]>([])
     const [currentFile, setCurrentFile] = useState("")
@@ -11,17 +13,17 @@ export function Code(props: { source_id: number }) {
 
     const chooseFile = useCallback(
         (fileNumber: number) => {
-            let filePromise = fileGET(props.source_id, fileNumber)
+            let filePromise = fileGET(pageContext.source, fileNumber)
             filePromise.then((data) => {
                 let parsedText = data.text.replaceAll("\n\n", "\n \n")
                 setCurrentCode(parsedText.split("\n"))
             })
         },
-        [props.source_id]
+        [pageContext.source]
     )
 
     useEffect(() => {
-        let fileListPromise = fileListGET(props.source_id)
+        let fileListPromise = fileListGET(pageContext.source)
         fileListPromise.then((contractFiles) => {
             if (contractFiles.files) {
                 setFileList(contractFiles.files)
@@ -30,7 +32,7 @@ export function Code(props: { source_id: number }) {
         })
 
         chooseFile(0)
-    }, [props.source_id, chooseFile])
+    }, [pageContext.source, chooseFile])
 
     function FileListButton() {
         if (fileList.length > 1) {

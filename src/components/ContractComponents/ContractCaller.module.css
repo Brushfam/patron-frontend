@@ -1,0 +1,217 @@
+.contractCallerSection {
+    display: flex;
+    flex-direction: column;
+
+    row-gap: 10px;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 40px;
+
+    border-radius: 20px;
+    border: 1px solid #49525A;
+    background: #21282F;
+}
+
+.contractFunction {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 10px;
+
+    border-radius: 10px;
+    background: #29323B;
+}
+
+.callerButton, .callerButtonDisabled {
+    padding: 10px 20px 12px 20px;
+    border-radius: 5px;
+    border: 0;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.callerButton {
+    background: #4170E7;
+}
+
+.callerButtonDisabled {
+    background: #49525A;
+}
+
+.callerButtonDisabled:hover {
+    cursor: auto;
+    filter: brightness(100%);
+}
+
+.contractCallerBlockResult{
+    padding: 10px 12px;
+    border-radius: 5px;
+    border: 1px solid #ECEDF1;
+    color: white;
+    font-size: 14px;
+}
+
+.functionTitleBlock {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.functionTitle {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    column-gap: 20px;
+}
+
+.functionTitle p {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+}
+
+.functionTypeLabel {
+    display: flex;
+    padding: 6px 10px;
+    align-items: center;
+    gap: 6px;
+    border-radius: 20px;
+    background: #49525A;
+}
+
+.functionTypeLabel p {
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 600;
+}
+
+.functionTypeLabel img {
+    margin-bottom: 1px;
+}
+
+.functionTitleButtonWrapper {
+    display: flex;
+    width: 30px;
+    height: 30px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    background: #49525A;
+}
+
+.functionTitleButtonWrapper:hover {
+    cursor: pointer;
+    filter: brightness(120%);
+}
+
+.functionContent {
+    width: 100%;
+}
+
+.functionDocs {
+    display: flex;
+    flex-direction: column;
+    max-height: 120px;
+    width: 100%;
+    padding: 10px 10px 0 10px;
+    border-radius: 5px;
+    background: #37434F;
+    margin-top: 16px;
+    overflow: auto;
+}
+
+.functionDocs p {
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    color: #ECEDF1;
+    padding-bottom: 2px;
+}
+
+.functionDocs::-webkit-scrollbar {
+    width: auto;
+}
+
+.functionDocs::-webkit-scrollbar-track {
+    width: 2px;
+    background-color: #49525A;
+    border: 3px solid transparent;
+    background-clip: content-box;
+    border-radius: 9px;
+}
+
+.functionDocs::-webkit-scrollbar-thumb {
+    background-color: #B0B7BF;
+    border: 3px solid transparent;
+    border-radius: 9px;
+    background-clip: content-box;
+}
+
+.inputsBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-top: 1px solid #49525A;
+    padding-top: 10px;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.inputsRow {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+}
+
+.functionInputLabel, .functionInput {
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%;
+    color: white;
+}
+
+.functionInput {
+    border-radius: 5px;
+    background: #49525A;
+    border: 0;
+    padding: 10px;
+    outline-style: none;
+    width: 100%;
+}
+
+.functionInput::placeholder {
+    color: #B0B7BF;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%;
+}
+
+.ButtonRow {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+@media (max-width: 560px) {
+    .functionTitle p {
+        font-size: 14px;
+    }
+
+    .functionTitle {
+        flex-direction: column;
+        align-items: flex-start;
+        row-gap: 12px;
+    }
+
+    .functionTypeLabel p {
+        font-weight: 500;
+    }
+}

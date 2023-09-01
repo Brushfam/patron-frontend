@@ -9,31 +9,27 @@ import {
 } from "../../helpers/helpers"
 import Tooltip from "@mui/material/Tooltip"
 import { Fade } from "@mui/material";
+import { useContract } from "../../context/ContractContext";
 
-export function Info(props: {
-    address: string
-    isVerified: boolean
-    hash: string
-    node: string
-    owner: string
-}) {
+export function Info() {
+    const pageContext = useContract()
     const [events, setEvents] = useState<any[]>([])
     const [open, setOpen] = useState(false)
     const [openOwner, setOpenOwner] = useState(false)
 
     function handleCopy() {
-        navigator.clipboard.writeText(props.hash)
+        navigator.clipboard.writeText(pageContext.hash)
     }
 
     function handleCopyOwner() {
-        navigator.clipboard.writeText(props.owner)
+        navigator.clipboard.writeText(pageContext.owner)
     }
 
     useEffect(() => {
         let eventsPromise = fetch(
             process.env.REACT_APP_SERVER_URL +
                 "/contracts/events/" +
-                props.address,
+            pageContext.address,
             {
                 method: "GET",
                 headers: {
@@ -53,7 +49,7 @@ export function Info(props: {
             let parsedJson = JSON.parse(data)
             setEvents(parsedJson)
         })
-    }, [props.address])
+    }, [pageContext.address])
 
     return (
         <div className={styles.info}>
@@ -61,10 +57,10 @@ export function Info(props: {
                 {/* Code Hash */}
                 <div className={styles.infoRow}>
                     <p className={styles.infoHeader}>Code Hash:</p>
-                    {props.isVerified ? (
-                        <Link to={"/codeHash/" + props.hash}>
+                    {pageContext.isVerified ? (
+                        <Link to={"/codeHash/" + pageContext.hash + "/log"}>
                             <p className={styles.hashTextVerified}>
-                                {parseCodeHash(props.hash)}
+                                {parseCodeHash(pageContext.hash)}
                             </p>
                         </Link>
                     ) : (
@@ -85,22 +81,22 @@ export function Info(props: {
                                     setOpen(true)
                                 }}
                             >
-                                {parseCodeHash(props.hash)}
+                                {parseCodeHash(pageContext.hash)}
                             </p>
                         </Tooltip>
                     )}
                 </div>
                 {/* Deployed on */}
-                {props.node ? (
+                {pageContext.node ? (
                     <div className={styles.infoRow}>
                         <p className={styles.infoHeader}>Deployed on:</p>
-                        <p className={styles.infoText}>{props.node}</p>
+                        <p className={styles.infoText}>{pageContext.node}</p>
                     </div>
                 ) : (
                     <></>
                 )}
                 {/* Deployer */}
-                {props.owner ? (
+                {pageContext.owner ? (
                     <div className={styles.infoRow}>
                         <p className={styles.infoHeader}>Deployer:</p>
                         <Tooltip
@@ -120,7 +116,7 @@ export function Info(props: {
                                     setOpenOwner(true)
                                 }}
                             >
-                                {parseAddress(props.owner)}
+                                {parseAddress(pageContext.owner)}
                             </p>
                         </Tooltip>
                     </div>
@@ -159,12 +155,12 @@ export function Info(props: {
                                     <p className={styles.contract}>
                                         {new_code_hash
                                             ? parseAddress(new_code_hash)
-                                            : parseAddress(props.hash)}
+                                            : parseAddress(pageContext.hash)}
                                     </p>
                                     <p className={styles.contractMobile}>
                                         {new_code_hash
                                             ? parseAddressPTag(new_code_hash)
-                                            : parseAddressPTag(props.hash)}
+                                            : parseAddressPTag(pageContext.hash)}
                                     </p>
                                     <p className={styles.time}>
                                         {parseDate(value.timestamp)}
