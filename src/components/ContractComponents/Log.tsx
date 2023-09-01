@@ -1,12 +1,14 @@
 import styles from "./Log.module.css";
 import {useEffect, useState} from "react";
+import { useContract } from "../../context/ContractContext";
 
-export function Log(props: {hash: string}) {
+export function Log() {
+    const pageContext = useContract()
     const [codeHashLogs, setCodeHashLogs] = useState<any[]>([]);
 
     useEffect(() => {
         fetch(
-            process.env.REACT_APP_SERVER_URL + '/buildSessions/logs/' + props.hash,
+            process.env.REACT_APP_SERVER_URL + '/buildSessions/logs/' + pageContext.logHash,
             {
                 method: "GET",
                 headers: {
@@ -28,7 +30,7 @@ export function Log(props: {hash: string}) {
                 setCodeHashLogs([""])
             }
         })
-    }, [props.hash])
+    }, [pageContext.logHash])
 
 
     return (

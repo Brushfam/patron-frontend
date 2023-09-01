@@ -11,6 +11,7 @@ import { CopyIcon } from "../CopyIcon"
 import { isNumber, snakeToCamel } from "../../helpers/helpers"
 import { getWalletBySource } from "@subwallet/wallet-connect/dotsama/wallets"
 import { Signer } from "@polkadot/types/types"
+import { useContract } from "../../context/ContractContext";
 
 interface FunctionDocs {
     lines: string[]
@@ -21,13 +22,9 @@ interface FunctionArgs {
     types: string[]
 }
 
-export function ContractCaller(props: {
-    contractAddress: string
-    contractCodeHash: string
-    contractNetwork: string
-    loginClickEvent: React.Dispatch<React.SetStateAction<boolean>>
-}) {
+export function ContractCaller() {
     const userContext = UseUser()
+    const contractContext = useContract()
     const currentWallet = getWalletBySource(userContext.walletName)
     const [signer, setSigner] = useState<Signer | undefined>(undefined)
 
@@ -38,13 +35,61 @@ export function ContractCaller(props: {
     const [functionArgs, setFunctionArgs] = useState<FunctionArgs[]>([])
     const [contractAbi, setContractAbi] = useState({})
 
+
     useEffect(() => {
         ;(async () => {
             await currentWallet?.enable()
             setSigner(currentWallet?.signer)
         })()
+
+        const setMetadataVars = () => {
+            const metadataPromise = metadataGET(contractContext.hash)
+            metadataPromise.then((metadata) => {
+                setContractAbi(metadata)
+                let functionNamesList: string[] = []
+                let functionMutabilityList: boolean[] = []
+                let functionSelectorsList: string[] = []
+                let functionArgsList: FunctionArgs[] = []
+                let functionDocsList: FunctionDocs[] = []
+                setTimeout(() => {
+                    let stringify_metadata = metadata.spec.messages
+                    stringify_metadata.forEach(
+                        (method: { label: string; mutates: string; docs: string[]; args: any }) => {
+                            functionNamesList.push(method.label)
+                            let functionType = method.mutates.toString() !== "false"
+                            functionMutabilityList.push(functionType)
+                            // @ts-ignore
+                            functionSelectorsList.push(method.selector)
+
+                            let lines: FunctionDocs = {lines: []};
+                            method.docs.forEach((line) => {
+                                lines.lines.push(line)
+                            })
+                            functionDocsList.push(lines)
+
+                            let functionArgsLabelList: string[] = []
+                            let functionArgsTypeList: string[] = []
+                            method.args.forEach((argument: { label: string; type: any }) => {
+                                functionArgsLabelList.push(argument.label.toString())
+                                functionArgsTypeList.push(argument.type.displayName.toString())
+                            })
+                            functionArgsList.push({
+                                labels: functionArgsLabelList,
+                                types: functionArgsTypeList,
+                            })
+                        }
+                    )
+                    setFunctionNames(functionNamesList)
+                    setFunctionMutability(functionMutabilityList)
+                    setFunctionSelectors(functionSelectorsList)
+                    setFunctionArgs(functionArgsList)
+                    setFunctionDocs(functionDocsList)
+                }, 200)
+            })
+        }
+
         setMetadataVars()
-    }, [props.contractCodeHash])
+    }, [contractContext.hash, currentWallet])
 
     const callContract = (
         label: string,
@@ -55,14 +100,14 @@ export function ContractCaller(props: {
     ) => {
         if (signer) {
             const wsProvider = new WsProvider(
-                props.contractNetwork === "Astar" ? "wss://rpc.astar.network" : "wss://ws.azero.dev"
+                contractContext.node === "Astar" ? "wss://rpc.astar.network" : "wss://ws.azero.dev"
             )
             const apiPromise = ApiPromise.create({ provider: wsProvider })
 
             apiPromise.then(async (api) => {
                 const MAX_CALL_WEIGHT = new BN(5_000_000_000_000).isub(BN_ONE)
                 const PROOF_SIZE = new BN(1_000_000)
-                const contract = new ContractPromise(api, contractAbi, props.contractAddress)
+                const contract = new ContractPromise(api, contractAbi, contractContext.address)
                 const gasLimitValue: WeightV2 = api?.registry.createType("WeightV2", {
                     refTime: MAX_CALL_WEIGHT,
                     proofSize: PROOF_SIZE,
@@ -94,12 +139,12 @@ export function ContractCaller(props: {
                         ).signAndSend(userContext.currentUser, { signer }, async (res) => {
                             if (res.status.isInBlock) {
                                 setResultState("in a block!")
+                                setCalledState(false)
                                 console.log("in a block")
                             } else if (res.status.isFinalized) {
                                 console.log("finalized")
                             }
                             console.log("tx hash:" + res.txHash.toHex())
-                            setCalledState(false)
                         })
                     } else {
                         const { gasRequired } = await contract.query[label](
@@ -121,11 +166,11 @@ export function ContractCaller(props: {
                         }).signAndSend(userContext.currentUser, { signer }, async (res) => {
                             if (res.status.isInBlock) {
                                 setResultState("in a block!")
+                                setCalledState(false)
                                 console.log("in a block")
                             } else if (res.status.isFinalized) {
                                 console.log("finalized")
                             }
-                            setCalledState(false)
                         })
                     }
                 } else {
@@ -170,52 +215,6 @@ export function ContractCaller(props: {
                 }
             })
         }
-    }
-
-    const setMetadataVars = () => {
-        const metadataPromise = metadataGET(props.contractCodeHash)
-        metadataPromise.then((metadata) => {
-            setContractAbi(metadata)
-            let functionNamesList: string[] = []
-            let functionMutabilityList: boolean[] = []
-            let functionSelectorsList: string[] = []
-            let functionArgsList: FunctionArgs[] = []
-            let functionDocsList: FunctionDocs[] = []
-            setTimeout(() => {
-                let stringify_metadata = metadata.spec.messages
-                stringify_metadata.map(
-                    (method: { label: string; mutates: string; docs: string[]; args: any }) => {
-                        functionNamesList.push(method.label)
-                        let functionType = method.mutates.toString() !== "false"
-                        functionMutabilityList.push(functionType)
-                        // @ts-ignore
-                        functionSelectorsList.push(method.selector)
-
-                        let lines: FunctionDocs = {lines: []};
-                        method.docs.map((line) => {
-                            lines.lines.push(line)
-                        })
-                        functionDocsList.push(lines)
-
-                        let functionArgsLabelList: string[] = []
-                        let functionArgsTypeList: string[] = []
-                        method.args.map((argument: { label: string; type: any }) => {
-                            functionArgsLabelList.push(argument.label.toString())
-                            functionArgsTypeList.push(argument.type.displayName.toString())
-                        })
-                        functionArgsList.push({
-                            labels: functionArgsLabelList,
-                            types: functionArgsTypeList,
-                        })
-                    }
-                )
-                setFunctionNames(functionNamesList)
-                setFunctionMutability(functionMutabilityList)
-                setFunctionSelectors(functionSelectorsList)
-                setFunctionArgs(functionArgsList)
-                setFunctionDocs(functionDocsList)
-            }, 200)
-        })
     }
 
     function updateCopyIcon(name: string, setState: React.Dispatch<React.SetStateAction<boolean>>) {
@@ -310,7 +309,7 @@ export function ContractCaller(props: {
                 </div>
                 {open ? (
                     <div className={styles.functionContent}>
-                        {functionDocs[props.iteration] ? (
+                        {functionDocs[props.iteration].lines.length ? (
                             <div className={styles.functionDocs}>
                                 {
                                     functionDocs[props.iteration].lines.map((line, i) => {
@@ -379,7 +378,7 @@ export function ContractCaller(props: {
 
     return (
         <div className={styles.contractCallerSection}>
-            <ConnectToPatron loginClickEvent={props.loginClickEvent} />
+            <ConnectToPatron/>
             {functionNames ? (
                 functionNames.map((name, i) => {
                     return (

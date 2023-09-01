@@ -1,13 +1,15 @@
 import styles from "./ConnectToPatron.module.css"
 import { UseUser } from "../../context/UserContext"
 import React from "react"
+import { useContract } from "../../context/ContractContext";
 
-export function ConnectToPatron(props: {loginClickEvent:  React.Dispatch<React.SetStateAction<boolean>>}) {
+export function ConnectToPatron() {
     const userContext = UseUser()
+    const contractContext = useContract()
 
     function handleClick() {
         if (!userContext.currentUser) {
-            props.loginClickEvent(true);
+            contractContext.setModalOpen(true)
         }
     }
 

@@ -10,6 +10,10 @@ import {ContractProviderLayout} from "./layouts/ContractProviderLayout";
 import CodeHashWindow from "./pages/CodeHashWindow";
 import { GettingStarted } from "./pages/GettingStarted";
 import Login from "./pages/Login";
+import { Info } from "./components/ContractComponents/Info";
+import { Log } from "./components/ContractComponents/Log";
+import { Code } from "./components/ContractComponents/Code";
+import { ContractCaller } from "./components/ContractComponents/ContractCaller";
 
 
 function App() {
@@ -21,11 +25,15 @@ function App() {
               <Route path={"/profile"} element={<RequireAuth children={<Profile />}/>}></Route>
               <Route path={"/contract"} element={<Navigate to={'/'}/>}></Route>
               <Route element={<ContractProviderLayout/>}>
-                  <Route path={"/contract/:id"} element={<ContractWindow />}></Route>
+                  <Route path={"/contract/:id/info"} element={<ContractWindow child={<Info/>}/>}></Route>
+                  <Route path={"/contract/:id/log"} element={<ContractWindow child={<Log/>} />}></Route>
+                  <Route path={"/contract/:id/code"} element={<ContractWindow child={<Code/>} />}></Route>
+                  <Route path={"/contract/:id/caller"} element={<ContractWindow child={<ContractCaller/>} />}></Route>
               </Route>
               <Route path={"/codeHash"} element={<Navigate to={'/'}/>}></Route>
               <Route element={<ContractProviderLayout/>}>
-                  <Route path={"/codeHash/:id"} element={<CodeHashWindow />}></Route>
+                  <Route path={"/codeHash/:id/log"} element={<CodeHashWindow child={<Log/>} />}></Route>
+                  <Route path={"/codeHash/:id/code"} element={<CodeHashWindow child={<Code/>} />}></Route>
               </Route>
               <Route path={"/login"} element={<Login/>}></Route>
               <Route path={"*"} element={<Navigate to={'/'}/>}></Route>
