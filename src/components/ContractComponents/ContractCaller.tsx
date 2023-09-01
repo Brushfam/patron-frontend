@@ -12,6 +12,10 @@ import { isNumber, snakeToCamel } from "../../helpers/helpers"
 import { getWalletBySource } from "@subwallet/wallet-connect/dotsama/wallets"
 import { Signer } from "@polkadot/types/types"
 
+interface FunctionDocs {
+    lines: string[]
+}
+
 interface FunctionArgs {
     labels: string[]
     types: string[]
@@ -30,6 +34,7 @@ export function ContractCaller(props: {
     const [functionNames, setFunctionNames] = useState<string[]>([])
     const [functionMutability, setFunctionMutability] = useState<boolean[]>([])
     const [functionSelectors, setFunctionSelectors] = useState<string[]>([])
+    const [functionDocs, setFunctionDocs] = useState<FunctionDocs[]>([])
     const [functionArgs, setFunctionArgs] = useState<FunctionArgs[]>([])
     const [contractAbi, setContractAbi] = useState({})
 
@@ -110,12 +115,10 @@ export function ContractCaller(props: {
                             gasRequired
                         ) as WeightV2
 
-                        await contract.tx[label](
-                            {
-                                gasLimit,
-                                storageDepositLimit,
-                            }
-                        ).signAndSend(userContext.currentUser, { signer }, async (res) => {
+                        await contract.tx[label]({
+                            gasLimit,
+                            storageDepositLimit,
+                        }).signAndSend(userContext.currentUser, { signer }, async (res) => {
                             if (res.status.isInBlock) {
                                 setResultState("in a block!")
                                 console.log("in a block")
@@ -177,30 +180,40 @@ export function ContractCaller(props: {
             let functionMutabilityList: boolean[] = []
             let functionSelectorsList: string[] = []
             let functionArgsList: FunctionArgs[] = []
+            let functionDocsList: FunctionDocs[] = []
             setTimeout(() => {
                 let stringify_metadata = metadata.spec.messages
-                stringify_metadata.map((method: { label: string; mutates: string; args: any }) => {
-                    let functionArgsLabelList: string[] = []
-                    let functionArgsTypeList: string[] = []
+                stringify_metadata.map(
+                    (method: { label: string; mutates: string; docs: string[]; args: any }) => {
+                        functionNamesList.push(method.label)
+                        let functionType = method.mutates.toString() !== "false"
+                        functionMutabilityList.push(functionType)
+                        // @ts-ignore
+                        functionSelectorsList.push(method.selector)
 
-                    functionNamesList.push(method.label)
-                    let functionType = method.mutates.toString() !== "false"
-                    functionMutabilityList.push(functionType)
-                    // @ts-ignore
-                    functionSelectorsList.push(method.selector)
-                    method.args.map((argument: { label: string; type: any }) => {
-                        functionArgsLabelList.push(argument.label.toString())
-                        functionArgsTypeList.push(argument.type.displayName.toString())
-                    })
-                    functionArgsList.push({
-                        labels: functionArgsLabelList,
-                        types: functionArgsTypeList,
-                    })
-                })
+                        let lines: FunctionDocs = {lines: []};
+                        method.docs.map((line) => {
+                            lines.lines.push(line)
+                        })
+                        functionDocsList.push(lines)
+
+                        let functionArgsLabelList: string[] = []
+                        let functionArgsTypeList: string[] = []
+                        method.args.map((argument: { label: string; type: any }) => {
+                            functionArgsLabelList.push(argument.label.toString())
+                            functionArgsTypeList.push(argument.type.displayName.toString())
+                        })
+                        functionArgsList.push({
+                            labels: functionArgsLabelList,
+                            types: functionArgsTypeList,
+                        })
+                    }
+                )
                 setFunctionNames(functionNamesList)
                 setFunctionMutability(functionMutabilityList)
                 setFunctionSelectors(functionSelectorsList)
                 setFunctionArgs(functionArgsList)
+                setFunctionDocs(functionDocsList)
             }, 200)
         })
     }
@@ -297,6 +310,20 @@ export function ContractCaller(props: {
                 </div>
                 {open ? (
                     <div className={styles.functionContent}>
+                        {functionDocs[props.iteration] ? (
+                            <div className={styles.functionDocs}>
+                                {
+                                    functionDocs[props.iteration].lines.map((line, i) => {
+                                        return(
+                                            <p key={i.toString()}>{line}</p>
+                                        )
+                                    })
+                                }
+                                <p style={{paddingBottom: 8}}></p>
+                            </div>
+                        ) : (
+                            <></>
+                        )}
                         <div className={styles.inputsBlock}>
                             {functionArgs[props.iteration].labels.length ? (
                                 functionArgs[props.iteration].labels.map((label, i) => {

@@ -112,6 +112,45 @@
     width: 100%;
 }
 
+.functionDocs {
+    display: flex;
+    flex-direction: column;
+    max-height: 120px;
+    width: 100%;
+    padding: 10px 10px 0 10px;
+    border-radius: 5px;
+    background: #37434F;
+    margin-top: 16px;
+    overflow: auto;
+}
+
+.functionDocs p {
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    color: #ECEDF1;
+    padding-bottom: 2px;
+}
+
+.functionDocs::-webkit-scrollbar {
+    width: auto;
+}
+
+.functionDocs::-webkit-scrollbar-track {
+    width: 2px;
+    background-color: #49525A;
+    border: 3px solid transparent;
+    background-clip: content-box;
+    border-radius: 9px;
+}
+
+.functionDocs::-webkit-scrollbar-thumb {
+    background-color: #B0B7BF;
+    border: 3px solid transparent;
+    border-radius: 9px;
+    background-clip: content-box;
+}
+
 .inputsBlock {
     display: flex;
     flex-direction: column;
@@ -143,6 +182,7 @@
     border: 0;
     padding: 10px;
     outline-style: none;
+    width: 100%;
 }
 
 .functionInput::placeholder {
@@ -160,3 +200,18 @@
     margin-top: 10px;
 }
 
+@media (max-width: 560px) {
+    .functionTitle p {
+        font-size: 14px;
+    }
+
+    .functionTitle {
+        flex-direction: column;
+        align-items: flex-start;
+        row-gap: 12px;
+    }
+
+    .functionTypeLabel p {
+        font-weight: 500;
+    }
+}
