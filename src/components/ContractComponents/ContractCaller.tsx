@@ -145,6 +145,9 @@ export function ContractCaller() {
                                 console.log("finalized")
                             }
                             console.log("tx hash:" + res.txHash.toHex())
+                        }).catch((res) => {
+                            setResultState(res.toString())
+                            setCalledState(false)
                         })
                     } else {
                         const { gasRequired } = await contract.query[label](
@@ -171,6 +174,9 @@ export function ContractCaller() {
                             } else if (res.status.isFinalized) {
                                 console.log("finalized")
                             }
+                        }).catch((res) => {
+                            setResultState(res.toString())
+                            setCalledState(false)
                         })
                     }
                 } else {
@@ -185,9 +191,12 @@ export function ContractCaller() {
                                 storageDepositLimit,
                             },
                             ...parameters
-                        )
+                        ).catch((res) => {
+                            setResultState(res.toString())
+                            setCalledState(false)
+                        })
                         setTimeout(() => {
-                            if (functionResult.output) {
+                            if (functionResult?.output) {
                                 let parsedResult = JSON.parse(functionResult.output.toString())
                                 setResultState(parsedResult.ok.toString())
                             }
@@ -345,7 +354,7 @@ export function ContractCaller() {
                             )}
                         </div>
                         <div className={styles.ButtonRow}>
-                            {!called ? (
+                            {!called && userContext.currentUser ? (
                                 <button
                                     type={"button"}
                                     className={styles.callerButton}
@@ -362,7 +371,9 @@ export function ContractCaller() {
                             )}
                             {result ? (
                                 <div className={styles.contractCallerBlockResult}>
-                                    {isNumber(result) ? parseInt(result, 16) : result}
+                                    <p style={{lineHeight: "100%"}}>
+                                        {isNumber(result) ? parseInt(result, 16) : result}
+                                    </p>
                                 </div>
                             ) : (
                                 <></>

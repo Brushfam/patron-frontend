@@ -5,10 +5,11 @@ import { HandleAddressSearch } from "../../api/HandleAddressSearch"
 
 export function HeaderSearchBar(props: { elementId: string; barWidth?: string }) {
     const [searchText, setSearchText] = useState("")
-    // const [searchFailed, setSearchFailed] = useState(false)
+    const [searchFailed, setSearchFailed] = useState(false)
     const navigate = useNavigate()
 
     function setErrorPlaceholder() {
+        setSearchFailed(true)
         const searchInput = document.getElementById(props.elementId)! as HTMLInputElement
         searchInput.value = ""
     }
@@ -27,9 +28,9 @@ export function HeaderSearchBar(props: { elementId: string; barWidth?: string })
             <input
                 id={props.elementId}
                 placeholder={
-                    "Search Contract or Hash Code"
+                    searchFailed ? "This code hash was not verified yet" : "Search Contract or Hash Code"
                 }
-                className={styles.searchInput}
+                className={searchFailed ? styles.searchInputError : styles.searchInput}
                 autoComplete={"off"}
                 autoCorrect={"off"}
                 spellCheck={"false"}

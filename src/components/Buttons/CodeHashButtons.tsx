@@ -16,7 +16,7 @@ export function CodeHashButtons() {
     }
 
     return (
-        <div className={styles.contractButtons}>
+        <div className={styles.contractButtonsRow}>
             <button
                 className={styles.log}
                 style={

@@ -33,7 +33,7 @@ export function GettingStarted() {
                     explore contract verification details.
                 </p>
                 <div className={styles.videoText} style={{ marginBottom: 40 }}>
-                    <img src={"/icons/video-icon.svg"} alt={"video icon"}/>
+                    <img src={"/icons/video-icon.svg"} alt={"video icon"} />
                     <p>
                         Watch the{" "}
                         <a
@@ -127,7 +127,7 @@ export function GettingStarted() {
                     <span style={{ color: "#4170E7" }}>cargo-contract</span>).
                 </p>
                 <div className={styles.videoText}>
-                    <img src={"/icons/video-icon.svg"} alt={"video icon"}/>
+                    <img src={"/icons/video-icon.svg"} alt={"video icon"} />
                     <p>
                         Watch the{" "}
                         <a
@@ -190,7 +190,7 @@ export function GettingStarted() {
                     <span style={{ color: "#4170E7" }}>cargo-contract</span> version that will be
                     used during the build:
                 </p>
-                <CodeBlock command={'cargo_contract_version = "3.0.1"'} />
+                <CodeBlock command={'cargo_contract_version = "3.2.0"'} />
                 <p className={styles.docsText}>
                     You can check this file into your VCS to share the same configuration with your
                     development team.
@@ -222,6 +222,16 @@ export function GettingStarted() {
                 <p className={styles.docsText}>
                     To get more information, invoke the deploy command with the{" "}
                     <span style={{ color: "#4170E7" }}>--help</span> flag.
+                </p>
+
+                <p className={styles.secondTitle}>Contract caller</p>
+                <p className={styles.docsText}>
+                    Contract pages contain contract caller UI, so that you can interact with smart
+                    contracts deployed on Astar or Aleph Zero. Take note, you need to build a contract
+                    with <span style={{ color: "#4170E7" }}>cargo-contract</span> version that matches
+                    the version of pallet contracts of the blockchain (for instance,{" "}
+                    <span style={{ color: "#4170E7" }}>cargo-contract 3.2.0</span>. is compatible
+                    with Aleph Zero network.
                 </p>
             </div>
         </div>

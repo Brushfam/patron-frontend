@@ -1,0 +1,119 @@
+.pageContainer {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #141D25;
+}
+
+.mainBlock {
+    display: flex;
+    flex-direction: column;
+    padding-top: 192px;
+    width: 940px;
+    padding-bottom: 80px;
+}
+
+.titleText {
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 100%;
+    color: #ECEDF1;
+    margin-bottom: 20px;
+}
+
+.navigation {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.navigation a {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 150%;
+    color: #ECEDF1;
+    text-transform: uppercase;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    row-gap: 48px;
+}
+
+.content ul {
+    list-style: none;
+    margin: 0;
+}
+
+.content ul li::before {
+    content: "\2022";
+    color: #B0B7BF;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
+}
+
+.contentPoint {
+    width: 100%;
+    padding: 48px 0 0 0;
+    border-top: 1px solid #49525A;
+}
+
+.contentPointText {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    row-gap: 10px;
+}
+
+.contentPointText p, .contentPointText li {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+    color: #B0B7BF;
+}
+
+@media (max-width: 1440px) {
+    .mainBlock {
+        width: 83.3%;
+    }
+}
+
+@media (max-width: 940px) {
+    .mainBlock {
+        padding-top: 140px;
+        width: 83.3%;
+    }
+}
+
+@media (max-width: 460px) {
+    .mainBlock {
+        padding-top: 140px;
+        width: 92%;
+    }
+
+    .content {
+        row-gap: 24px;
+    }
+
+    .contentPoint {
+        padding: 24px 0 0 0;
+    }
+
+    .contentPointText {
+        row-gap: 8px;
+    }
+
+    .titleText {
+        font-size: 28px;
+    }
+
+    .contentPointText p, .contentPointText li {
+        font-size: 14px;
+    }
+}

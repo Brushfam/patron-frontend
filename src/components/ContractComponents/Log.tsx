@@ -42,6 +42,7 @@ export function Log() {
                         return <p key={i}>{line}</p>;
                     })
                 }
+                <p style={{ height: 20}}></p>
             </div>
         </div>
     );

@@ -14,6 +14,7 @@ import { Info } from "./components/ContractComponents/Info";
 import { Log } from "./components/ContractComponents/Log";
 import { Code } from "./components/ContractComponents/Code";
 import { ContractCaller } from "./components/ContractComponents/ContractCaller";
+import { PrivacyPolicy } from "./pages/PrivacyPolicy";
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
           <Routes>
               <Route path={"/"} element={<HomePage/>}></Route>
               <Route path={"/getting-started"} element={<GettingStarted/>}></Route>
+              <Route path={"/privacy-policy"} element={<PrivacyPolicy/>}></Route>
               <Route path={"/profile"} element={<RequireAuth children={<Profile />}/>}></Route>
               <Route path={"/contract"} element={<Navigate to={'/'}/>}></Route>
               <Route element={<ContractProviderLayout/>}>

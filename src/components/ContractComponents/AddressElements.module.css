@@ -93,7 +93,7 @@
     height: 30px;
 }
 
-@media (max-width: 1140px) {
+@media (max-width: 1300px) {
     .addressBlock {
         width: 100%;
     }

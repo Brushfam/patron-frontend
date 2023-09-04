@@ -30,8 +30,8 @@ export function HandleAddressSearch(
     } else if (text) {
         fetch(process.env.REACT_APP_SERVER_URL + "/contracts/" + text, options).then(
             (response) => {
-                handleError()
                 if (!response.ok) {
+                    handleError()
                     throw new Error(`HTTP error! Status: ${response.status}`)
                 } else {
                     navigateTo("/contract/" + text + "/info")

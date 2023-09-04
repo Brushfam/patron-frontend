@@ -41,9 +41,9 @@ export function Footer() {
                     </div>
                 </div>
                 <div className={"footerMobileBorder"}></div>
-                <div>
-                    <p>Copyright © 2023 Patron</p>
-                </div>
+                <Link to={"/privacy-policy"}>
+                    <p>Privacy Policy</p>
+                </Link>
             </div>
         </div>
     )

@@ -30,7 +30,7 @@
     }
 }
 
-@media (max-width: 1090px) {
+@media (max-width: 1300px) {
     .addressAndButtons {
         flex-direction: column;
     }
