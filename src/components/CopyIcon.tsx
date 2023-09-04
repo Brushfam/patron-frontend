@@ -2,7 +2,7 @@
 export function CopyIcon(props: {open: boolean}) {
     return props.open ?
         <img
-            src={"/icons/copied.svg"}
+            src={"/icons/check-mark.svg"}
             alt={"copied icon"}
         /> :
         <img

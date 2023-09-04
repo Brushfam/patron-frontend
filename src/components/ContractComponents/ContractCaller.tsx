@@ -27,6 +27,7 @@ export function ContractCaller() {
     const contractContext = useContract()
     const currentWallet = getWalletBySource(userContext.walletName)
     const [signer, setSigner] = useState<Signer | undefined>(undefined)
+    const [isLocalNode, setIsLocalNode] = useState(false)
 
     const [functionNames, setFunctionNames] = useState<string[]>([])
     const [functionMutability, setFunctionMutability] = useState<boolean[]>([])
@@ -99,9 +100,15 @@ export function ContractCaller() {
         setResultState: React.Dispatch<React.SetStateAction<string>>
     ) => {
         if (signer) {
-            const wsProvider = new WsProvider(
-                contractContext.node === "Astar" ? "wss://rpc.astar.network" : "wss://ws.azero.dev"
-            )
+            let provider = ""
+            if (contractContext.node === "Astar") {
+                provider = "wss://rpc.astar.network"
+            } else if (contractContext.node === "Aleph Zero") {
+                provider = "wss://ws.azero.dev"
+            } else {
+                setIsLocalNode(true)
+            }
+            const wsProvider = new WsProvider(provider)
             const apiPromise = ApiPromise.create({ provider: wsProvider })
 
             apiPromise.then(async (api) => {
@@ -354,7 +361,7 @@ export function ContractCaller() {
                             )}
                         </div>
                         <div className={styles.ButtonRow}>
-                            {!called && userContext.currentUser ? (
+                            {!called && !isLocalNode && userContext.currentUser ? (
                                 <button
                                     type={"button"}
                                     className={styles.callerButton}

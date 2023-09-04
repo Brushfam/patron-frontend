@@ -46,11 +46,31 @@ export function AddressElements(props: {
         )
     }
 
+    function isProfilePage() {
+        return props.name === "Address"
+    }
+
+    function VerifiedLabel() {
+        if (props.verified) {
+            return (
+                <div className={styles.verifiedLabel}>
+                    <img src={"/icons/verified.svg"} alt={"verified label"} />
+                    <p>Verified</p>
+                </div>
+            )
+        } else if (!props.verified && !isProfilePage()) {
+            return (
+                <div className={styles.unverifiedLabel}>
+                    <img src={"/icons/unverified.svg"} alt={"unverified lable"} />
+                    <p>Unverified</p>
+                </div>
+            )
+        }
+        return <></>
+    }
+
     return (
-        <div
-            className={styles.addressBlock}
-            style={props.name === "Address" ? { width: "100%" } : {}}
-        >
+        <div className={styles.addressBlock} style={isProfilePage() ? { width: "100%" } : {}}>
             <div className={styles.addressBlockTop}>
                 <div
                     style={{
@@ -62,17 +82,12 @@ export function AddressElements(props: {
                     <img src={props.iconPath} alt={"user icon"} />
                     <p className={styles.name}>{props.name}</p>
                 </div>
-                {props.verified ? (
-                    <img
-                        src={"/verified-badge.svg"}
-                        alt={"verified icon"}
-                        className={styles.verifiedIcon}
-                    />
-                ) : (
-                    <></>
-                )}
+                <VerifiedLabel />
             </div>
-            <div className={styles.addressBlockBottom}>
+            <div
+                className={styles.addressBlockMiddle}
+                style={isProfilePage() ? { marginBottom: 0 } : {}}
+            >
                 <div className={styles.address}>
                     <CopyAddress
                         handleCLose={() => {
@@ -83,17 +98,37 @@ export function AddressElements(props: {
                         }}
                     />
                 </div>
-                {
-                    props.name === "Address" ? <></> :
-                        <Link
-                            className={styles.phalaLabel}
-                            to={"https://phat.phala.network/contracts/add/" + phalaHash}
-                        >
-                            <img src={"/logos/phala-logo.svg"} alt={"Phala logo"}/>
-                            <p>Deploy with Phala</p>
-                        </Link>
-                }
+                {props.verified || props.name === "Address" ? (
+                    <></>
+                ) : (
+                    <div className={styles.unverifiedText}>
+                        <a href={"/getting-started"}>Verify and Publish</a>
+                        <p>your contract source code today!</p>
+                    </div>
+                )}
             </div>
+            {isProfilePage() ? (
+                <></>
+            ) : (
+                <div className={styles.addressBlockBottom}>
+                    <Link
+                        to={"https://contracts-ui.substrate.io/?rpc=wss://ws.azero.dev"}
+                        target={"_blank"}
+                        className={styles.deployWithLink}
+                    >
+                        <img src={"/icons/aleph-zero-icon.svg"} alt={"Aleph Zero icon"} />
+                        <p>Deploy with Aleph Zero</p>
+                    </Link>
+                    <Link
+                        to={"https://phat.phala.network/contracts/add/" + phalaHash}
+                        target={"_blank"}
+                        className={styles.deployWithLink}
+                    >
+                        <img src={"/icons/phala-icon.svg"} alt={"Phala icon"} />
+                        <p>Deploy with Phala</p>
+                    </Link>
+                </div>
+            )}
         </div>
     )
 }
