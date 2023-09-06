@@ -196,7 +196,7 @@ export function GettingStarted() {
                     development team.
                 </p>
                 <p className={styles.docsText}>
-                    To start the deploy process for locally running development node simply pass the
+                    To start the deployment process for locally running development node simply pass the
                     constructor name and secret URI for the private key:
                 </p>
                 <CodeBlock command={"patron deploy new --suri //Alice"} />
