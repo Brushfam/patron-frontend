@@ -181,6 +181,7 @@ export function ContractCaller() {
                             } else if (res.status.isFinalized) {
                                 console.log("finalized")
                             }
+                            console.log("tx hash:" + res.txHash.toHex())
                         }).catch((res) => {
                             setResultState(res.toString())
                             setCalledState(false)
