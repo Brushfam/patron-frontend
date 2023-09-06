@@ -196,7 +196,7 @@ export function GettingStarted() {
                     development team.
                 </p>
                 <p className={styles.docsText}>
-                    To start the deploy process for locally running development node simply pass the
+                    To start the deployment process for locally running development node simply pass the
                     constructor name and secret URI for the private key:
                 </p>
                 <CodeBlock command={"patron deploy new --suri //Alice"} />
@@ -230,8 +230,8 @@ export function GettingStarted() {
                     contracts deployed on Astar or Aleph Zero. Take note, you need to build a contract
                     with <span style={{ color: "#4170E7" }}>cargo-contract</span> version that matches
                     the version of pallet contracts of the blockchain (for instance,{" "}
-                    <span style={{ color: "#4170E7" }}>cargo-contract 3.2.0</span>. is compatible
-                    with Aleph Zero network.
+                    <span style={{ color: "#4170E7" }}>cargo-contract 3.2.0</span> is compatible
+                    with Aleph Zero network).
                 </p>
             </div>
         </div>
