@@ -11,7 +11,7 @@ import { CopyIcon } from "../CopyIcon"
 import { isNumber, snakeToCamel } from "../../helpers/helpers"
 import { getWalletBySource } from "@subwallet/wallet-connect/dotsama/wallets"
 import { Signer } from "@polkadot/types/types"
-import { useContract } from "../../context/ContractContext";
+import { useContract } from "../../context/ContractContext"
 
 interface FunctionDocs {
     lines: string[]
@@ -25,6 +25,8 @@ interface FunctionArgs {
 export function ContractCaller() {
     const userContext = UseUser()
     const contractContext = useContract()
+
+    const [functionAnchor, setFunctionAnchor] = useState("")
     const currentWallet = getWalletBySource(userContext.walletName)
     const [signer, setSigner] = useState<Signer | undefined>(undefined)
     const [isLocalNode, setIsLocalNode] = useState(false)
@@ -35,7 +37,6 @@ export function ContractCaller() {
     const [functionDocs, setFunctionDocs] = useState<FunctionDocs[]>([])
     const [functionArgs, setFunctionArgs] = useState<FunctionArgs[]>([])
     const [contractAbi, setContractAbi] = useState({})
-
 
     useEffect(() => {
         ;(async () => {
@@ -62,7 +63,7 @@ export function ContractCaller() {
                             // @ts-ignore
                             functionSelectorsList.push(method.selector)
 
-                            let lines: FunctionDocs = {lines: []};
+                            let lines: FunctionDocs = { lines: [] }
                             method.docs.forEach((line) => {
                                 lines.lines.push(line)
                             })
@@ -88,8 +89,13 @@ export function ContractCaller() {
                 }, 200)
             })
         }
-
         setMetadataVars()
+
+        const currentURL = window.location.href
+        let currentFunction = currentURL.slice(currentURL.lastIndexOf("#"))
+        if (currentFunction.startsWith("#")) {
+            setFunctionAnchor(currentFunction.slice(1))
+        }
     }, [contractContext.hash, currentWallet])
 
     const callContract = (
@@ -143,19 +149,21 @@ export function ContractCaller() {
                                 storageDepositLimit,
                             },
                             ...parameters
-                        ).signAndSend(userContext.currentUser, { signer }, async (res) => {
-                            if (res.status.isInBlock) {
-                                setResultState("in a block!")
+                        )
+                            .signAndSend(userContext.currentUser, { signer }, async (res) => {
+                                if (res.status.isInBlock) {
+                                    setResultState("in a block!")
+                                    setCalledState(false)
+                                    console.log("in a block")
+                                } else if (res.status.isFinalized) {
+                                    console.log("finalized")
+                                }
+                                console.log("tx hash:" + res.txHash.toHex())
+                            })
+                            .catch((res) => {
+                                setResultState(res.toString())
                                 setCalledState(false)
-                                console.log("in a block")
-                            } else if (res.status.isFinalized) {
-                                console.log("finalized")
-                            }
-                            console.log("tx hash:" + res.txHash.toHex())
-                        }).catch((res) => {
-                            setResultState(res.toString())
-                            setCalledState(false)
-                        })
+                            })
                     } else {
                         const { gasRequired } = await contract.query[label](
                             userContext.currentUser,
@@ -173,18 +181,21 @@ export function ContractCaller() {
                         await contract.tx[label]({
                             gasLimit,
                             storageDepositLimit,
-                        }).signAndSend(userContext.currentUser, { signer }, async (res) => {
-                            if (res.status.isInBlock) {
-                                setResultState("in a block!")
-                                setCalledState(false)
-                                console.log("in a block")
-                            } else if (res.status.isFinalized) {
-                                console.log("finalized")
-                            }
-                        }).catch((res) => {
-                            setResultState(res.toString())
-                            setCalledState(false)
                         })
+                            .signAndSend(userContext.currentUser, { signer }, async (res) => {
+                                if (res.status.isInBlock) {
+                                    setResultState("in a block!")
+                                    setCalledState(false)
+                                    console.log("in a block")
+                                } else if (res.status.isFinalized) {
+                                    console.log("finalized")
+                                }
+                                console.log("tx hash:" + res.txHash.toHex())
+                            })
+                            .catch((res) => {
+                                setResultState(res.toString())
+                                setCalledState(false)
+                            })
                     }
                 } else {
                     if (parameters.length) {
@@ -248,14 +259,21 @@ export function ContractCaller() {
     function CopyButton(props: { name: string; selector: string }) {
         const [copied, setCopied] = useState(false)
 
+        function handleCopy() {
+            updateCopyIcon(props.name, setCopied)
+
+            let currentURL = window.location.href
+            if (currentURL.includes("#")) {
+                currentURL = currentURL.slice(0, currentURL.indexOf("#"))
+            }
+            navigator.clipboard.writeText(currentURL + "#" + props.name)
+        }
+
         return (
             <div
                 id={"function-copy-" + props.name}
                 className={styles.functionTitleButtonWrapper}
-                onClick={() => {
-                    updateCopyIcon(props.name, setCopied)
-                    navigator.clipboard.writeText(props.name + " " + props.selector)
-                }}
+                onClick={() => {handleCopy()}}
             >
                 <CopyIcon open={copied} />
             </div>
@@ -271,12 +289,32 @@ export function ContractCaller() {
         const [open, setOpen] = useState(false)
         const [called, setCalled] = useState(false)
         const [result, setResult] = useState("")
+        const [firstOpen, setFirstOpen] = useState(true)
+
+        useEffect(() => {
+            // in case link contains function name
+            if (functionAnchor === props.name && firstOpen) {
+                setTimeout(() => {
+                    if (document.getElementById(props.selector)) {
+                        setOpen(true)
+                    }
+                }, 200)
+
+                if (open) {
+                    let element = document.getElementById(props.selector)
+                    if (element) {
+                        element.scrollIntoView()
+                        setFirstOpen(false)
+                    }
+                }
+            }
+        }, [open, firstOpen, props.name, props.selector])
 
         function handleFunctionCall() {
             let parameters: string[] = []
             for (let i = 0; i < functionArgs[props.iteration].labels.length; i++) {
                 const element = document.getElementById(
-                    props.name + "_" + i.toString()
+                    props.selector + "_" + i.toString()
                 )! as HTMLInputElement
                 parameters.push(element.value.toString().trim())
             }
@@ -286,7 +324,7 @@ export function ContractCaller() {
         }
 
         return (
-            <div className={styles.contractFunction}>
+            <div className={styles.contractFunction} id={props.selector}>
                 <div className={styles.functionTitleBlock}>
                     <div className={styles.functionTitle}>
                         <p>
@@ -327,14 +365,10 @@ export function ContractCaller() {
                     <div className={styles.functionContent}>
                         {functionDocs[props.iteration].lines.length ? (
                             <div className={styles.functionDocs}>
-                                {
-                                    functionDocs[props.iteration].lines.map((line, i) => {
-                                        return(
-                                            <p key={i.toString()}>{line}</p>
-                                        )
-                                    })
-                                }
-                                <p style={{paddingBottom: 8}}></p>
+                                {functionDocs[props.iteration].lines.map((line, i) => {
+                                    return <p key={i.toString()}>{line}</p>
+                                })}
+                                <p style={{ paddingBottom: 8 }}></p>
                             </div>
                         ) : (
                             <></>
@@ -346,7 +380,7 @@ export function ContractCaller() {
                                         <div className={styles.inputsRow} key={i.toString()}>
                                             <p className={styles.functionInputLabel}>{label}</p>
                                             <input
-                                                id={props.name + "_" + i.toString()}
+                                                id={props.selector + "_" + i.toString()}
                                                 className={styles.functionInput}
                                                 placeholder={functionArgs[props.iteration].types[i]}
                                                 autoComplete={"off"}
@@ -378,7 +412,7 @@ export function ContractCaller() {
                             )}
                             {result ? (
                                 <div className={styles.contractCallerBlockResult}>
-                                    <p style={{lineHeight: "100%"}}>
+                                    <p style={{ lineHeight: "100%" }}>
                                         {isNumber(result) ? parseInt(result, 16) : result}
                                     </p>
                                 </div>
@@ -396,7 +430,7 @@ export function ContractCaller() {
 
     return (
         <div className={styles.contractCallerSection}>
-            <ConnectToPatron/>
+            <ConnectToPatron />
             {functionNames ? (
                 functionNames.map((name, i) => {
                     return (
