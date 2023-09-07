@@ -241,6 +241,8 @@ export function ContractCaller() {
                     }
                 }
             })
+        } else {
+            setResultState("Signer not found. Please re-login.")
         }
     }
 

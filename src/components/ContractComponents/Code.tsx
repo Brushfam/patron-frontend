@@ -25,7 +25,7 @@ export function Code() {
     useEffect(() => {
         let fileListPromise = fileListGET(pageContext.source)
         fileListPromise.then((contractFiles) => {
-            if (contractFiles.files) {
+            if (contractFiles.files.length) {
                 setFileList(contractFiles.files)
                 setCurrentFile(contractFiles.files[0])
             }
