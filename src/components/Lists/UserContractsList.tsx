@@ -19,13 +19,13 @@ export function UserContractsList() {
         return (
             <div className={styles.userContractsList}>
                 {sessionData.length ? (
-                    sessionData.map((data) => {
+                    sessionData.map((data, i) => {
                         if (data.status === "failed" || data.status === "new") {
-                            return <></>
+                            return <div style={{display: "none"}} key={i.toString()}></div>
                         }
 
                         return (
-                            <div className={styles.listRow} key={data.id}>
+                            <div className={styles.listRow} key={i.toString()}>
                                 <div className={styles.codeHash}>
                                     <Link to={"/codeHash/" + data.code_hash}>
                                         <p>

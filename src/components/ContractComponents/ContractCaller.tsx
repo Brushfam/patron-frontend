@@ -249,6 +249,8 @@ export function ContractCaller(props: { node?: string; address?: string; abi?: {
                     }
                 }
             })
+        } else {
+            setResultState("Signer not found. Please re-login.")
         }
     }
 

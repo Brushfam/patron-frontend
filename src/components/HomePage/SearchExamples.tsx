@@ -12,8 +12,8 @@ export function SearchExamples(props: {
         props.setSearchText(text);
     }
 
-    const contractExample = "XDaqMoSSwgCr5ShwUfKwzPwuHrH7EVjDCWCrswJf7kDxcAx"
-    const hashExample = "c71df4b0424191e8e21850b1668668dafe0726a7ecc40837b4a8ef3d90ecf7cf"
+    const contractExample = "5D9GkALjKfwvTca9RtWbb1zmRx7ZJBCxHiHNZ8Ke32Z6tmFu"
+    const hashExample = "0efaf17fd9145a2c7d59821aea6036549f4b6f2d0c86440a16d4c1ac9d57a295"
 
     return (
         <div className={styles.examplesBlock}>

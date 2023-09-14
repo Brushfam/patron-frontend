@@ -112,7 +112,7 @@ export function AddressElements(props: {
             ) : (
                 <div className={styles.addressBlockBottom}>
                     <Link
-                        to={"https://contracts-ui.substrate.io/?rpc=wss://ws.azero.dev"}
+                        to={"https://contracts-ui.substrate.io/add-contract?rpc=wss://ws.azero.dev"}
                         target={"_blank"}
                         className={styles.deployWithLink}
                     >
