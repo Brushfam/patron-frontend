@@ -41,7 +41,9 @@ function App() {
                   <Route path={"/codeHash/:id/log"} element={<CodeHashWindow child={<Log/>} />}></Route>
                   <Route path={"/codeHash/:id/code"} element={<CodeHashWindow child={<Code/>} />}></Route>
               </Route>
-              <Route path={"/local-contract-caller"} element={<LocalContractCaller/>}></Route>
+              <Route element={<ContractProviderLayout/>}>
+                  <Route path={"/local-contract-caller"} element={<LocalContractCaller/>}></Route>
+              </Route>
               <Route path={"/login"} element={<Login/>}></Route>
               <Route path={"*"} element={<Navigate to={'/'}/>}></Route>
           </Routes>
