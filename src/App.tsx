@@ -15,6 +15,7 @@ import { Log } from "./components/ContractComponents/Log";
 import { Code } from "./components/ContractComponents/Code";
 import { ContractCaller } from "./components/ContractComponents/ContractCaller";
 import { PrivacyPolicy } from "./pages/PrivacyPolicy";
+import { LocalContractCaller } from "./pages/LocalContractCaller";
 
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
                   <Route path={"/codeHash/:id/log"} element={<CodeHashWindow child={<Log/>} />}></Route>
                   <Route path={"/codeHash/:id/code"} element={<CodeHashWindow child={<Code/>} />}></Route>
               </Route>
+              <Route path={"/local-contract-caller"} element={<LocalContractCaller/>}></Route>
               <Route path={"/login"} element={<Login/>}></Route>
               <Route path={"*"} element={<Navigate to={'/'}/>}></Route>
           </Routes>

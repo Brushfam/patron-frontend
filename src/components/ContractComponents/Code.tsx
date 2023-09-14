@@ -2,12 +2,14 @@ import styles from "./Code.module.css"
 import { useCallback, useEffect, useState } from "react"
 import { fileGET, fileListGET } from "../../api/FilesApi"
 import { setFileNameLength } from "../../helpers/helpers"
-import { useContract } from "../../context/ContractContext";
+import { useContract } from "../../context/ContractContext"
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
+import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism"
 
 export function Code() {
-    const pageContext = useContract();
+    const pageContext = useContract()
     const [fileList, setFileList] = useState<string[]>([])
-    const [currentCode, setCurrentCode] = useState<string[]>([])
+    const [currentCode, setCurrentCode] = useState("")
     const [currentFile, setCurrentFile] = useState("")
     const [fileListOpen, setFileListOpen] = useState(false)
 
@@ -15,8 +17,7 @@ export function Code() {
         (fileNumber: number) => {
             let filePromise = fileGET(pageContext.source, fileNumber)
             filePromise.then((data) => {
-                let parsedText = data.text.replaceAll("\n\n", "\n \n")
-                setCurrentCode(parsedText.split("\n"))
+                setCurrentCode(data.text.toString())
             })
         },
         [pageContext.source]
@@ -25,7 +26,7 @@ export function Code() {
     useEffect(() => {
         let fileListPromise = fileListGET(pageContext.source)
         fileListPromise.then((contractFiles) => {
-            if (contractFiles.files) {
+            if (contractFiles.files.length) {
                 setFileList(contractFiles.files)
                 setCurrentFile(contractFiles.files[0])
             }
@@ -102,15 +103,13 @@ export function Code() {
                 <></>
             )}
             <div className={styles.code}>
-                {currentCode &&
-                    currentCode.map((text, i) => {
-                        return (
-                            <p key={i.toString()} style={{ whiteSpace: "pre" }}>
-                                {text}
-                            </p>
-                        )
-                    })}
-                <p style={{ height: 20}}></p>
+                <SyntaxHighlighter
+                    language={"rust"}
+                    style={vscDarkPlus}
+                    customStyle={{ background: "#21282F" }}
+                >
+                    {currentCode}
+                </SyntaxHighlighter>
             </div>
         </div>
     )

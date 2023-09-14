@@ -1,0 +1,34 @@
+.pageContainer {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #141D25;
+}
+
+.mainBlock {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 180px;
+    width: 1200px;
+}
+
+@media (max-width: 1440px) {
+    .mainBlock {
+        width: 83.3%;
+    }
+}
+
+@media (max-width: 940px) {
+    .mainBlock {
+        padding-top: 120px;
+    }
+}
+
+@media (max-width: 460px) {
+    .mainBlock {
+        padding-top: 120px;
+        width: 92%;
+    }
+}

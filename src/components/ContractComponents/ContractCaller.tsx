@@ -22,7 +22,7 @@ interface FunctionArgs {
     types: string[]
 }
 
-export function ContractCaller() {
+export function ContractCaller(props: { node?: string; address?: string; abi?: {} }) {
     const userContext = UseUser()
     const contractContext = useContract()
 
@@ -44,59 +44,64 @@ export function ContractCaller() {
             setSigner(currentWallet?.signer)
         })()
 
-        const setMetadataVars = () => {
+        if (props.node?.length) {
+            setMetadataVars(props.abi)
+        } else {
             const metadataPromise = metadataGET(contractContext.hash)
             metadataPromise.then((metadata) => {
-                setContractAbi(metadata)
-                let functionNamesList: string[] = []
-                let functionMutabilityList: boolean[] = []
-                let functionSelectorsList: string[] = []
-                let functionArgsList: FunctionArgs[] = []
-                let functionDocsList: FunctionDocs[] = []
-                setTimeout(() => {
-                    let stringify_metadata = metadata.spec.messages
-                    stringify_metadata.forEach(
-                        (method: { label: string; mutates: string; docs: string[]; args: any }) => {
-                            functionNamesList.push(method.label)
-                            let functionType = method.mutates.toString() !== "false"
-                            functionMutabilityList.push(functionType)
-                            // @ts-ignore
-                            functionSelectorsList.push(method.selector)
-
-                            let lines: FunctionDocs = { lines: [] }
-                            method.docs.forEach((line) => {
-                                lines.lines.push(line)
-                            })
-                            functionDocsList.push(lines)
-
-                            let functionArgsLabelList: string[] = []
-                            let functionArgsTypeList: string[] = []
-                            method.args.forEach((argument: { label: string; type: any }) => {
-                                functionArgsLabelList.push(argument.label.toString())
-                                functionArgsTypeList.push(argument.type.displayName.toString())
-                            })
-                            functionArgsList.push({
-                                labels: functionArgsLabelList,
-                                types: functionArgsTypeList,
-                            })
-                        }
-                    )
-                    setFunctionNames(functionNamesList)
-                    setFunctionMutability(functionMutabilityList)
-                    setFunctionSelectors(functionSelectorsList)
-                    setFunctionArgs(functionArgsList)
-                    setFunctionDocs(functionDocsList)
-                }, 200)
+                setMetadataVars(metadata)
             })
         }
-        setMetadataVars()
+
+        function setMetadataVars(metadata: any) {
+            setContractAbi(metadata)
+            let functionNamesList: string[] = []
+            let functionMutabilityList: boolean[] = []
+            let functionSelectorsList: string[] = []
+            let functionArgsList: FunctionArgs[] = []
+            let functionDocsList: FunctionDocs[] = []
+            setTimeout(() => {
+                let stringify_metadata = metadata.spec.messages
+                stringify_metadata.forEach(
+                    (method: { label: string; mutates: string; docs: string[]; args: any }) => {
+                        functionNamesList.push(method.label)
+                        let functionType = method.mutates.toString() !== "false"
+                        functionMutabilityList.push(functionType)
+                        // @ts-ignore
+                        functionSelectorsList.push(method.selector)
+
+                        let lines: FunctionDocs = { lines: [] }
+                        method.docs.forEach((line) => {
+                            lines.lines.push(line)
+                        })
+                        functionDocsList.push(lines)
+
+                        let functionArgsLabelList: string[] = []
+                        let functionArgsTypeList: string[] = []
+                        method.args.forEach((argument: { label: string; type: any }) => {
+                            functionArgsLabelList.push(argument.label.toString())
+                            functionArgsTypeList.push(argument.type.displayName.toString())
+                        })
+                        functionArgsList.push({
+                            labels: functionArgsLabelList,
+                            types: functionArgsTypeList,
+                        })
+                    }
+                )
+                setFunctionNames(functionNamesList)
+                setFunctionMutability(functionMutabilityList)
+                setFunctionSelectors(functionSelectorsList)
+                setFunctionArgs(functionArgsList)
+                setFunctionDocs(functionDocsList)
+            }, 200)
+        }
 
         const currentURL = window.location.href
         let currentFunction = currentURL.slice(currentURL.lastIndexOf("#"))
         if (currentFunction.startsWith("#")) {
             setFunctionAnchor(currentFunction.slice(1))
         }
-    }, [contractContext.hash, currentWallet])
+    }, [contractContext.hash, currentWallet, props.abi])
 
     const callContract = (
         label: string,
@@ -107,7 +112,9 @@ export function ContractCaller() {
     ) => {
         if (signer) {
             let provider = ""
-            if (contractContext.node === "Astar") {
+            if (props.node) {
+                provider = props.node
+            } else if (contractContext.node === "Astar") {
                 provider = "wss://rpc.astar.network"
             } else if (contractContext.node === "Aleph Zero") {
                 provider = "wss://ws.azero.dev"
@@ -120,7 +127,8 @@ export function ContractCaller() {
             apiPromise.then(async (api) => {
                 const MAX_CALL_WEIGHT = new BN(5_000_000_000_000).isub(BN_ONE)
                 const PROOF_SIZE = new BN(1_000_000)
-                const contract = new ContractPromise(api, contractAbi, contractContext.address)
+                const contractAddress = props.address ? props.address : contractContext.address
+                const contract = new ContractPromise(api, contractAbi, contractAddress)
                 const gasLimitValue: WeightV2 = api?.registry.createType("WeightV2", {
                     refTime: MAX_CALL_WEIGHT,
                     proofSize: PROOF_SIZE,
@@ -273,7 +281,9 @@ export function ContractCaller() {
             <div
                 id={"function-copy-" + props.name}
                 className={styles.functionTitleButtonWrapper}
-                onClick={() => {handleCopy()}}
+                onClick={() => {
+                    handleCopy()
+                }}
             >
                 <CopyIcon open={copied} />
             </div>
@@ -431,6 +441,7 @@ export function ContractCaller() {
     return (
         <div className={styles.contractCallerSection}>
             <ConnectToPatron />
+            {!props.node?.length && props.abi ? <p className={styles.rebuildText}>Rebuild project once to start</p> : <></>}
             {functionNames ? (
                 functionNames.map((name, i) => {
                     return (

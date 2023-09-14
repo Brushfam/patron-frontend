@@ -201,6 +201,12 @@
     margin-top: 10px;
 }
 
+.rebuildText {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 500;
+}
+
 @media (max-width: 560px) {
     .functionTitle p {
         font-size: 14px;

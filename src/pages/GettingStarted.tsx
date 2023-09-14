@@ -168,14 +168,35 @@ export function GettingStarted() {
 
                 <p className={styles.secondTitle}>Build without deploy</p>
                 <p className={styles.docsText}>
-                    You can also acquire contract's WASM blob and JSON metadata files without the
+                    You can acquire contract's WASM blob and JSON metadata files without the
                     deployment itself by using the <span style={{ color: "#4170E7" }}>build</span>{" "}
                     subcommand which, by default, outputs{" "}
                     <span style={{ color: "#4170E7" }}>contract.wasm</span> and{" "}
                     <span style={{ color: "#4170E7" }}>contract.json</span> files to the{" "}
                     <span style={{ color: "#4170E7" }}>./target/ink</span> directory.
                 </p>
+                <p className={styles.docsText}>
+                    To build the contract with Patron, you need to create a{" "}
+                    <span style={{ color: "#4170E7" }}>Deploy.toml</span> file to the root of your
+                    project. This file describes{" "}
+                    <span style={{ color: "#4170E7" }}>cargo-contract</span> version that will be
+                    used during the build. Also, you can check this file into your VCS to share the
+                    same configuration with your development team.
+                </p>
+                <CodeBlock command={'cargo_contract_version = "3.2.0"'} />
+                <p className={styles.docsText}>After that, you can run the command:</p>
                 <CodeBlock command={"patron build"} />
+                <p className={styles.docsText}>
+                    When the build process is complete, it will return link to the page with
+                    verified build session.
+                </p>
+
+                <p className={styles.secondTitle}>Local verifying</p>
+                <p className={styles.docsText}>
+                    To verify WASM blob use <span style={{ color: "#4170E7" }}>verify</span>{" "}
+                    subcommand. It will start two build processes – local and remote one.
+                </p>
+                <CodeBlock command={"patron verify"} />
 
                 <p className={styles.secondTitle}>Deploy</p>
                 <p className={styles.docsText}>
@@ -185,27 +206,24 @@ export function GettingStarted() {
                 </p>
                 <p className={styles.docsText}>
                     First of all, you need to create a{" "}
-                    <span style={{ color: "#4170E7" }}>Deploy.toml</span> file at the root of your
-                    contract source code. This file describes{" "}
-                    <span style={{ color: "#4170E7" }}>cargo-contract</span> version that will be
-                    used during the build:
-                </p>
-                <CodeBlock command={'cargo_contract_version = "3.2.0"'} />
-                <p className={styles.docsText}>
-                    You can check this file into your VCS to share the same configuration with your
-                    development team.
+                    <span style={{ color: "#4170E7" }}>Deploy.toml</span> as described in "Build
+                    without deploy" section above.
                 </p>
                 <p className={styles.docsText}>
-                    To start the deployment process for locally running development node simply pass the
-                    constructor name and secret URI for the private key:
+                    To start the deployment process for locally running development node simply pass
+                    the constructor name and secret URI for the private key:
                 </p>
                 <CodeBlock command={"patron deploy new --suri //Alice"} />
+                <p className={styles.docsText}>or</p>
+                <CodeBlock command={"patron deploy new --suri \"private key using mnemonic phrase\""} />
                 <p className={styles.docsText}>
                     If your contract constructor requires any arguments, simply pass them with the
                     same syntax that you use with the
                     <span style={{ color: "#4170E7" }}> cargo-contract</span>:
                 </p>
                 <CodeBlock command={"patron deploy new --args 123 --suri //Alice"} />
+                <p className={styles.docsText}>or</p>
+                <CodeBlock command={"patron deploy with_two_args --args 123,false --suri //Alice"} />
                 <p className={styles.docsText}>
                     Custom node URL can be provided with the{" "}
                     <span style={{ color: "#4170E7" }}>--url</span> flag:
@@ -227,9 +245,9 @@ export function GettingStarted() {
                 <p className={styles.secondTitle}>Contract caller</p>
                 <p className={styles.docsText}>
                     Contract pages contain contract caller UI, so that you can interact with smart
-                    contracts deployed on Astar or Aleph Zero. Take note, you need to build a contract
-                    with <span style={{ color: "#4170E7" }}>cargo-contract</span> version that matches
-                    the version of pallet contracts of the blockchain (for instance,{" "}
+                    contracts deployed on Astar or Aleph Zero. Take note, you need to build a
+                    contract with <span style={{ color: "#4170E7" }}>cargo-contract</span> version
+                    that matches the version of pallet contracts of the blockchain (for instance,{" "}
                     <span style={{ color: "#4170E7" }}>cargo-contract 3.2.0</span> is compatible
                     with Aleph Zero network).
                 </p>
