@@ -12,6 +12,13 @@
     background: #21282F;
 }
 
+.accountsWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .contractFunction {
     display: flex;
     flex-direction: column;

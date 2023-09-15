@@ -12,6 +12,13 @@ import { isNumber, snakeToCamel } from "../../helpers/helpers"
 import { getWalletBySource } from "@subwallet/wallet-connect/dotsama/wallets"
 import { Signer } from "@polkadot/types/types"
 import { useContract } from "../../context/ContractContext"
+import { Keyring } from "@polkadot/keyring"
+import "@polkadot/api-augment"
+
+interface CurrentCaller {
+    userAddressOrPair: string | Keyring
+    userSigner: Signer | undefined
+}
 
 interface FunctionDocs {
     lines: string[]
@@ -29,7 +36,11 @@ export function ContractCaller(props: { node?: string; address?: string; abi?: {
     const [functionAnchor, setFunctionAnchor] = useState("")
     const currentWallet = getWalletBySource(userContext.walletName)
     const [signer, setSigner] = useState<Signer | undefined>(undefined)
-    const [isLocalNode, setIsLocalNode] = useState(false)
+    const [currentCaller, setCurrentCaller] = useState<CurrentCaller>({
+        userAddressOrPair: "",
+        userSigner: undefined,
+    })
+    const [emptyNode, setEmptyNode] = useState(false)
 
     const [functionNames, setFunctionNames] = useState<string[]>([])
     const [functionMutability, setFunctionMutability] = useState<boolean[]>([])
@@ -42,6 +53,7 @@ export function ContractCaller(props: { node?: string; address?: string; abi?: {
         ;(async () => {
             await currentWallet?.enable()
             setSigner(currentWallet?.signer)
+            setCurrentCaller({ userAddressOrPair: userContext.currentUser, userSigner: currentWallet?.signer})
         })()
 
         if (props.node?.length) {
@@ -119,7 +131,7 @@ export function ContractCaller(props: { node?: string; address?: string; abi?: {
             } else if (contractContext.node === "Aleph Zero") {
                 provider = "wss://ws.azero.dev"
             } else {
-                setIsLocalNode(true)
+                setEmptyNode(true)
             }
             const wsProvider = new WsProvider(provider)
             const apiPromise = ApiPromise.create({ provider: wsProvider })
@@ -134,8 +146,11 @@ export function ContractCaller(props: { node?: string; address?: string; abi?: {
                     proofSize: PROOF_SIZE,
                 })
                 const storageDepositLimit = null
+                const keyring = new Keyring({ type: "sr25519" })
 
+                // Executing transaction
                 if (mutability) {
+                    // WRITE with parameters
                     if (parameters.length) {
                         const { gasRequired } = await contract.query[label](
                             userContext.currentUser,
@@ -173,24 +188,24 @@ export function ContractCaller(props: { node?: string; address?: string; abi?: {
                                 setCalledState(false)
                             })
                     } else {
-                        const { gasRequired } = await contract.query[label](
-                            userContext.currentUser,
-                            {
-                                gasLimit: gasLimitValue,
-                                storageDepositLimit,
-                            }
-                        )
+                        // WRITE without parameters
+                        let alice = keyring.addFromUri("//Alice")
+                        const { gasRequired } = await contract.query[label](alice.address, {
+                            gasLimit: gasLimitValue,
+                            storageDepositLimit,
+                        })
 
                         const gasLimit = api?.registry.createType(
                             "WeightV2",
                             gasRequired
                         ) as WeightV2
 
+                        let testSigner = undefined
                         await contract.tx[label]({
                             gasLimit,
                             storageDepositLimit,
                         })
-                            .signAndSend(userContext.currentUser, { signer }, async (res) => {
+                            .signAndSend(alice, { signer: testSigner }, async (res) => {
                                 if (res.status.isInBlock) {
                                     setResultState("in a block!")
                                     setCalledState(false)
@@ -204,8 +219,10 @@ export function ContractCaller(props: { node?: string; address?: string; abi?: {
                                 setResultState(res.toString())
                                 setCalledState(false)
                             })
+                        console.log("+++")
                     }
                 } else {
+                    // READ with parameters
                     if (parameters.length) {
                         const functionResult = await contract.query[label](
                             userContext.currentUser,
@@ -229,6 +246,7 @@ export function ContractCaller(props: { node?: string; address?: string; abi?: {
                             setCalledState(false)
                         }, 150)
                     } else {
+                        // READ without parameters
                         const functionResult = await contract.query[label](
                             userContext.currentUser,
                             {
@@ -407,7 +425,7 @@ export function ContractCaller(props: { node?: string; address?: string; abi?: {
                             )}
                         </div>
                         <div className={styles.ButtonRow}>
-                            {!called && !isLocalNode && userContext.currentUser ? (
+                            {!called && !emptyNode && userContext.currentUser ? (
                                 <button
                                     type={"button"}
                                     className={styles.callerButton}
@@ -442,8 +460,14 @@ export function ContractCaller(props: { node?: string; address?: string; abi?: {
 
     return (
         <div className={styles.contractCallerSection}>
-            <ConnectToPatron />
-            {!props.node?.length && props.abi ? <p className={styles.rebuildText}>Rebuild project once to start</p> : <></>}
+            <div className={styles.accountsWrapper}>
+                <ConnectToPatron />
+            </div>
+            {!props.node?.length && props.abi ? (
+                <p className={styles.rebuildText}>Rebuild project once to start</p>
+            ) : (
+                <></>
+            )}
             {functionNames ? (
                 functionNames.map((name, i) => {
                     return (
