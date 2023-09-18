@@ -34,7 +34,7 @@
           pname = "patron-ui";
           version = "0.1.0";
 
-          npmDepsHash = "sha256-EbeLcRpWk4K53VVbdvIC3NR80YmIRtwlXYRLQZVJjDE=";
+          npmDepsHash = "sha256-51VY9tb/e8xx2EQxh8ewyfdBi2NfdBoilshaOf1ABLw=";
 
           installPhase = ''
             cp -r build $out
