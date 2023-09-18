@@ -29,7 +29,7 @@ function App() {
               <Route path={"/profile"} element={<RequireAuth children={<Profile />}/>}></Route>
               <Route path={"/contract"} element={<Navigate to={'/'}/>}></Route>
               <Route element={<ContractProviderLayout/>}>
-                  <Route path={"/contract/:id"} element={<NavigateToTab codeType={"contract"} tab={"info"}/>}></Route>
+                  <Route path={"/contract/:id"} element={<NavigateToTab codeType={"contract"} tab={"code"}/>}></Route>
                   <Route path={"/contract/:id/info"} element={<ContractWindow child={<Info/>}/>}></Route>
                   <Route path={"/contract/:id/log"} element={<ContractWindow child={<Log/>} />}></Route>
                   <Route path={"/contract/:id/code"} element={<ContractWindow child={<Code/>} />}></Route>
@@ -37,7 +37,7 @@ function App() {
               </Route>
               <Route path={"/codeHash"} element={<Navigate to={'/'}/>}></Route>
               <Route element={<ContractProviderLayout/>}>
-                  <Route path={"/codeHash/:id"} element={<NavigateToTab codeType={"codeHash"} tab={"log"}/>}></Route>
+                  <Route path={"/codeHash/:id"} element={<NavigateToTab codeType={"codeHash"} tab={"code"}/>}></Route>
                   <Route path={"/codeHash/:id/log"} element={<CodeHashWindow child={<Log/>} />}></Route>
                   <Route path={"/codeHash/:id/code"} element={<CodeHashWindow child={<Code/>} />}></Route>
               </Route>

@@ -22,6 +22,7 @@ export function PrivacyPolicy() {
             )}
             <div className={styles.mainBlock}>
                 <p className={styles.titleText}>CONTENT</p>
+                <p className={styles.updatedText}>LAST UPDATED: Sep 18, 2023</p>
                 <div className={styles.navigation}>
                     {privacyPolicyNavigation &&
                         privacyPolicyNavigation.map((item, i) => {

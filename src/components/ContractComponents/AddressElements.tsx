@@ -12,6 +12,7 @@ export function AddressElements(props: {
     address: string
     verified: boolean
     contractHash?: string
+    metadata?: {}
 }) {
     const [open, setOpen] = useState(false)
     const phalaHash = props.name === "Contract" ? props.contractHash : props.address
@@ -69,6 +70,12 @@ export function AddressElements(props: {
         return <></>
     }
 
+    function getMetadataURL() {
+        let metadata = JSON.stringify(props.metadata)
+        let blob = new Blob([metadata], { type: "application/json" })
+        return URL.createObjectURL(blob)
+    }
+
     return (
         <div className={styles.addressBlock} style={isProfilePage() ? { width: "100%" } : {}}>
             <div className={styles.addressBlockTop}>
@@ -111,22 +118,45 @@ export function AddressElements(props: {
                 <></>
             ) : (
                 <div className={styles.addressBlockBottom}>
-                    <Link
-                        to={"https://contracts-ui.substrate.io/add-contract?rpc=wss://ws.azero.dev"}
-                        target={"_blank"}
-                        className={styles.deployWithLink}
+                    <div className={styles.deployWithBlock}>
+                        <Link
+                            to={
+                                "https://contracts-ui.substrate.io/add-contract?rpc=wss://ws.azero.dev"
+                            }
+                            target={"_blank"}
+                            className={styles.deployWithLink}
+                        >
+                            <img src={"/icons/aleph-zero-icon.svg"} alt={"Aleph Zero icon"} />
+                            <p>Deploy with Aleph Zero</p>
+                        </Link>
+                        <Link
+                            to={"https://phat.phala.network/contracts/add/" + phalaHash}
+                            target={"_blank"}
+                            className={styles.deployWithLink}
+                        >
+                            <img src={"/icons/phala-icon.svg"} alt={"Phala icon"} />
+                            <p>Deploy with Phala</p>
+                        </Link>
+                    </div>
+                    <a
+                        className={styles.downloadMetadata}
+                        download={props.address + "-metadata"}
+                        href={getMetadataURL()}
                     >
-                        <img src={"/icons/aleph-zero-icon.svg"} alt={"Aleph Zero icon"} />
-                        <p>Deploy with Aleph Zero</p>
-                    </Link>
-                    <Link
-                        to={"https://phat.phala.network/contracts/add/" + phalaHash}
-                        target={"_blank"}
-                        className={styles.deployWithLink}
-                    >
-                        <img src={"/icons/phala-icon.svg"} alt={"Phala icon"} />
-                        <p>Deploy with Phala</p>
-                    </Link>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="11"
+                            height="14"
+                            viewBox="0 0 11 14"
+                            fill="none"
+                        >
+                            <path
+                                d="M5.5 1.00024V10.3336M5.5 10.3336L3.57143 8.33358M5.5 10.3336L7.42857 8.33358M1 13.0002H10"
+                                stroke="white"
+                            />
+                        </svg>
+                        <p>Get ABI</p>
+                    </a>
                 </div>
             )}
         </div>

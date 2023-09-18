@@ -19,6 +19,13 @@
     font-weight: 600;
     line-height: 100%;
     color: #ECEDF1;
+    margin-bottom: 10px;
+}
+
+.updatedText {
+    font-size: 14px;
+    line-height: 100%;
+    color: #ECEDF1;
     margin-bottom: 20px;
 }
 
@@ -115,5 +122,9 @@
 
     .contentPointText p, .contentPointText li {
         font-size: 14px;
+    }
+
+    .updatedText {
+        font-size: 12px;
     }
 }

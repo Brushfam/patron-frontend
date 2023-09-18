@@ -4,14 +4,14 @@ import { AddressElements } from "../components/ContractComponents/AddressElement
 import styles from "./ContractWindow.module.css"
 import { ContractButtons } from "../components/Buttons/ContractButtons"
 import { useContract } from "../context/ContractContext"
-import { buildSessionsDetailsGET } from "../api/BuildSessionsApi"
-import { LoginModal } from "../modal/LoginModal";
-import { GettingStartedHeader } from "../components/Headers/GettingStartedHeader";
-import { LoginButton } from "../components/Buttons/LoginButton";
-import { MainHeaderLogged } from "../components/Headers/MainHeader";
-import { UseUser } from "../context/UserContext";
+import { buildSessionsDetailsGET, buildSessionsMetadataGET } from "../api/BuildSessionsApi"
+import { LoginModal } from "../modal/LoginModal"
+import { GettingStartedHeader } from "../components/Headers/GettingStartedHeader"
+import { LoginButton } from "../components/Buttons/LoginButton"
+import { MainHeaderLogged } from "../components/Headers/MainHeader"
+import { UseUser } from "../context/UserContext"
 
-export default function ContractWindow(props: {child: JSX.Element}) {
+export default function ContractWindow(props: { child: JSX.Element }) {
     const params = useParams()
     const ContractContext = useContract()
     const navigate = useNavigate()
@@ -23,6 +23,7 @@ export default function ContractWindow(props: {child: JSX.Element}) {
     const [verified, setVerified] = useState(false)
     const [codeSourceId, setCodeSourceId] = useState(0)
     const [contractHash, setContractHash] = useState("")
+    const [contractMetadata, setContractMetadata] = useState({})
 
     useEffect(() => {
         let dataPromise = fetch(process.env.REACT_APP_SERVER_URL + "/contracts/" + params.id, {
@@ -47,6 +48,10 @@ export default function ContractWindow(props: {child: JSX.Element}) {
                 sourcePromise.then((detailsList) => {
                     ContractContext.setSource(detailsList.source_code_id)
                     setCodeSourceId(detailsList.source_code_id)
+                })
+                let metadataPromise = buildSessionsMetadataGET(data.code_hash)
+                metadataPromise.then((result) => {
+                    setContractMetadata(result)
                 })
                 ContractContext.setHash(data.code_hash)
                 ContractContext.setLogHash(data.code_hash)
@@ -78,7 +83,7 @@ export default function ContractWindow(props: {child: JSX.Element}) {
 
     return (
         <div className={styles.contractContainer}>
-            <LoginModal isOpen={loginOpen} setModal={setLoginOpen} isLogin={false}/>
+            <LoginModal isOpen={loginOpen} setModal={setLoginOpen} isLogin={false} />
             {!userContext.currentUser ? (
                 <GettingStartedHeader loginButton={<LoginButton onClickEvent={setLoginOpen} />} />
             ) : (
@@ -92,6 +97,7 @@ export default function ContractWindow(props: {child: JSX.Element}) {
                         address={contractAddress}
                         verified={verified}
                         contractHash={contractHash}
+                        metadata={contractMetadata}
                     />
                     <ContractButtons isVerified={verified} />
                 </div>

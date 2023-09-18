@@ -27,7 +27,7 @@ export function UserContractsList() {
                         return (
                             <div className={styles.listRow} key={i.toString()}>
                                 <div className={styles.codeHash}>
-                                    <Link to={"/codeHash/" + data.code_hash}>
+                                    <Link to={"/codeHash/" + data.code_hash + "/code"}>
                                         <p>
                                             {data.code_hash
                                                 ? parseCodeHash(data.code_hash)

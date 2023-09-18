@@ -4,10 +4,10 @@
     flex-direction: column;
     width: 655px;
     height: auto;
-    padding: 30px;
+    padding: 20px;
     background: #21282F;
     border: 1px solid #49525A;
-    border-radius: 20px;
+    border-radius: 16px;
 }
 
 .addressBlockTop {
@@ -108,11 +108,15 @@
     background: rgba(235, 218, 61, 0.10);
 }
 
-.addressBlockBottom {
+.addressBlockBottom, .deployWithBlock {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 30px;
+}
+
+.addressBlockBottom {
+    justify-content: space-between;
 }
 
 .deployWithLink {
@@ -128,6 +132,26 @@
     text-decoration-line: underline;
 }
 
+.downloadMetadata {
+    display: flex;
+    padding: 10px 14px;
+    align-items: center;
+    gap: 6px;
+    border-radius: 8px;
+    background: #49525A;
+}
+
+.downloadMetadata:hover {
+    cursor: pointer;
+    filter: brightness(120%);
+}
+
+.downloadMetadata p {
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 600;
+}
+
 @media (max-width: 1300px) {
     .addressBlock {
         width: 100%;
@@ -141,12 +165,20 @@
     }
 }
 
+@media (max-width: 670px) {
+    .addressBlockBottom {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 20px
+    }
+}
+
 @media (max-width: 490px) {
     .addressBlockTop, .addressBlockMiddle {
         margin-bottom: 20px;
     }
 
-    .addressBlockBottom {
+    .deployWithBlock {
         align-items: flex-start;
         flex-direction: column;
         gap: 20px

@@ -24,7 +24,7 @@ export function HandleAddressSearch(
                 handleError()
                 throw new Error(`HTTP error! Status: ${response.status}`)
             } else {
-                navigateTo("/codeHash/" + searchCodeHash + "/log")
+                navigateTo("/codeHash/" + searchCodeHash + "/code")
             }
         })
     } else if (text) {
@@ -34,7 +34,7 @@ export function HandleAddressSearch(
                     handleError()
                     throw new Error(`HTTP error! Status: ${response.status}`)
                 } else {
-                    navigateTo("/contract/" + text + "/info")
+                    navigateTo("/contract/" + text + "/code")
                 }
             }
         )

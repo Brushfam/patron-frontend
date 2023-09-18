@@ -18,9 +18,9 @@
 .walletListItem {
     width: 100%;
     background-color: #29323B;
-    border: none;
     border-radius: 8px;
     padding: 0;
+    border: 1px solid #49525A;
 }
 
 .name {

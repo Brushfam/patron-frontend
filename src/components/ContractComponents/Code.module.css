@@ -1,12 +1,12 @@
 .codeWrapper {
     position: relative;
     width: 100%;
-    padding: 64px 30px 0 30px;
+    padding: 54px 20px 0 10px;
     max-width: 1200px;
     margin-bottom: 80px;
     background: #21282F;
     border: 1px solid #49525A;
-    border-radius: 10px;
+    border-radius: 16px;
     overflow: hidden;
 }
 
@@ -69,8 +69,8 @@
     flex-direction: row;
     align-items: center;
     column-gap: 16px;
-    left: 30px;
-    top: 30px;
+    left: 20px;
+    top: 20px;
     width: auto;
     height: 34px;
     padding: 10px 20px;
@@ -96,8 +96,8 @@
     flex-direction: column;
     position: absolute;
     overflow: hidden;
-    left: 30px;
-    top: 30px;
+    left: 20px;
+    top: 20px;
     width: auto;
     border-radius: 17px;
     background: #49525A;
