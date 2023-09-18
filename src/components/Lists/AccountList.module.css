@@ -7,7 +7,7 @@
 .rowWrapper {
     background: #29323B;
     border: 1px solid #49525A;
-    border-radius: 10px;
+    border-radius: 8px;
 }
 
 .rowWrapper:hover {

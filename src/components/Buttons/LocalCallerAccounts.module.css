@@ -1,0 +1,33 @@
+.accountButtons {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.accountButton, .currentAccountButton {
+    display: flex;
+    padding: 6px 10px;
+    align-items: center;
+
+    background: transparent;
+    border-radius: 10px;
+    border: 1px solid #49525A;
+    cursor: pointer;
+}
+
+.accountButton p, .currentAccountButton {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%;
+    color: #ECEDF1;
+}
+
+.accountButton:hover {
+    cursor: pointer;
+    background: #49525A;
+}
+
+.currentAccountButton {
+    background: #49525A;
+}

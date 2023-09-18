@@ -183,6 +183,10 @@ export function GettingStarted() {
                     used during the build. Also, you can check this file into your VCS to share the
                     same configuration with your development team.
                 </p>
+                <div className={styles.tomlFile}>
+                    <img src={"/icons/toml-file.svg"} alt={"toml file"}/>
+                    <p>Deploy.toml</p>
+                </div>
                 <CodeBlock command={'cargo_contract_version = "3.2.0"'} />
                 <p className={styles.docsText}>After that, you can run the command:</p>
                 <CodeBlock command={"patron build"} />

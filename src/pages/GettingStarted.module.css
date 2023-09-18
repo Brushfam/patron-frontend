@@ -56,6 +56,24 @@
     border-bottom: 1px solid #49525A;
 }
 
+.tomlFile {
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    align-items: center;
+    gap: 10px;
+    border-radius: 5px;
+    border: 1px solid #ECEDF1;
+    margin-bottom: 10px;
+    max-width: 130px;
+}
+
+.tomlFile p {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+}
+
 @media (max-width: 1440px) {
     .mainBlock {
         width: 58.3%;

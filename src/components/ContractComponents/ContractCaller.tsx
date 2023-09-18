@@ -10,13 +10,13 @@ import { ConnectToPatron } from "../Buttons/ConnectToPatron"
 import { CopyIcon } from "../CopyIcon"
 import { isNumber, snakeToCamel } from "../../helpers/helpers"
 import { getWalletBySource } from "@subwallet/wallet-connect/dotsama/wallets"
-import { Signer } from "@polkadot/types/types"
+import { IKeyringPair, Signer } from "@polkadot/types/types"
 import { useContract } from "../../context/ContractContext"
-import { Keyring } from "@polkadot/keyring"
 import "@polkadot/api-augment"
+import { LocalCallerAccounts } from "../Buttons/LocalCallerAccounts"
 
-interface CurrentCaller {
-    userAddressOrPair: string | Keyring
+export interface CurrentCaller {
+    userAddressOrPair: string | IKeyringPair
     userSigner: Signer | undefined
 }
 
@@ -53,7 +53,10 @@ export function ContractCaller(props: { node?: string; address?: string; abi?: {
         ;(async () => {
             await currentWallet?.enable()
             setSigner(currentWallet?.signer)
-            setCurrentCaller({ userAddressOrPair: userContext.currentUser, userSigner: currentWallet?.signer})
+            setCurrentCaller({
+                userAddressOrPair: userContext.currentUser,
+                userSigner: currentWallet?.signer,
+            })
         })()
 
         if (props.node?.length) {
@@ -146,14 +149,17 @@ export function ContractCaller(props: { node?: string; address?: string; abi?: {
                     proofSize: PROOF_SIZE,
                 })
                 const storageDepositLimit = null
-                const keyring = new Keyring({ type: "sr25519" })
+                let queryCallerAddress =
+                    typeof currentCaller.userAddressOrPair === "string"
+                        ? currentCaller.userAddressOrPair
+                        : userContext.currentUser
 
                 // Executing transaction
                 if (mutability) {
                     // WRITE with parameters
                     if (parameters.length) {
                         const { gasRequired } = await contract.query[label](
-                            userContext.currentUser,
+                            queryCallerAddress,
                             {
                                 gasLimit: gasLimitValue,
                                 storageDepositLimit,
@@ -173,24 +179,27 @@ export function ContractCaller(props: { node?: string; address?: string; abi?: {
                             },
                             ...parameters
                         )
-                            .signAndSend(userContext.currentUser, { signer }, async (res) => {
-                                if (res.status.isInBlock) {
-                                    setResultState("in a block!")
-                                    setCalledState(false)
-                                    console.log("in a block")
-                                } else if (res.status.isFinalized) {
-                                    console.log("finalized")
+                            .signAndSend(
+                                currentCaller.userAddressOrPair,
+                                { signer: currentCaller.userSigner },
+                                async (res) => {
+                                    if (res.status.isInBlock) {
+                                        setResultState("in a block!")
+                                        setCalledState(false)
+                                        console.log("in a block")
+                                    } else if (res.status.isFinalized) {
+                                        console.log("finalized")
+                                    }
+                                    console.log("tx hash:" + res.txHash.toHex())
                                 }
-                                console.log("tx hash:" + res.txHash.toHex())
-                            })
+                            )
                             .catch((res) => {
                                 setResultState(res.toString())
                                 setCalledState(false)
                             })
                     } else {
                         // WRITE without parameters
-                        let alice = keyring.addFromUri("//Alice")
-                        const { gasRequired } = await contract.query[label](alice.address, {
+                        const { gasRequired } = await contract.query[label](queryCallerAddress, {
                             gasLimit: gasLimitValue,
                             storageDepositLimit,
                         })
@@ -200,32 +209,34 @@ export function ContractCaller(props: { node?: string; address?: string; abi?: {
                             gasRequired
                         ) as WeightV2
 
-                        let testSigner = undefined
                         await contract.tx[label]({
                             gasLimit,
                             storageDepositLimit,
                         })
-                            .signAndSend(alice, { signer: testSigner }, async (res) => {
-                                if (res.status.isInBlock) {
-                                    setResultState("in a block!")
-                                    setCalledState(false)
-                                    console.log("in a block")
-                                } else if (res.status.isFinalized) {
-                                    console.log("finalized")
+                            .signAndSend(
+                                currentCaller.userAddressOrPair,
+                                { signer: currentCaller.userSigner },
+                                async (res) => {
+                                    if (res.status.isInBlock) {
+                                        setResultState("in a block!")
+                                        setCalledState(false)
+                                        console.log("in a block")
+                                    } else if (res.status.isFinalized) {
+                                        console.log("finalized")
+                                    }
+                                    console.log("tx hash:" + res.txHash.toHex())
                                 }
-                                console.log("tx hash:" + res.txHash.toHex())
-                            })
+                            )
                             .catch((res) => {
                                 setResultState(res.toString())
                                 setCalledState(false)
                             })
-                        console.log("+++")
                     }
                 } else {
                     // READ with parameters
                     if (parameters.length) {
                         const functionResult = await contract.query[label](
-                            userContext.currentUser,
+                            queryCallerAddress,
                             {
                                 gasLimit: api?.registry.createType("WeightV2", {
                                     refTime: MAX_CALL_WEIGHT,
@@ -247,16 +258,13 @@ export function ContractCaller(props: { node?: string; address?: string; abi?: {
                         }, 150)
                     } else {
                         // READ without parameters
-                        const functionResult = await contract.query[label](
-                            userContext.currentUser,
-                            {
-                                gasLimit: api?.registry.createType("WeightV2", {
-                                    refTime: MAX_CALL_WEIGHT,
-                                    proofSize: PROOF_SIZE,
-                                }) as WeightV2,
-                                storageDepositLimit,
-                            }
-                        )
+                        const functionResult = await contract.query[label](queryCallerAddress, {
+                            gasLimit: api?.registry.createType("WeightV2", {
+                                refTime: MAX_CALL_WEIGHT,
+                                proofSize: PROOF_SIZE,
+                            }) as WeightV2,
+                            storageDepositLimit,
+                        })
                         setTimeout(() => {
                             if (functionResult.output) {
                                 let parsedResult = JSON.parse(functionResult.output.toString())
@@ -462,6 +470,11 @@ export function ContractCaller(props: { node?: string; address?: string; abi?: {
         <div className={styles.contractCallerSection}>
             <div className={styles.accountsWrapper}>
                 <ConnectToPatron />
+                {props.node?.length && userContext.currentUser.length ? (
+                    <LocalCallerAccounts setCaller={setCurrentCaller} defaultSigner={signer} />
+                ) : (
+                    <></>
+                )}
             </div>
             {!props.node?.length && props.abi ? (
                 <p className={styles.rebuildText}>Rebuild project once to start</p>
