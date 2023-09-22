@@ -1,6 +1,6 @@
 import styles from "./GettingStarted.module.css"
 import { UseUser } from "../context/UserContext"
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react"
 import { GettingStartedHeader } from "../components/Headers/GettingStartedHeader"
 import { MainHeaderLogged } from "../components/Headers/MainHeader"
 import { LoginModal } from "../modal/LoginModal"
@@ -18,7 +18,7 @@ export function GettingStarted() {
             setTimeout(() => {
                 let element = document.getElementById(currentSection.slice(1))
                 if (element) {
-                    element.scrollIntoView({ behavior: "smooth", block: "center"})
+                    element.scrollIntoView({ behavior: "smooth", block: "center" })
                 }
             }, 200)
         }
@@ -291,6 +291,11 @@ export function GettingStarted() {
                     <span style={{ color: "#4170E7" }}>--</span> syntax:
                 </p>
                 <CodeBlock command={"patron deploy new --suri //Alice -- --password 123"} />
+                <p className={styles.docsText}>
+                    To deploy a project where multi-contracts are stored within one workspace use{" "}
+                    <span style={{ color: "#4170E7" }}>--root</span> flag:
+                </p>
+                <CodeBlock command={"patron deploy new --suri //Alice --root accumulator"} />
                 <p className={styles.docsText}>
                     To get more information, invoke the deploy command with the{" "}
                     <span style={{ color: "#4170E7" }}>--help</span> flag.
