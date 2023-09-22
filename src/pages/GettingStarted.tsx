@@ -184,7 +184,7 @@ export function GettingStarted() {
                     same configuration with your development team.
                 </p>
                 <div className={styles.tomlFile}>
-                    <img src={"/icons/toml-file.svg"} alt={"toml file"}/>
+                    <img src={"/icons/toml-file.svg"} alt={"toml file"} />
                     <p>Deploy.toml</p>
                 </div>
                 <CodeBlock command={'cargo_contract_version = "3.2.0"'} />
@@ -201,6 +201,14 @@ export function GettingStarted() {
                     subcommand. It will start two build processes – local and remote one.
                 </p>
                 <CodeBlock command={"patron verify"} />
+                <p className={styles.docsText}>
+                    After builds process will finished, it returns result of verification:
+                </p>
+                <div className={styles.codeExample}>
+                    <p>Local code hash: </p>
+                    <p>0xce5...</p>
+                    <p>Code hashes are matching.</p>
+                </div>
 
                 <p className={styles.secondTitle}>Deploy</p>
                 <p className={styles.docsText}>
@@ -219,7 +227,9 @@ export function GettingStarted() {
                 </p>
                 <CodeBlock command={"patron deploy new --suri //Alice"} />
                 <p className={styles.docsText}>or</p>
-                <CodeBlock command={"patron deploy new --suri \"private key using mnemonic phrase\""} />
+                <CodeBlock
+                    command={'patron deploy new --suri "private key using mnemonic phrase"'}
+                />
                 <p className={styles.docsText}>
                     If your contract constructor requires any arguments, simply pass them with the
                     same syntax that you use with the
@@ -227,7 +237,9 @@ export function GettingStarted() {
                 </p>
                 <CodeBlock command={"patron deploy new --args 123 --suri //Alice"} />
                 <p className={styles.docsText}>or</p>
-                <CodeBlock command={"patron deploy with_two_args --args 123,false --suri //Alice"} />
+                <CodeBlock
+                    command={"patron deploy with_two_args --args 123,false --suri //Alice"}
+                />
                 <p className={styles.docsText}>
                     Custom node URL can be provided with the{" "}
                     <span style={{ color: "#4170E7" }}>--url</span> flag:
@@ -249,11 +261,35 @@ export function GettingStarted() {
                 <p className={styles.secondTitle}>Contract caller</p>
                 <p className={styles.docsText}>
                     Contract pages contain contract caller UI, so that you can interact with smart
-                    contracts deployed on Astar or Aleph Zero. Take note, you need to build a
-                    contract with <span style={{ color: "#4170E7" }}>cargo-contract</span> version
-                    that matches the version of pallet contracts of the blockchain (for instance,{" "}
+                    contracts deployed on Astar or Aleph Zero. For this, you need to be logged in
+                    Patron web app. Go to the contract page and find{" "}
+                    <span style={{ color: "#4170E7" }}>Caller</span> tab. Here you can see contract
+                    functions and documentation if it was provided in the code. To call{" "}
+                    <span style={{ color: "#4170E7" }}>write</span>{" "}
+                    functions you will need to pay a fee using your wallet.
+                </p>
+                <p className={styles.docsText}>
+                    Take note, you need to build a contract with{" "}
+                    <span style={{ color: "#4170E7" }}>cargo-contract</span> version that matches
+                    the version of pallet contracts of the blockchain (for instance,{" "}
                     <span style={{ color: "#4170E7" }}>cargo-contract 3.2.0</span> is compatible
                     with Aleph Zero network).
+                </p>
+
+                <p className={styles.secondTitle}>Watch</p>
+                <p className={styles.docsText}>
+                    File watch functionality allows you to simplify your build-deploy-interact cycle
+                    during the development process with an automatically refreshed contract caller
+                    and contract builder invoked on any meaningful file change.
+                </p>
+                <p className={styles.docsText}>
+                    To start watching, provide the constructor name and suri to the{" "}
+                    <span style={{ color: "#4170E7" }}>watch</span> subcommand:
+                </p>
+                <CodeBlock command={"patron watch new --suri //Alice"} />
+                <p className={styles.docsText}>
+                    It will open the page with the local contract caller. This component will be
+                    refreshed after every build created during the watch command process.
                 </p>
             </div>
         </div>

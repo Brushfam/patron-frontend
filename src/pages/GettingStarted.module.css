@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+
 .pageContainer {
     height: 100vh;
     display: flex;
@@ -72,6 +74,24 @@
     font-size: 16px;
     font-style: normal;
     font-weight: 600;
+}
+
+.codeExample {
+    display: flex;
+    flex-direction: column;
+    align-content: flex-end;
+    width: 100%;
+    padding: 20px 15px;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    background: #1C2934;
+}
+
+.codeExample p {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 16px;
+    font-weight: 400;
 }
 
 @media (max-width: 1440px) {

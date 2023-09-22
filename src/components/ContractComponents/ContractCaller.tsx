@@ -116,7 +116,13 @@ export function ContractCaller(props: { node?: string; address?: string; abi?: {
         if (currentFunction.startsWith("#")) {
             setFunctionAnchor(currentFunction.slice(1))
         }
-    }, [contractContext.hash, currentWallet, props.abi, props.node?.length])
+    }, [
+        contractContext.hash,
+        currentWallet,
+        props.abi,
+        props.node?.length,
+        userContext.currentUser,
+    ])
 
     const callContract = (
         label: string,
