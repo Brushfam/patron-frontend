@@ -1,6 +1,6 @@
 import styles from "./GettingStarted.module.css"
 import { UseUser } from "../context/UserContext"
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react";
 import { GettingStartedHeader } from "../components/Headers/GettingStartedHeader"
 import { MainHeaderLogged } from "../components/Headers/MainHeader"
 import { LoginModal } from "../modal/LoginModal"
@@ -11,6 +11,19 @@ export function GettingStarted() {
     const userContext = UseUser()
     const [loginOpen, setLoginOpen] = useState(false)
 
+    useEffect(() => {
+        const currentURL = window.location.href
+        let currentSection = currentURL.slice(currentURL.lastIndexOf("#"))
+        if (currentSection.startsWith("#")) {
+            setTimeout(() => {
+                let element = document.getElementById(currentSection.slice(1))
+                if (element) {
+                    element.scrollIntoView({ behavior: "smooth", block: "center"})
+                }
+            }, 200)
+        }
+    }, [])
+
     return (
         <div className={styles.pageContainer}>
             <LoginModal isOpen={loginOpen} setModal={setLoginOpen} isLogin={false} />
@@ -20,7 +33,9 @@ export function GettingStarted() {
                 <MainHeaderLogged />
             )}
             <div className={styles.mainBlock}>
-                <p className={styles.mainTitle}>About project</p>
+                <p id={"about-project"} className={styles.mainTitle}>
+                    About project
+                </p>
                 <p className={styles.docsText}>
                     Smart contract verification ensures the security, reliability, and
                     trustworthiness of dApps and blockchain platforms. With Patron, you can simplify
@@ -51,7 +66,9 @@ export function GettingStarted() {
                     </p>
                 </div>
 
-                <p className={styles.mainTitle}>Main problem</p>
+                <p id={"main-problem"} className={styles.mainTitle}>
+                    Main problem
+                </p>
                 <p className={styles.docsText}>
                     Our project solves the problem of reproducible and verifiable smart contract
                     builds. We utilize isolated and constrained environments to build your project
@@ -67,7 +84,9 @@ export function GettingStarted() {
                     smart contract deployment lifecycle.
                 </p>
 
-                <p className={styles.mainTitle}>Getting started</p>
+                <p id={"getting-started"} className={styles.mainTitle}>
+                    Getting started
+                </p>
                 <p className={styles.docsText}>
                     Patron is created by{" "}
                     <a
@@ -112,7 +131,9 @@ export function GettingStarted() {
                     contracts.
                 </p>
 
-                <p className={styles.secondTitle}>CLI installation</p>
+                <p id={"cli-installation"} className={styles.secondTitle}>
+                    CLI installation
+                </p>
                 <p className={styles.docsText}>Start using the CLI by installing it using Cargo:</p>
                 <CodeBlock
                     command={
@@ -145,7 +166,9 @@ export function GettingStarted() {
                     </p>
                 </div>
 
-                <p className={styles.secondTitle}>Authentication</p>
+                <p id={"authentication"} className={styles.secondTitle}>
+                    Authentication
+                </p>
                 <p className={styles.docsText}>
                     To authenticate, use the <span style={{ color: "#4170E7" }}>auth</span>{" "}
                     subcommand, which automatically redirects you to website to sign an
@@ -166,7 +189,9 @@ export function GettingStarted() {
                     automatically.
                 </p>
 
-                <p className={styles.secondTitle}>Build without deploy</p>
+                <p id={"build-without-deploy"} className={styles.secondTitle}>
+                    Build without deploy
+                </p>
                 <p className={styles.docsText}>
                     You can acquire contract's WASM blob and JSON metadata files without the
                     deployment itself by using the <span style={{ color: "#4170E7" }}>build</span>{" "}
@@ -194,8 +219,19 @@ export function GettingStarted() {
                     When the build process is complete, it will return link to the page with
                     verified build session.
                 </p>
+                <p className={styles.docsText}>
+                    Build command also supports building multi-contract projects using the{" "}
+                    <span style={{ color: "#4170E7" }}>--root</span> flag:
+                </p>
+                <CodeBlock command={"patron build --root accumulator"} />
+                <p className={styles.docsText}>
+                    See <span style={{ color: "#4170E7" }}>--help</span> flag output for more
+                    information.
+                </p>
 
-                <p className={styles.secondTitle}>Local verifying</p>
+                <p id={"local-verifying"} className={styles.secondTitle}>
+                    Local verifying
+                </p>
                 <p className={styles.docsText}>
                     To verify WASM blob use <span style={{ color: "#4170E7" }}>verify</span>{" "}
                     subcommand. It will start two build processes – local and remote one.
@@ -210,7 +246,9 @@ export function GettingStarted() {
                     <p>Code hashes are matching.</p>
                 </div>
 
-                <p className={styles.secondTitle}>Deploy</p>
+                <p id={"deploy"} className={styles.secondTitle}>
+                    Deploy
+                </p>
                 <p className={styles.docsText}>
                     The build process itself is done on a remote server, but the deployment process
                     is done locally to keep your private keys safe and to facilitate possible
@@ -258,15 +296,17 @@ export function GettingStarted() {
                     <span style={{ color: "#4170E7" }}>--help</span> flag.
                 </p>
 
-                <p className={styles.secondTitle}>Contract caller</p>
+                <p id={"contract-caller"} className={styles.secondTitle}>
+                    Contract caller
+                </p>
                 <p className={styles.docsText}>
                     Contract pages contain contract caller UI, so that you can interact with smart
                     contracts deployed on Astar or Aleph Zero. For this, you need to be logged in
                     Patron web app. Go to the contract page and find{" "}
                     <span style={{ color: "#4170E7" }}>Caller</span> tab. Here you can see contract
                     functions and documentation if it was provided in the code. To call{" "}
-                    <span style={{ color: "#4170E7" }}>write</span>{" "}
-                    functions you will need to pay a fee using your wallet.
+                    <span style={{ color: "#4170E7" }}>write</span> functions you will need to pay a
+                    fee using your wallet.
                 </p>
                 <p className={styles.docsText}>
                     Take note, you need to build a contract with{" "}
@@ -276,7 +316,9 @@ export function GettingStarted() {
                     with Aleph Zero network).
                 </p>
 
-                <p className={styles.secondTitle}>Watch</p>
+                <p id={"watch"} className={styles.secondTitle}>
+                    Watch
+                </p>
                 <p className={styles.docsText}>
                     File watch functionality allows you to simplify your build-deploy-interact cycle
                     during the development process with an automatically refreshed contract caller
@@ -290,6 +332,30 @@ export function GettingStarted() {
                 <p className={styles.docsText}>
                     It will open the page with the local contract caller. This component will be
                     refreshed after every build created during the watch command process.
+                </p>
+
+                <p id={"local-build-with-verification"} className={styles.secondTitle}>
+                    Local build with remote verification
+                </p>
+                <p className={styles.docsText}>
+                    You can also utilize <span style={{ color: "#4170E7" }}>cargo-contract's</span>{" "}
+                    support of verifiable builds to locally build your contract, deploy it on chain
+                    and verify it only after the deployment process.
+                </p>
+                <p className={styles.docsText} style={{ marginBottom: 10 }}>
+                    1. Run{" "}
+                    <span style={{ color: "#4170E7" }}>cargo contract build --verifiable</span>,
+                    wait for the build to finish.
+                </p>
+                <p className={styles.docsText} style={{ marginBottom: 10 }}>
+                    2. Deploy your contract on chain.
+                </p>
+                <p className={styles.docsText}>
+                    3. Run patron build to verify your source code remotely.
+                </p>
+                <p className={styles.docsText}>
+                    By using CLI in that manner, you can ensure that the code on chain was produced
+                    locally, while still verifying it with Patron.
                 </p>
             </div>
         </div>

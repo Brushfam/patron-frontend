@@ -16,6 +16,10 @@
     padding-bottom: 80px;
 }
 
+.mainBlock div {
+    scroll-margin: 40px;
+}
+
 .mainTitle {
     font-size: 32px;
 }
