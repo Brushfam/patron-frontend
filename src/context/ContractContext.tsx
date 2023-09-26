@@ -10,7 +10,6 @@ type ContractContent = {
     owner: string
     logHash: string
     source: number
-    modalOpen: boolean
     setAddress: (text: string) => void
     setIsVerified: (value: boolean) => void
     setHash: (text: string) => void
@@ -18,12 +17,9 @@ type ContractContent = {
     setOwner: (text: string) => void
     setLogHash: (text: string) => void
     setSource: (source: number) => void
-    setModalOpen: (value: boolean) => void
 }
 
 const ContractContext = createContext<ContractContent>({
-    modalOpen: false,
-    setModalOpen(value: boolean): void {},
     setSource(source: number): void {},
     source: 0,
     setAddress(text: string): void {},
@@ -51,7 +47,6 @@ export const ContractProvider = ({ children }: { children: ReactNode }) => {
     const [owner, setOwner] = useState("")
     const [logHash, setLogHash] = useState("")
     const [source, setSource] = useState(0)
-    const [modalOpen, setModalOpen] = useState(false)
 
     const changePage = (page: string) => {
         setPage(page)
@@ -69,7 +64,6 @@ export const ContractProvider = ({ children }: { children: ReactNode }) => {
                 owner,
                 logHash,
                 source,
-                modalOpen,
                 setAddress,
                 setIsVerified,
                 setHash,
@@ -77,7 +71,6 @@ export const ContractProvider = ({ children }: { children: ReactNode }) => {
                 setOwner,
                 setLogHash,
                 setSource,
-                setModalOpen,
             }}
         >
             {children}

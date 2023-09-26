@@ -1,40 +1,42 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react"
 import styles from "./LocalCallerAccounts.module.css"
-import { IKeyringPair, Signer } from "@polkadot/types/types";
+import { IKeyringPair, Signer } from "@polkadot/types/types"
 import { CurrentCaller } from "../ContractComponents/ContractCaller"
 import "@polkadot/api-augment"
 import { Keyring } from "@polkadot/keyring"
 import { UseUser } from "../../context/UserContext"
-import { cryptoWaitReady } from "@polkadot/util-crypto";
+import { cryptoWaitReady } from "@polkadot/util-crypto"
 
 export function LocalCallerAccounts(props: {
     setCaller: React.Dispatch<React.SetStateAction<CurrentCaller>>
-    defaultSigner: Signer | undefined,
+    defaultSigner: Signer | undefined
 }) {
     const userContext = UseUser()
     const [currentButton, setCurrentButton] = useState("1")
-    let accountsList: {id: string, account: string|IKeyringPair, signer: Signer|undefined}[] = []
+    const [accountsList, setAccountsList] = useState<
+        { id: string; account: string | IKeyringPair; signer: Signer | undefined }[]
+    >([])
 
     useEffect(() => {
-        (async () => {
-            let waitPromise =  cryptoWaitReady()
+        ;(async () => {
+            let waitPromise = cryptoWaitReady()
             waitPromise.then(() => {
                 const callerKeyring = new Keyring({ type: "sr25519" })
                 const alice = callerKeyring.addFromUri("//Alice")
                 const bob = callerKeyring.addFromUri("//Bob")
-                accountsList = [
+                setAccountsList([
                     { id: "1", account: userContext.currentUser, signer: props.defaultSigner },
                     { id: "2", account: alice, signer: undefined },
                     { id: "3", account: bob, signer: undefined },
-                ]
+                ])
             })
         })()
-    }, [accountsList]);
+    }, [props.defaultSigner, userContext.currentUser])
 
     function handleClick(n: string) {
         setCurrentButton(n)
         let changed = false
-        let caller: CurrentCaller = {userAddressOrPair: "", userSigner: undefined}
+        let caller: CurrentCaller = { userAddressOrPair: "", userSigner: undefined }
         accountsList.forEach((element) => {
             if (n === element.id) {
                 caller = { userAddressOrPair: element.account, userSigner: element.signer }

@@ -13,17 +13,16 @@ export function LoginModal(props: {
 }) {
     const [step1, setStep1] = useState(true);
     const [wallet, setWallet] = useState<Wallet | undefined>(undefined);
-    const contractContext = useContract()
-
     const userContext = UseUser();
+
     useEffect(() => {
         if (userContext.currentUser && !props.isLogin) {
             props.setModal(false);
-            contractContext.setModalOpen(false)
+            userContext.setModalOpen(false)
         }
-    }, [userContext.currentUser, props, contractContext.modalOpen, contractContext]);
+    }, [userContext.currentUser, props, userContext.modalOpen, userContext]);
 
-    if (!props.isOpen && ! contractContext.modalOpen) {
+    if (!props.isOpen && !userContext.modalOpen) {
         return <></>;
     }
 
@@ -36,7 +35,7 @@ export function LoginModal(props: {
                     className={styles.exitButton}
                     onClick={() => {
                         props.setModal(false);
-                        contractContext.setModalOpen(false)
+                        userContext.setModalOpen(false)
                     }}
                 />
                 {step1 ? (

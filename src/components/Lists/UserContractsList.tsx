@@ -10,7 +10,13 @@ export function UserContractsList() {
     const [sessionData, setSessionData] = useState<any[]>([])
 
     useEffect(() => {
-        buildSessionsGET(userContext.bearerToken).then((sessions) => {
+        buildSessionsGET(userContext.bearerToken).then((allSessions) => {
+            let sessions: {}[] = []
+            allSessions.forEach((session: any) => {
+                if (session.status !== "failed" && session.status !== "new") {
+                    sessions.push(session)
+                }
+            })
             setSessionData(sessions)
         })
     }, [userContext.bearerToken])
@@ -20,10 +26,6 @@ export function UserContractsList() {
             <div className={styles.userContractsList}>
                 {sessionData.length ? (
                     sessionData.map((data, i) => {
-                        if (data.status === "failed" || data.status === "new") {
-                            return <div style={{display: "none"}} key={i.toString()}></div>
-                        }
-
                         return (
                             <div className={styles.listRow} key={i.toString()}>
                                 <div className={styles.codeHash}>
