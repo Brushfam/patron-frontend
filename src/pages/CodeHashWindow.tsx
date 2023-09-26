@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react"
 import styles from "./ContractWindow.module.css"
 import { AddressElements } from "../components/ContractComponents/AddressElements"
 import { useContract } from "../context/ContractContext"
-import { CodeHashButtons } from "../components/Buttons/CodeHashButtons"
+import { ContractButtons } from "../components/Buttons/ContractButtons"
 import { buildSessionsDetailsGET, buildSessionsMetadataGET } from "../api/BuildSessionsApi"
 import { LoginModal } from "../modal/LoginModal";
 import { GettingStartedHeader } from "../components/Headers/GettingStartedHeader";
@@ -66,7 +66,7 @@ export default function CodeHashWindow(props: { child: JSX.Element }) {
                         verified={true}
                         metadata={codeHashMetadata}
                     />
-                    <CodeHashButtons />
+                    <ContractButtons />
                 </div>
                 {props.child}
             </div>

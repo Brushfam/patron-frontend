@@ -9,10 +9,12 @@ type UserContent = {
     cState: string
     wallet: Wallet | undefined
     walletName: string
+    modalOpen: boolean
     setWallet: (wallet: Wallet | undefined) => void
     setWalletName: (name: string) => void
     login: (user: string, token: string) => void
     logout: () => void
+    setModalOpen: (value: boolean) => void
 }
 
 const UserContext = createContext<UserContent>({
@@ -21,10 +23,12 @@ const UserContext = createContext<UserContent>({
     cState: "loading",
     wallet: undefined,
     walletName: "",
+    modalOpen: false,
     setWallet: (wallet) => {},
     setWalletName: (name) => {},
     login: () => {},
     logout: () => {},
+    setModalOpen(value: boolean): void {},
 })
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
@@ -33,6 +37,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     const [bearerToken, setBearerToken] = useLocalStorage("bearer-token")
     const [walletName, setWalletName] = useLocalStorage("wallet-name")
     const [wallet, setWallet] = useState<Wallet | undefined>(getWalletBySource("subwallet-js"))
+    const [modalOpen, setModalOpen] = useState(false)
 
     const login = (user: string, token: string) => {
         setCurrentUser(user)
@@ -55,14 +60,15 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
                 cState,
                 wallet,
                 walletName,
+                modalOpen,
                 setWallet,
                 setWalletName,
                 login,
                 logout,
+                setModalOpen,
             }}
         >
-            {" "}
-            {children}{" "}
+            {children}
         </UserContext.Provider>
     )
 }
