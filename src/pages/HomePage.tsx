@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react"
 import { UseUser } from "../context/UserContext"
 import HeaderBlocks from "../components/Headers/HeaderBlocks"
 import { SearchBlock } from "../components/HomePage/SearchBlock"
-import { LoginModal } from "../modal/LoginModal"
+import { LoginModal } from "../components/LoginModal/LoginModal"
 import { LoginButton } from "../components/Buttons/LoginButton"
 
 export default function HomePage() {

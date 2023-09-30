@@ -1,7 +1,7 @@
 import { UseUser } from "../context/UserContext"
 import React, { useState } from "react"
 import styles from "./PrivacyPolicy.module.css"
-import { LoginModal } from "../modal/LoginModal"
+import { LoginModal } from "../components/LoginModal/LoginModal"
 import { GettingStartedHeader } from "../components/Headers/GettingStartedHeader"
 import { LoginButton } from "../components/Buttons/LoginButton"
 import { MainHeaderLogged } from "../components/Headers/MainHeader"

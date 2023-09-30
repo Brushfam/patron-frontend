@@ -3,7 +3,7 @@ import { UseUser } from "../context/UserContext"
 import React, { useEffect, useState } from "react"
 import { GettingStartedHeader } from "../components/Headers/GettingStartedHeader"
 import { MainHeaderLogged } from "../components/Headers/MainHeader"
-import { LoginModal } from "../modal/LoginModal"
+import { LoginModal } from "../components/LoginModal/LoginModal"
 import { CodeBlock } from "../components/GettingStarted/CodeBlocks"
 import { LoginButton } from "../components/Buttons/LoginButton"
 

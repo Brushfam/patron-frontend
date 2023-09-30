@@ -15,6 +15,10 @@ export function ContractButtons(props: { isVerified?: boolean }) {
         return location.pathname.slice(0, location.pathname.lastIndexOf("/")) + "/" + nextTab
     }
 
+    function getTabCssClass(name: string) {
+        return styles[name]
+    }
+
     function ContractTab(props: {
         tabName: string
         page: string
@@ -23,7 +27,7 @@ export function ContractButtons(props: { isVerified?: boolean }) {
     }) {
         return (
             <button
-                className={styles.log}
+                className={getTabCssClass(props.tabName)}
                 style={
                     checkTab("/" + props.tabName)
                         ? { backgroundColor: "#4270E7" }
