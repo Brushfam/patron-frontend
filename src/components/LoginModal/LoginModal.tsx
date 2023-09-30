@@ -1,10 +1,9 @@
 import styles from "./LoginModal.module.css";
 import React, { useEffect, useState } from "react";
 import { Wallet } from "@subwallet/wallet-connect/types";
-import { WalletsList } from "../components/Lists/WalletsList";
-import { AccountList } from "../components/Lists/AccountList";
-import { UseUser } from "../context/UserContext";
-import { useContract } from "../context/ContractContext";
+import { WalletsList } from "../Lists/WalletsList";
+import { AccountList } from "../Lists/AccountList";
+import { UseUser } from "../../context/UserContext";
 
 export function LoginModal(props: {
     isOpen: boolean;
