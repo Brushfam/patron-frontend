@@ -18,7 +18,7 @@ export function fileListGET(sourceCode: number) {
     })
 }
 
-function codeGET(sourceCode: number, file: string) {
+export function codeGET(sourceCode: number, file: string) {
     const options = {
         method: "GET",
         headers: {
@@ -64,6 +64,26 @@ export function metadataGET(codeHash: string) {
 
     return fetch(
         process.env.REACT_APP_SERVER_URL + "/buildSessions/metadata/" + codeHash,
+        options
+    ).then((response) => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`)
+        }
+        return response.json()
+    })
+}
+
+export function fileDiagnosticGET(id: string) {
+    const options = {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        mode: "cors" as RequestMode,
+    }
+
+    return fetch(
+        process.env.REACT_APP_SERVER_URL + "/buildSessions/diagnostics/" + id,
         options
     ).then((response) => {
         if (!response.ok) {

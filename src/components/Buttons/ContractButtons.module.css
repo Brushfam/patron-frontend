@@ -5,7 +5,7 @@
     align-items: flex-end;
 }
 
-.info, .log, .code, .caller {
+.info, .log, .code, .diagnostic, .caller {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -32,11 +32,15 @@
     width: 102px;
 }
 
+.diagnostic {
+    width: 137px;
+}
+
 .caller {
     width: 103px;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 800px) {
     .contractButtons {
         flex-direction: column;
         row-gap: 20px;

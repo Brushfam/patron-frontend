@@ -5,7 +5,7 @@ import styles from "./AccountList.module.css"
 import { LoginPOST } from "../../api/LoginApi"
 import { parseAddress, textContainString } from "../../helpers/helpers";
 import { Wallet, WalletAccount } from "@subwallet/wallet-connect/types"
-import { AccountSearch } from "../AccountSearch";
+import { AccountSearch } from "../AccountSearch/AccountSearch";
 
 const AccountRow = (props: {
     name: string | undefined

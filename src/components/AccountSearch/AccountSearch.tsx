@@ -1,6 +1,7 @@
 import styles from "./AccountSearch.module.css"
 import React from "react";
 
+// this component is used for ../Lists/AccountList.tsx component
 export function AccountSearch(props: {setSearchText: React.Dispatch<React.SetStateAction<string>>}) {
 
     return (

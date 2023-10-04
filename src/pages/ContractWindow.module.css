@@ -16,7 +16,7 @@
 
 .addressAndButtons {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
     width: 100%;
     margin-bottom: 16px;
@@ -31,10 +31,6 @@
 }
 
 @media (max-width: 1340px) {
-    .addressAndButtons {
-        flex-direction: column;
-    }
-
     .mainBlock {
         padding-top: 146px;
     }

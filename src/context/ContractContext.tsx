@@ -1,8 +1,6 @@
 import React, { createContext, ReactNode, useContext, useState } from "react"
 
 type ContractContent = {
-    page: string
-    changePage: (pages: string) => void
     address: string
     isVerified: boolean
     hash: string
@@ -34,12 +32,9 @@ const ContractContext = createContext<ContractContent>({
     node: "",
     owner: "",
     logHash: "",
-    page: "1",
-    changePage: () => {},
 })
 
 export const ContractProvider = ({ children }: { children: ReactNode }) => {
-    const [page, setPage] = useState("1")
     const [address, setAddress] = useState("")
     const [isVerified, setIsVerified] = useState(false)
     const [hash, setHash] = useState("")
@@ -48,15 +43,9 @@ export const ContractProvider = ({ children }: { children: ReactNode }) => {
     const [logHash, setLogHash] = useState("")
     const [source, setSource] = useState(0)
 
-    const changePage = (page: string) => {
-        setPage(page)
-    }
-
     return (
         <ContractContext.Provider
             value={{
-                page,
-                changePage,
                 address,
                 isVerified,
                 hash,

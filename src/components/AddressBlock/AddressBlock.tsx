@@ -1,4 +1,4 @@
-import styles from "./AddressElements.module.css"
+import styles from "./AddressBlock.module.css"
 import { parseAddress } from "../../helpers/helpers"
 import Tooltip from "@mui/material/Tooltip"
 import { useState } from "react"
@@ -6,7 +6,7 @@ import { Fade } from "@mui/material"
 import { CopyIcon } from "../CopyIcon"
 import { Link } from "react-router-dom"
 
-export function AddressElements(props: {
+export function AddressBlock(props: {
     name: string
     iconPath: string
     address: string

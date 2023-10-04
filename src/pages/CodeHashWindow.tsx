@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom"
 import React, { useEffect, useState } from "react"
 import styles from "./ContractWindow.module.css"
-import { AddressElements } from "../components/ContractComponents/AddressElements"
+import { AddressBlock } from "../components/AddressBlock/AddressBlock"
 import { useContract } from "../context/ContractContext"
 import { ContractButtons } from "../components/Buttons/ContractButtons"
 import { buildSessionsDetailsGET, buildSessionsMetadataGET } from "../api/BuildSessionsApi"
@@ -11,7 +11,7 @@ import { LoginButton } from "../components/Buttons/LoginButton";
 import { MainHeaderLogged } from "../components/Headers/MainHeader";
 import { UseUser } from "../context/UserContext";
 
-export default function CodeHashWindow(props: { child: JSX.Element }) {
+export default function CodeHashWindow(props: { child: JSX.Element, failed?: boolean }) {
     const params = useParams()
     const ContractContext = useContract()
     const navigate = useNavigate()
@@ -59,13 +59,16 @@ export default function CodeHashWindow(props: { child: JSX.Element }) {
             )}
             <div className={styles.mainBlock}>
                 <div className={styles.addressAndButtons}>
-                    <AddressElements
-                        name={"Hash Code"}
-                        iconPath={"/code-hash-square.svg"}
-                        address={codeHashAddress}
-                        verified={true}
-                        metadata={codeHashMetadata}
-                    />
+                    {
+                        props.failed ? <></> :
+                            <AddressBlock
+                                name={"Hash Code"}
+                                iconPath={"/code-hash-square.svg"}
+                                address={codeHashAddress}
+                                verified={true}
+                                metadata={codeHashMetadata}
+                            />
+                    }
                     <ContractButtons />
                 </div>
                 {props.child}

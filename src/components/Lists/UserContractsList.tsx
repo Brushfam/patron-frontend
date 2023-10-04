@@ -13,7 +13,7 @@ export function UserContractsList() {
         buildSessionsGET(userContext.bearerToken).then((allSessions) => {
             let sessions: {}[] = []
             allSessions.forEach((session: any) => {
-                if (session.status !== "failed" && session.status !== "new") {
+                if (session.status !== "new") {
                     sessions.push(session)
                 }
             })
@@ -29,13 +29,20 @@ export function UserContractsList() {
                         return (
                             <div className={styles.listRow} key={i.toString()}>
                                 <div className={styles.codeHash}>
-                                    <Link to={"/codeHash/" + data.code_hash + "/code"}>
-                                        <p>
-                                            {data.code_hash
-                                                ? parseCodeHash(data.code_hash)
-                                                : ""}
-                                        </p>
-                                    </Link>
+                                    {
+                                        data.code_hash ?
+                                            <Link to={"/codeHash/" + data.code_hash + "/code"}>
+                                                <p>
+                                                    {parseCodeHash(data.code_hash)}
+                                                </p>
+                                            </Link>
+                                            :
+                                            <Link to={"/failedBuildSession/" + data.id + "/code"}>
+                                                <p>
+                                                    Failed session ({data.id})
+                                                </p>
+                                            </Link>
+                                    }
                                 </div>
                                 <p className={styles.time}>
                                     {parseDate(data.timestamp)}

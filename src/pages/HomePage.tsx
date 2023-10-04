@@ -1,5 +1,5 @@
 import styles from "./HomePage.module.css"
-import { Footer } from "../components/Footer"
+import { Footer } from "../components/Footer/Footer"
 import React, { useEffect, useState } from "react"
 import { UseUser } from "../context/UserContext"
 import HeaderBlocks from "../components/Headers/HeaderBlocks"

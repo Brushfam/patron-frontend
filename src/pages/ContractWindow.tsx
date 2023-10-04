@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
-import { AddressElements } from "../components/ContractComponents/AddressElements"
+import { AddressBlock } from "../components/AddressBlock/AddressBlock"
 import styles from "./ContractWindow.module.css"
 import { ContractButtons } from "../components/Buttons/ContractButtons"
 import { useContract } from "../context/ContractContext"
@@ -91,7 +91,7 @@ export default function ContractWindow(props: { child: JSX.Element }) {
             )}
             <div className={styles.mainBlock}>
                 <div className={styles.addressAndButtons}>
-                    <AddressElements
+                    <AddressBlock
                         name={"Contract"}
                         iconPath={"/contract-square.svg"}
                         address={contractAddress}

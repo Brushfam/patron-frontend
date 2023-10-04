@@ -1,6 +1,6 @@
 import { MainHeaderLogged} from "../components/Headers/MainHeader";
 import styles from './Profile.module.css'
-import {AddressElements} from "../components/ContractComponents/AddressElements";
+import {AddressBlock} from "../components/AddressBlock/AddressBlock";
 import { UseUser } from "../context/UserContext";
 import {UserContractsList} from "../components/Lists/UserContractsList";
 
@@ -13,7 +13,7 @@ export function Profile() {
             <MainHeaderLogged/>
             <div className={styles.mainBlock}>
                 <div className={styles.addressWrapper}>
-                    <AddressElements name={"Address"} iconPath={"/address-square.svg"} address={userContext.currentUser} verified={false}/>
+                    <AddressBlock name={"Address"} iconPath={"/address-square.svg"} address={userContext.currentUser} verified={false}/>
                 </div>
                 <UserContractsList/>
             </div>

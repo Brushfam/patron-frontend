@@ -2,7 +2,7 @@
 .addressBlock {
     display: flex;
     flex-direction: column;
-    width: 655px;
+    width: 100%;
     height: auto;
     padding: 20px;
     background: #21282F;
@@ -150,12 +150,6 @@
     font-size: 12px;
     font-style: normal;
     font-weight: 600;
-}
-
-@media (max-width: 1340px) {
-    .addressBlock {
-        width: 100%;
-    }
 }
 
 @media (max-width: 800px) {
