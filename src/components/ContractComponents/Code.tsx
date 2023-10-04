@@ -107,6 +107,7 @@ export function Code() {
                     language={"rust"}
                     style={vscDarkPlus}
                     customStyle={{ background: "#21282F" }}
+                    showLineNumbers={true}
                 >
                     {currentCode}
                 </SyntaxHighlighter>
