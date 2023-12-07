@@ -121,7 +121,7 @@ export function AddressElements(props: {
                     <div className={styles.deployWithBlock}>
                         <Link
                             to={
-                                "https://contracts-ui.substrate.io/add-contract?rpc=wss://ws.azero.dev"
+                                "https://contracts-ui.substrate.io/instantiate?patron=" + phalaHash
                             }
                             target={"_blank"}
                             className={styles.deployWithLink}
