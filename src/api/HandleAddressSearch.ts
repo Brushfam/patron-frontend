@@ -6,10 +6,10 @@ export function HandleAddressSearch(
     navigateTo: NavigateFunction,
     handleError: () => void
 ) {
-    if (text === contractExample) {
+    if (text === hashExample) {
         let searchCodeHash = text.slice(0, 2) === "0x" ? text.slice(2) : text
         navigateTo("/codeHash/" + searchCodeHash + "/code")
-    } else if (text === hashExample) {
+    } else if (text === contractExample) {
         navigateTo("/contract/" + text + "/code")
     } else {
         handleError()
