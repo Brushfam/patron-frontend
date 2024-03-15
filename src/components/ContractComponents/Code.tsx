@@ -6,7 +6,6 @@ import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism"
 import { codeExample } from "../../data/codeExample"
 
 export function Code() {
-    const [fileList, setFileList] = useState<string[]>([])
     const [currentCode, setCurrentCode] = useState("")
     const [currentFile, setCurrentFile] = useState("")
     const [fileListOpen, setFileListOpen] = useState(false)
@@ -14,7 +13,7 @@ export function Code() {
     useEffect(() => {
         setCurrentFile("example.rs")
         setCurrentCode(codeExample)
-    })
+    }, [])
 
     function FileListButton() {
        return (
@@ -43,19 +42,6 @@ export function Code() {
                             style={{ transform: "rotate(180deg)" }}
                         />
                     </div>
-                    {fileList &&
-                        fileList.map((name, i) => {
-                            return name === currentFile ? (
-                                <></>
-                            ) : (
-                                <p
-                                    key={i.toString()}
-                                    className={styles.fileRow}
-                                >
-                                    {setFileNameLength(name)}
-                                </p>
-                            )
-                        })}
                 </div>
             ) : (
                 <></>

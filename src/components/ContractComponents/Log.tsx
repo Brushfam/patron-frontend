@@ -7,7 +7,7 @@ export function Log() {
 
     useEffect(() => {
         setCodeHashLogs(logsExample)
-    })
+    }, [])
 
     return (
         <div className={styles.logBlockWrapper}>

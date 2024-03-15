@@ -1,17 +1,11 @@
 import { UseUser } from "../../context/UserContext"
 import React, { useEffect, useState } from "react"
-import { ApiPromise, WsProvider } from "@polkadot/api"
-import { BN, BN_ONE } from "@polkadot/util"
-import { ContractPromise } from "@polkadot/api-contract"
-import { WeightV2 } from "@polkadot/types/interfaces"
 import styles from "./ContractCaller.module.css"
 import { ConnectToPatron } from "../Buttons/ConnectToPatron"
 import { CopyIcon } from "../CopyIcon"
-import { isNumber, snakeToCamel } from "../../helpers/helpers"
 import { getWalletBySource } from "@subwallet/wallet-connect/dotsama/wallets"
 import { IKeyringPair, Signer } from "@polkadot/types/types"
 import "@polkadot/api-augment"
-import { contractExample } from "../../constants/addresses"
 import { flipperContractABI } from "../../data/flipper"
 
 export interface CurrentCaller {
@@ -33,33 +27,21 @@ export function ContractCaller() {
 
     const [functionAnchor, setFunctionAnchor] = useState("")
     const currentWallet = getWalletBySource(userContext.walletName)
-    const [signer, setSigner] = useState<Signer | undefined>(undefined)
-    const [currentCaller, setCurrentCaller] = useState<CurrentCaller>({
-        userAddressOrPair: "",
-        userSigner: undefined,
-    })
 
     const [functionNames, setFunctionNames] = useState<string[]>([])
     const [functionMutability, setFunctionMutability] = useState<boolean[]>([])
     const [functionSelectors, setFunctionSelectors] = useState<string[]>([])
     const [functionDocs, setFunctionDocs] = useState<FunctionDocs[]>([])
     const [functionArgs, setFunctionArgs] = useState<FunctionArgs[]>([])
-    const [contractAbi, setContractAbi] = useState({})
 
     useEffect(() => {
         setMetadataVars(flipperContractABI)
 
         ;(async () => {
             await currentWallet?.enable()
-            setSigner(currentWallet?.signer)
-            setCurrentCaller({
-                userAddressOrPair: userContext.currentUser,
-                userSigner: currentWallet?.signer,
-            })
         })()
 
         function setMetadataVars(metadata: any) {
-            setContractAbi(metadata)
             let functionNamesList: string[] = []
             let functionMutabilityList: boolean[] = []
             let functionSelectorsList: string[] = []
@@ -111,158 +93,6 @@ export function ContractCaller() {
         userContext.currentUser,
     ])
 
-    const callContract = (
-        label: string,
-        mutability: boolean,
-        parameters: string[],
-        setCalledState: React.Dispatch<React.SetStateAction<boolean>>,
-        setResultState: React.Dispatch<React.SetStateAction<string>>
-    ) => {
-        if (signer) {
-            const provider = "wss://ws.azero.dev"
-            const wsProvider = new WsProvider(provider)
-            const apiPromise = ApiPromise.create({ provider: wsProvider })
-
-            apiPromise.then(async (api) => {
-                const MAX_CALL_WEIGHT = new BN(5_000_000_000_000).isub(BN_ONE)
-                const PROOF_SIZE = new BN(1_000_000)
-                const contract = new ContractPromise(api, contractAbi, contractExample)
-                const gasLimitValue: WeightV2 = api?.registry.createType("WeightV2", {
-                    refTime: MAX_CALL_WEIGHT,
-                    proofSize: PROOF_SIZE,
-                })
-                const storageDepositLimit = null
-                let queryCallerAddress =
-                    typeof currentCaller.userAddressOrPair === "string"
-                        ? currentCaller.userAddressOrPair
-                        : userContext.currentUser
-
-                // Executing transaction
-                if (mutability) {
-                    // WRITE with parameters
-                    if (parameters.length) {
-                        const { gasRequired } = await contract.query[label](
-                            queryCallerAddress,
-                            {
-                                gasLimit: gasLimitValue,
-                                storageDepositLimit,
-                            },
-                            ...parameters
-                        )
-
-                        const gasLimit = api?.registry.createType(
-                            "WeightV2",
-                            gasRequired
-                        ) as WeightV2
-
-                        await contract.tx[label](
-                            {
-                                gasLimit,
-                                storageDepositLimit,
-                            },
-                            ...parameters
-                        )
-                            .signAndSend(
-                                currentCaller.userAddressOrPair,
-                                { signer: currentCaller.userSigner },
-                                async (res) => {
-                                    if (res.status.isInBlock) {
-                                        setResultState("in a block!")
-                                        setCalledState(false)
-                                        console.log("in a block")
-                                    } else if (res.status.isFinalized) {
-                                        console.log("finalized")
-                                    }
-                                    console.log("tx hash:" + res.txHash.toHex())
-                                }
-                            )
-                            .catch((res) => {
-                                setResultState(res.toString())
-                                setCalledState(false)
-                            })
-                    } else {
-                        // WRITE without parameters
-                        const { gasRequired } = await contract.query[label](queryCallerAddress, {
-                            gasLimit: gasLimitValue,
-                            storageDepositLimit,
-                        })
-
-                        const gasLimit = api?.registry.createType(
-                            "WeightV2",
-                            gasRequired
-                        ) as WeightV2
-
-                        await contract.tx[label]({
-                            gasLimit,
-                            storageDepositLimit,
-                        })
-                            .signAndSend(
-                                currentCaller.userAddressOrPair,
-                                { signer: currentCaller.userSigner },
-                                async (res) => {
-                                    if (res.status.isInBlock) {
-                                        setResultState("in a block!")
-                                        setCalledState(false)
-                                        console.log("in a block")
-                                    } else if (res.status.isFinalized) {
-                                        console.log("finalized")
-                                    }
-                                    console.log("tx hash:" + res.txHash.toHex())
-                                }
-                            )
-                            .catch((res) => {
-                                setResultState(res.toString())
-                                setCalledState(false)
-                            })
-                    }
-                } else {
-                    // READ with parameters
-                    if (parameters.length) {
-                        const functionResult = await contract.query[label](
-                            queryCallerAddress,
-                            {
-                                gasLimit: api?.registry.createType("WeightV2", {
-                                    refTime: MAX_CALL_WEIGHT,
-                                    proofSize: PROOF_SIZE,
-                                }) as WeightV2,
-                                storageDepositLimit,
-                            },
-                            ...parameters
-                        ).catch((res) => {
-                            setResultState(res.toString())
-                            setCalledState(false)
-                        })
-                        setTimeout(() => {
-                            if (functionResult?.output) {
-                                let parsedResult = JSON.parse(functionResult.output.toString())
-                                setResultState(parsedResult.ok.toString())
-                            }
-                            setCalledState(false)
-                        }, 150)
-                    } else {
-                        // READ without parameters
-                        const functionResult = await contract.query[label](queryCallerAddress, {
-                            gasLimit: api?.registry.createType("WeightV2", {
-                                refTime: MAX_CALL_WEIGHT,
-                                proofSize: PROOF_SIZE,
-                            }) as WeightV2,
-                            storageDepositLimit,
-                        })
-                        setTimeout(() => {
-                            if (functionResult.output) {
-                                let parsedResult = JSON.parse(functionResult.output.toString())
-                                setResultState(parsedResult.ok.toString())
-                            }
-                            setCalledState(false)
-                        }, 150)
-                    }
-                }
-            })
-        } else {
-            setResultState("Signer not found. Please re-login.")
-        }
-    }
-
     function updateCopyIcon(name: string, setState: React.Dispatch<React.SetStateAction<boolean>>) {
         let copyIcon = document.getElementById("function-copy-" + name)
         if (!copyIcon) return
@@ -308,8 +138,6 @@ export function ContractCaller() {
         iteration: number
     }) {
         const [open, setOpen] = useState(false)
-        const [called, setCalled] = useState(false)
-        const [result, setResult] = useState("")
         const [firstOpen, setFirstOpen] = useState(true)
 
         useEffect(() => {
@@ -330,19 +158,6 @@ export function ContractCaller() {
                 }
             }
         }, [open, firstOpen, props.name, props.selector])
-
-        function handleFunctionCall() {
-            let parameters: string[] = []
-            for (let i = 0; i < functionArgs[props.iteration].labels.length; i++) {
-                const element = document.getElementById(
-                    props.selector + "_" + i.toString()
-                )! as HTMLInputElement
-                parameters.push(element.value.toString().trim())
-            }
-
-            callContract(snakeToCamel(props.name), props.type, parameters, setCalled, setResult)
-            setCalled(true)
-        }
 
         return (
             <div className={styles.contractFunction} id={props.selector}>
@@ -419,15 +234,6 @@ export function ContractCaller() {
                             <button type={"button"} className={styles.callerButtonDisabled}>
                                 {props.name}
                             </button>
-                            {result ? (
-                                <div className={styles.contractCallerBlockResult}>
-                                    <p style={{ lineHeight: "100%" }}>
-                                        {isNumber(result) ? parseInt(result, 16) : result}
-                                    </p>
-                                </div>
-                            ) : (
-                                <></>
-                            )}
                         </div>
                     </div>
                 ) : (

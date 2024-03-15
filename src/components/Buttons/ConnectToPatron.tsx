@@ -1,5 +1,4 @@
 import styles from "./ConnectToPatron.module.css"
-import { UseUser } from "../../context/UserContext"
 import React from "react"
 
 export function ConnectToPatron() {

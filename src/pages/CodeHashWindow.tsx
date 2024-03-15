@@ -8,11 +8,10 @@ import { hashExample } from "../constants/addresses"
 
 export default function CodeHashWindow(props: { child: JSX.Element }) {
     const [codeHashAddress, setCodeHashAddress] = useState("")
-    const [codeHashMetadata, setCodeHashMetadata] = useState({})
 
     useEffect(() => {
         setCodeHashAddress(hashExample)
-    })
+    }, [])
 
     return (
         <div className={styles.contractContainer}>
@@ -24,7 +23,7 @@ export default function CodeHashWindow(props: { child: JSX.Element }) {
                         iconPath={"/code-hash-square.svg"}
                         address={codeHashAddress}
                         verified={true}
-                        metadata={codeHashMetadata}
+                        metadata={{}}
                     />
                     <ContractButtons />
                 </div>

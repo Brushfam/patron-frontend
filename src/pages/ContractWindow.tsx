@@ -12,14 +12,13 @@ export default function ContractWindow(props: { child: JSX.Element }) {
     const [contractAddress, setContractAddress] = useState("")
     const [verified, setVerified] = useState(false)
     const [contractHash, setContractHash] = useState("")
-    const [contractMetadata, setContractMetadata] = useState({})
 
     useEffect(() => {
         setContractAddress(contractExample)
         setVerified(true)
         setContractHash(hashExample)
         pageContext.setOwner("5EvzJ273zu7R996gR7iouawMWSKe5Ny6CkNE8s6jSDwWr8c5")
-    })
+    }, [pageContext])
 
     return (
         <div className={styles.contractContainer}>
@@ -32,7 +31,7 @@ export default function ContractWindow(props: { child: JSX.Element }) {
                         address={contractAddress}
                         verified={verified}
                         contractHash={contractHash}
-                        metadata={contractMetadata}
+                        metadata={{}}
                     />
                     <ContractButtons isVerified={verified} />
                 </div>
