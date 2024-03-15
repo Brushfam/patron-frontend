@@ -17,11 +17,6 @@
     color: #ECEDF1;
 }
 
-.connectToPatron:hover {
-    cursor: pointer;
-    background: #49525A;
-}
-
 .connectedToPatron {
     background: #49525A;
 }

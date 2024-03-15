@@ -1,0 +1,2 @@
+export const contractExample = "5EBU1Lgt29AR37aXthPKcq47VsS7cJ1sY2UUcz85yx6TrUWW"
+export const hashExample = "0xbaa18f0a82afed64ff65e20872cce5f9c543b2b822938ee9d0e74d87acedbc22"

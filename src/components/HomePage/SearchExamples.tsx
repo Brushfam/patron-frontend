@@ -1,5 +1,6 @@
 import styles from "./SearchExamples.module.css";
 import React from "react";
+import { contractExample, hashExample } from "../../constants/addresses"
 
 export function SearchExamples(props: {
     setSearchText: React.Dispatch<React.SetStateAction<string>>;
@@ -11,9 +12,6 @@ export function SearchExamples(props: {
         searchInput.value = text;
         props.setSearchText(text);
     }
-
-    const contractExample = "5D9GkALjKfwvTca9RtWbb1zmRx7ZJBCxHiHNZ8Ke32Z6tmFu"
-    const hashExample = "0efaf17fd9145a2c7d59821aea6036549f4b6f2d0c86440a16d4c1ac9d57a295"
 
     return (
         <div className={styles.examplesBlock}>

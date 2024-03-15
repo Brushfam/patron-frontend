@@ -4,16 +4,15 @@ import { ApiPromise, WsProvider } from "@polkadot/api"
 import { BN, BN_ONE } from "@polkadot/util"
 import { ContractPromise } from "@polkadot/api-contract"
 import { WeightV2 } from "@polkadot/types/interfaces"
-import { metadataGET } from "../../api/FilesApi"
 import styles from "./ContractCaller.module.css"
 import { ConnectToPatron } from "../Buttons/ConnectToPatron"
 import { CopyIcon } from "../CopyIcon"
 import { isNumber, snakeToCamel } from "../../helpers/helpers"
 import { getWalletBySource } from "@subwallet/wallet-connect/dotsama/wallets"
 import { IKeyringPair, Signer } from "@polkadot/types/types"
-import { useContract } from "../../context/ContractContext"
 import "@polkadot/api-augment"
-import { LocalCallerAccounts } from "../Buttons/LocalCallerAccounts"
+import { contractExample } from "../../constants/addresses"
+import { flipperContractABI } from "../../data/flipper"
 
 export interface CurrentCaller {
     userAddressOrPair: string | IKeyringPair
@@ -29,9 +28,8 @@ interface FunctionArgs {
     types: string[]
 }
 
-export function ContractCaller(props: { node?: string; address?: string; abi?: {} }) {
+export function ContractCaller() {
     const userContext = UseUser()
-    const contractContext = useContract()
 
     const [functionAnchor, setFunctionAnchor] = useState("")
     const currentWallet = getWalletBySource(userContext.walletName)
@@ -40,7 +38,6 @@ export function ContractCaller(props: { node?: string; address?: string; abi?: {
         userAddressOrPair: "",
         userSigner: undefined,
     })
-    const [emptyNode, setEmptyNode] = useState(false)
 
     const [functionNames, setFunctionNames] = useState<string[]>([])
     const [functionMutability, setFunctionMutability] = useState<boolean[]>([])
@@ -50,6 +47,8 @@ export function ContractCaller(props: { node?: string; address?: string; abi?: {
     const [contractAbi, setContractAbi] = useState({})
 
     useEffect(() => {
+        setMetadataVars(flipperContractABI)
+
         ;(async () => {
             await currentWallet?.enable()
             setSigner(currentWallet?.signer)
@@ -58,15 +57,6 @@ export function ContractCaller(props: { node?: string; address?: string; abi?: {
                 userSigner: currentWallet?.signer,
             })
         })()
-
-        if (props.node?.length) {
-            setMetadataVars(props.abi)
-        } else {
-            const metadataPromise = metadataGET(contractContext.hash)
-            metadataPromise.then((metadata) => {
-                setMetadataVars(metadata)
-            })
-        }
 
         function setMetadataVars(metadata: any) {
             setContractAbi(metadata)
@@ -117,10 +107,7 @@ export function ContractCaller(props: { node?: string; address?: string; abi?: {
             setFunctionAnchor(currentFunction.slice(1))
         }
     }, [
-        contractContext.hash,
         currentWallet,
-        props.abi,
-        props.node?.length,
         userContext.currentUser,
     ])
 
@@ -132,24 +119,14 @@ export function ContractCaller(props: { node?: string; address?: string; abi?: {
         setResultState: React.Dispatch<React.SetStateAction<string>>
     ) => {
         if (signer) {
-            let provider = ""
-            if (props.node) {
-                provider = props.node
-            } else if (contractContext.node === "Astar") {
-                provider = "wss://rpc.astar.network"
-            } else if (contractContext.node === "Aleph Zero") {
-                provider = "wss://ws.azero.dev"
-            } else {
-                setEmptyNode(true)
-            }
+            const provider = "wss://ws.azero.dev"
             const wsProvider = new WsProvider(provider)
             const apiPromise = ApiPromise.create({ provider: wsProvider })
 
             apiPromise.then(async (api) => {
                 const MAX_CALL_WEIGHT = new BN(5_000_000_000_000).isub(BN_ONE)
                 const PROOF_SIZE = new BN(1_000_000)
-                const contractAddress = props.address ? props.address : contractContext.address
-                const contract = new ContractPromise(api, contractAbi, contractAddress)
+                const contract = new ContractPromise(api, contractAbi, contractExample)
                 const gasLimitValue: WeightV2 = api?.registry.createType("WeightV2", {
                     refTime: MAX_CALL_WEIGHT,
                     proofSize: PROOF_SIZE,
@@ -439,21 +416,9 @@ export function ContractCaller(props: { node?: string; address?: string; abi?: {
                             )}
                         </div>
                         <div className={styles.ButtonRow}>
-                            {!called && !emptyNode && userContext.currentUser ? (
-                                <button
-                                    type={"button"}
-                                    className={styles.callerButton}
-                                    onClick={() => {
-                                        handleFunctionCall()
-                                    }}
-                                >
-                                    {props.name}
-                                </button>
-                            ) : (
-                                <button type={"button"} className={styles.callerButtonDisabled}>
-                                    {props.name}
-                                </button>
-                            )}
+                            <button type={"button"} className={styles.callerButtonDisabled}>
+                                {props.name}
+                            </button>
                             {result ? (
                                 <div className={styles.contractCallerBlockResult}>
                                     <p style={{ lineHeight: "100%" }}>
@@ -476,17 +441,7 @@ export function ContractCaller(props: { node?: string; address?: string; abi?: {
         <div className={styles.contractCallerSection}>
             <div className={styles.accountsWrapper}>
                 <ConnectToPatron />
-                {props.node?.length && userContext.currentUser.length ? (
-                    <LocalCallerAccounts setCaller={setCurrentCaller} defaultSigner={signer} />
-                ) : (
-                    <></>
-                )}
             </div>
-            {!props.node?.length && props.abi ? (
-                <p className={styles.rebuildText}>Rebuild project once to start</p>
-            ) : (
-                <></>
-            )}
             {functionNames ? (
                 functionNames.map((name, i) => {
                     return (

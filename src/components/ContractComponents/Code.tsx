@@ -1,64 +1,27 @@
 import styles from "./Code.module.css"
-import { useCallback, useEffect, useState } from "react"
-import { fileGET, fileListGET } from "../../api/FilesApi"
+import { useEffect, useState } from "react"
 import { setFileNameLength } from "../../helpers/helpers"
-import { useContract } from "../../context/ContractContext"
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism"
+import { codeExample } from "../../data/codeExample"
 
 export function Code() {
-    const pageContext = useContract()
     const [fileList, setFileList] = useState<string[]>([])
     const [currentCode, setCurrentCode] = useState("")
     const [currentFile, setCurrentFile] = useState("")
     const [fileListOpen, setFileListOpen] = useState(false)
 
-    const chooseFile = useCallback(
-        (fileNumber: number) => {
-            let filePromise = fileGET(pageContext.source, fileNumber)
-            filePromise.then((data) => {
-                setCurrentCode(data.text.toString())
-            })
-        },
-        [pageContext.source]
-    )
-
     useEffect(() => {
-        let fileListPromise = fileListGET(pageContext.source)
-        fileListPromise.then((contractFiles) => {
-            if (contractFiles.files.length) {
-                setFileList(contractFiles.files)
-                setCurrentFile(contractFiles.files[0])
-            }
-        })
-
-        chooseFile(0)
-    }, [pageContext.source, chooseFile])
+        setCurrentFile("example.rs")
+        setCurrentCode(codeExample)
+    })
 
     function FileListButton() {
-        if (fileList.length > 1) {
-            return fileListOpen ? (
-                <></>
-            ) : (
-                <button
-                    type={"button"}
-                    className={styles.fileListButton}
-                    onClick={() => {
-                        setFileListOpen(true)
-                    }}
-                >
-                    <p>{setFileNameLength(currentFile)}</p>
-                    <p>|</p>
-                    <img src={"/icons/file-list-arrow.svg"} alt={"file list arrow"} />
-                </button>
-            )
-        } else {
-            return (
-                <div className={styles.oneFileButton}>
-                    <p>{setFileNameLength(currentFile)}</p>
-                </div>
-            )
-        }
+       return (
+           <div className={styles.oneFileButton}>
+               <p>{setFileNameLength(currentFile)}</p>
+           </div>
+       )
     }
 
     return (
@@ -87,11 +50,6 @@ export function Code() {
                             ) : (
                                 <p
                                     key={i.toString()}
-                                    onClick={() => {
-                                        chooseFile(i)
-                                        setFileListOpen(false)
-                                        setCurrentFile(name)
-                                    }}
                                     className={styles.fileRow}
                                 >
                                     {setFileNameLength(name)}

@@ -5,6 +5,7 @@ import { useState } from "react"
 import { Fade } from "@mui/material"
 import { CopyIcon } from "../CopyIcon"
 import { Link } from "react-router-dom"
+import { flipperContractABI } from "../../data/flipper"
 
 export function AddressElements(props: {
     name: string
@@ -71,7 +72,7 @@ export function AddressElements(props: {
     }
 
     function getMetadataURL() {
-        let metadata = JSON.stringify(props.metadata)
+        let metadata = JSON.stringify(flipperContractABI)
         let blob = new Blob([metadata], { type: "application/json" })
         return URL.createObjectURL(blob)
     }

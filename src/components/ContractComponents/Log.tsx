@@ -1,37 +1,13 @@
 import styles from "./Log.module.css";
 import {useEffect, useState} from "react";
-import { useContract } from "../../context/ContractContext";
+import { logsExample } from "../../data/logsExample"
 
 export function Log() {
-    const pageContext = useContract()
-    const [codeHashLogs, setCodeHashLogs] = useState<any[]>([]);
+    const [codeHashLogs, setCodeHashLogs] = useState<string[]>([]);
 
     useEffect(() => {
-        fetch(
-            process.env.REACT_APP_SERVER_URL + '/buildSessions/logs/' + pageContext.logHash,
-            {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                mode: "cors" as RequestMode,
-            }
-        ).then((response) => {
-            if (response.ok) {
-                response.json().then((data) => {
-                    let logLines = ""
-                    data.logs.forEach((log: {id: number, text: string}) => {
-                        logLines = logLines.concat(log.text)
-                    });
-
-                    setCodeHashLogs(logLines.split('\n'));
-                })
-            } else {
-                setCodeHashLogs([""])
-            }
-        })
-    }, [pageContext.logHash])
-
+        setCodeHashLogs(logsExample)
+    })
 
     return (
         <div className={styles.logBlockWrapper}>

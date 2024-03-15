@@ -1,13 +1,10 @@
 import styles from './LoginButton.module.css'
 import React from "react";
 
-export function LoginButton(props: {onClickEvent:  React.Dispatch<React.SetStateAction<boolean>>}) {
+export function LoginButton() {
     return(
-        <button
+        <div
             className={styles.loginButton}
-            onClick={() => {
-                props.onClickEvent(true);
-            }}
         >
             Log in
             <img
@@ -15,6 +12,6 @@ export function LoginButton(props: {onClickEvent:  React.Dispatch<React.SetState
                 style={{ marginLeft: 10 }}
                 alt={"log in button"}
             />
-        </button>
+        </div>
     )
 }

@@ -1,15 +1,10 @@
 import styles from "./GettingStarted.module.css"
-import { UseUser } from "../context/UserContext"
-import React, { useEffect, useState } from "react"
+import React, { useEffect } from "react"
 import { GettingStartedHeader } from "../components/Headers/GettingStartedHeader"
-import { MainHeaderLogged } from "../components/Headers/MainHeader"
-import { LoginModal } from "../components/LoginModal/LoginModal"
 import { CodeBlock } from "../components/GettingStarted/CodeBlocks"
 import { LoginButton } from "../components/Buttons/LoginButton"
 
 export function GettingStarted() {
-    const userContext = UseUser()
-    const [loginOpen, setLoginOpen] = useState(false)
 
     useEffect(() => {
         const currentURL = window.location.href
@@ -26,12 +21,7 @@ export function GettingStarted() {
 
     return (
         <div className={styles.pageContainer}>
-            <LoginModal isOpen={loginOpen} setModal={setLoginOpen} isLogin={false} />
-            {!userContext.currentUser ? (
-                <GettingStartedHeader loginButton={<LoginButton onClickEvent={setLoginOpen} />} />
-            ) : (
-                <MainHeaderLogged />
-            )}
+            <GettingStartedHeader loginButton={<LoginButton />} />
             <div className={styles.mainBlock}>
                 <p id={"about-project"} className={styles.mainTitle}>
                     About project
